@@ -1,0 +1,18 @@
+{
+  "name": "create-unirep-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "install": "lerna bootstrap",
+    "contracts": "yarn workspace @unirep-app/contracts run",
+    "frontend": "yarn workspace @unirep-app/frontend run"
+  },
+  "devDependencies": {
+    "lerna": "^6.0.1"
+  }
+}
