@@ -1,0 +1,23 @@
+{
+  "name": "@unirep-app/relay",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Ya-wen, Jeng <vivi432@yahoo.com.tw>",
+  "homepage": "https://github.com/Unirep/create-unirep-app#readme",
+  "license": "ISC",
+  "repository": "git+https://github.com/Unirep/create-unirep-app.git",
+  "scripts": {
+    "start": "node ./src/index.mjs",
+    "keys": "sh scripts/loadKeys.sh"
+  },
+  "dependencies": {
+    "@unirep-app/contracts": "1.0.0",
+    "@unirep/circuits": "^2.0.0-alpha-1",
+    "@unirep/core": "2.0.0-alpha-2",
+    "anondb": "^0.0.13",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "express": "^4.18.2"
+  },
+  "main": "index.js"
+}
