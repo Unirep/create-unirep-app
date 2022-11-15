@@ -1,0 +1,19 @@
+.button-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.button-inner {
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid black;
+  padding: 4px 8px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

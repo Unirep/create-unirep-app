@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 800px;
+}
+
+.story {
+  margin: 4px 0px;
+}
+
+.end-divider {
+  color: gray;
+  text-align: center;
+  margin: 5px 0px;
+  border: 1px solid gray;
+  padding: 2px;
+}
+
+@keyframes highlight {
+  from {
+    background: yellow;
+  }
+  to {
+    background: rgba(0, 0, 0, 0);
+  }
+}
