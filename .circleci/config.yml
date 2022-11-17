@@ -26,5 +26,8 @@ jobs:
             - run: *node_version
             - run: *check_version
             - run:
+                  name: Install Packages
+                  command: yarn
+            - run:
                   name: Test
                   command: yarn contracts test
