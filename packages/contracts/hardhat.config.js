@@ -1,11 +1,6 @@
-import { HardhatUserConfig } from 'hardhat/config'
-import '@typechain/hardhat'
-import '@nomiclabs/hardhat-ethers'
-import 'hardhat-gas-reporter'
-import 'solidity-coverage'
-import '@nomicfoundation/hardhat-chai-matchers'
+require('@nomiclabs/hardhat-ethers')
 
-const config: HardhatUserConfig = {
+module.exports = {
     defaultNetwork: 'hardhat',
     networks: {
         hardhat: {
@@ -27,12 +22,4 @@ const config: HardhatUserConfig = {
             },
         ],
     },
-    typechain: {
-        outDir: './typechain',
-    },
-    gasReporter: {
-        enabled: process.env.REPORT_GAS ? true : false,
-    },
 }
-
-export default config
