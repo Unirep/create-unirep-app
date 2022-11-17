@@ -1,17 +1,16 @@
-import { expect } from "chai";
-import { ethers } from "hardhat";
-import { deployUnirep } from "@unirep/contracts/deploy"
-import { genRandomSalt, hashOne, ZkIdentity } from "@unirep/utils";
-import { schema, UserState } from "@unirep/core";
-import { DB, SQLiteConnector } from 'anondb/node'
-import { Unirep } from "@unirep/contracts";
+const { expect } = require("chai")
+const { ethers } = require("hardhat")
+const { deployUnirep } = require("@unirep/contracts/deploy")
+const { genRandomSalt, hashOne, ZkIdentity } = require("@unirep/utils")
+const { schema, UserState } = require("@unirep/core")
+const { DB, SQLiteConnector } = require('anondb/node')
+const { Unirep } = require("@unirep/contracts")
 
-import { defaultProver as prover } from '@unirep/circuits/provers/defaultProver';
-import { UnirepApp } from "../typechain";
+const { defaultProver: prover } = require('@unirep/circuits/provers/defaultProver')
 
-async function genUserState(id: ZkIdentity, app: UnirepApp) {
+async function genUserState(id, app) {
     // generate a user state
-    const db: DB = await SQLiteConnector.create(schema, ':memory:')
+    const db = await SQLiteConnector.create(schema, ':memory:')
     const unirepAddress = await app.unirep()
     const attesterId = BigInt(app.address)
     const userState = new UserState({
@@ -28,8 +27,8 @@ async function genUserState(id: ZkIdentity, app: UnirepApp) {
 }
 
 describe("Unirep App", function () {
-    let unirep: Unirep
-    let app: UnirepApp
+    let unirep
+    let app
 
     // epoch length
     const epochLength = 30
@@ -44,10 +43,6 @@ describe("Unirep App", function () {
         unirep = await deployUnirep(deployer)
         const App = await ethers.getContractFactory("UnirepApp");
         app = await App.deploy(unirep.address, epochLength);
-
-        expect(await app.attesterId()).to.equal(app.address)
-        expect(await app.epochLength()).to.equal(epochLength)
-
         startTime = (await unirep.attesterStartTimestamp(app.address)).toNumber()
     });
 
@@ -56,9 +51,8 @@ describe("Unirep App", function () {
 
         // generate
         const { publicSignals, proof } = await userState.genUserSignUpProof()
-        const tx = await app.userSignUp(publicSignals, proof)
-        const receipt = await tx.wait()
-        expect(receipt.status).to.equal(1)
+        await app.userSignUp(publicSignals, proof)
+            .then(t => t.wait())
     })
 
     it("submit attestations", async () => {
@@ -71,51 +65,42 @@ describe("Unirep App", function () {
         const posRep = 5
         const negRep = 0
         const graffiti = hashOne(graffitiPreImage)
-        const tx = await app.submitAttestation(epoch, epochKey, posRep, negRep, graffiti)
-        const receipt = await tx.wait()
-        expect(receipt.status).to.equal(1)
+        await app.submitAttestation(epoch, epochKey, posRep, negRep, graffiti)
+            .then(t => t.wait())
     })
 
     it("(attester/relayer) process attestations", async () => {
-        {
-            const tx = await app.buildHashchain();
-            const receipt = await tx.wait()
-            expect(receipt.status).to.equal(1)
-        }
-
-        {
-            const userState = await genUserState(id, app)
-            const epoch = await userState.loadCurrentEpoch()
-            const index = await unirep.attesterHashchainProcessedCount(app.address, epoch)
-            const hashchain = await unirep.attesterHashchain(app.address, epoch, index)
-            const { publicSignals, proof } = await userState.genAggregateEpochKeysProof({
-                epochKeys: hashchain.epochKeys as any,
-                newBalances: hashchain.epochKeyBalances as any,
-                hashchainIndex: hashchain.index as any,
-                epoch,
-            })
-            const tx = await app.processHashchain(publicSignals, proof)
-            const receipt = await tx.wait()
-            expect(receipt.status).to.equal(1)
-        }
+        const userState = await genUserState(id, app)
+        const epoch = await userState.loadCurrentEpoch()
+        await unirep.buildHashchain(app.address, epoch)
+            .then(t => t.wait())
+        const index = await unirep.attesterHashchainProcessedCount(app.address, epoch)
+        const hashchain = await unirep.attesterHashchain(app.address, epoch, index)
+        const { publicSignals, proof } = await userState.genAggregateEpochKeysProof({
+            epochKeys: hashchain.epochKeys,
+            newBalances: hashchain.epochKeyBalances,
+            hashchainIndex: hashchain.index,
+            epoch,
+        })
+        await unirep.processHashchain(publicSignals, proof)
+            .then(t => t.wait())
     })
 
     it("user state transition", async () => {
-        const oldEpoch = await app.currentEpoch()
+        const oldEpoch = await unirep.attesterCurrentEpoch(app.address)
         const timestamp = Math.floor(+new Date() / 1000)
         const waitTime = startTime + epochLength - timestamp
-        for (; ;) {
+        for (;;) {
             await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
             await ethers.provider.send('evm_mine', [])
-            const newEpoch = await app.currentEpoch()
+            const newEpoch = await unirep.attesterCurrentEpoch(app.address)
             if ((oldEpoch.toNumber() + 1) == newEpoch.toNumber()) break
         }
-        const newEpoch = await app.currentEpoch()
+        const newEpoch = await unirep.attesterCurrentEpoch(app.address)
         const userState = await genUserState(id, app)
         const { publicSignals, proof } = await userState.genUserStateTransitionProof({ toEpoch: newEpoch.toNumber() })
-        const tx = await app.userStateTransition(publicSignals, proof)
-        const receipt = await tx.wait()
-        expect(receipt.status).to.equal(1)
+        await unirep.userStateTransition(publicSignals, proof)
+            .then(t => t.wait())
     })
 
     it("reputation proof", async () => {

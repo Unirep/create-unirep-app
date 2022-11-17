@@ -7,8 +7,6 @@ import {Unirep} from "@unirep/contracts/Unirep.sol";
 
 contract UnirepApp {
     Unirep public unirep;
-    uint256 public immutable epochLength;
-    uint160 public immutable attesterId;
 
     constructor(Unirep _unirep, uint256 _epochLength) {
         // set unirep address
@@ -16,14 +14,13 @@ contract UnirepApp {
 
         // sign up as an attester
         unirep.attesterSignUp(_epochLength);
-        epochLength = _epochLength;
-        attesterId = uint160(address(this));
     }
 
     // sign up users in this app
-    function userSignUp(uint256[] memory publicSignals, uint256[8] memory proof)
-        public
-    {
+    function userSignUp(
+        uint256[] memory publicSignals,
+        uint256[8] memory proof
+    ) public {
         unirep.userSignUp(publicSignals, proof);
     }
 
@@ -42,29 +39,5 @@ contract UnirepApp {
             negRep,
             graffiti
         );
-    }
-
-    // process attestations
-    function buildHashchain() public {
-        uint256 epoch = unirep.attesterCurrentEpoch(attesterId);
-        unirep.buildHashchain(attesterId, epoch);
-    }
-
-    function processHashchain(
-        uint256[] memory publicSignals,
-        uint256[8] memory proof
-    ) public {
-        unirep.processHashchain(publicSignals, proof);
-    }
-
-    function userStateTransition(
-        uint256[] memory publicSignals,
-        uint256[8] memory proof
-    ) public {
-        unirep.userStateTransition(publicSignals, proof);
-    }
-
-    function currentEpoch() public view returns (uint256) {
-        return unirep.attesterCurrentEpoch(attesterId);
     }
 }
