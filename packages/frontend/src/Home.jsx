@@ -49,24 +49,24 @@ export default observer(() => {
               <p>pos rep</p>
               <input
                 value={posRep}
-                onChange={(event) => { 
-                  setPosRep(event.target.value ?? 0) 
+                onChange={(event) => {
+                  setPosRep(event.target.value ?? 0)
                 } }
               ></input>
               <p>current pos rep: {totalPosRep}</p>
               <p>neg rep</p>
               <input
                 value={negRep}
-                onChange={(event) => { 
-                  setNegRep(event.target.value ?? 0) 
+                onChange={(event) => {
+                  setNegRep(event.target.value ?? 0)
                 } }
               ></input>
               <p>current neg rep: {totalNegRep}</p>
               <p>graffiti preimage</p>
               <input
                 value={graffitiPreimage}
-                onChange={(event) => { 
-                  setGraffitiPreImage(event.target.value ?? 0) 
+                onChange={(event) => {
+                  setGraffitiPreImage(event.target.value ?? 0)
                 } }
               ></input>
               <p>current graffiti preimage: {latestGraffitiPreimage}</p>
@@ -76,7 +76,7 @@ export default observer(() => {
                 onChange={(event) => { setNonce(event.target.value ?? 0) } }
               ></input>
               <p>current epoch key nonce: {nonce}</p>
-              
+
               <Button onClick={()=> {
                 userContext.requestReputation(posRep, negRep, graffitiPreimage, nonce)
                 setTotalPosRep(Number(posRep)+ Number(totalPosRep))
@@ -89,15 +89,15 @@ export default observer(() => {
               <p>min rep</p>
               <input
                 value={minRep}
-                onChange={(event) => { 
-                  setMinRep(event.target.value ?? 0) 
+                onChange={(event) => {
+                  setMinRep(event.target.value ?? 0)
                 } }
               ></input>
               <p>graffiti preimage</p>
               <input
                 value={proveGraffitiPreimage}
-                onChange={(event) => { 
-                  setProveGraffitiPreimage(event.target.value ?? 0) 
+                onChange={(event) => {
+                  setProveGraffitiPreimage(event.target.value ?? 0)
                 } }
               ></input>
               <Button onClick={()=> userContext.proveReputation(minRep, proveGraffitiPreimage)}>prove</Button>

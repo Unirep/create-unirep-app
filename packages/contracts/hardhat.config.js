@@ -1,7 +1,7 @@
 require('@nomiclabs/hardhat-ethers')
 
 module.exports = {
-    defaultNetwork: 'hardhat',
+    defaultNetwork: 'local',
     networks: {
         hardhat: {
             blockGasLimit: 12000000,
