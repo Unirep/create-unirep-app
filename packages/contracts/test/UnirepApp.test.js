@@ -43,6 +43,7 @@ describe("Unirep App", function () {
         unirep = await deployUnirep(deployer)
         const App = await ethers.getContractFactory("UnirepApp");
         app = await App.deploy(unirep.address, epochLength);
+        await app.deployed()
         startTime = (await unirep.attesterStartTimestamp(app.address)).toNumber()
     });
 
