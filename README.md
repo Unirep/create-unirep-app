@@ -21,7 +21,7 @@ yarn contracts hardhat node
 in new terminal window, from root:
 
 ```shell
-yarn contracts deploy --network local
+yarn contracts deploy
 ```
 
 ## 4. Start a relayer (backend)
