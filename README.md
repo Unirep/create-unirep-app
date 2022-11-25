@@ -13,7 +13,7 @@ yarn
 ## 2. Start a node
 
 ```shell
-cd packages/contracts && npx hardhat node
+yarn contracts hardhat node
 ```
 
 ## 3. Deploy smart contracts

@@ -10,6 +10,7 @@
   "scripts": {
     "build": "hardhat compile && yarn abi",
     "abi": "node scripts/abi",
+    "hardhat": "hardhat",
     "deploy": "hardhat run scripts/deploy.mjs",
     "test": "hardhat test test/UnirepApp.test.js"
   },
