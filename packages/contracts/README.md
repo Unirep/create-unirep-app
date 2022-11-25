@@ -19,7 +19,7 @@ yarn test
 ## Deploy to local hardhat network
 
 ```shell
-npx hardhat node
+yarn hardhat node
 ```
 and
 ```shell
