@@ -12,9 +12,12 @@ class User {
   currentEpoch
   latestTransitionedEpoch
   hasSignedUp = false
-  posRep = 0
-  negRep = 0
-  graffiti = 0
+  reputation = {
+    posRep: 0,
+    negRep: 0,
+    graffiti: 0,
+    timestamp: 0,
+  }
   valid = false
 
   constructor() {
@@ -42,32 +45,37 @@ class User {
     await userState.waitForSync()
     this.hasSignedUp = await userState.hasSignedUp()
     this.userState = userState
-    this.watchTransition()
+    await this.loadReputation()
   }
 
-  async watchTransition() {
-    for (;;) {
-      const epoch = this.latestTransitionedEpoch
-      const hasSignedUp = await this.userState.hasSignedUp()
-      const currentEpoch = this.userState.calcCurrentEpoch()
-      this.currentEpoch = currentEpoch
-      const { posRep, negRep, graffiti } = await this.userState.getRepByAttester()
-      this.posRep = posRep
-      this.negRep = negRep
-      this.graffiti = graffiti
-      try {
-        if (hasSignedUp && epoch !== currentEpoch) {
-          await this.stateTransition()
-        }
-        this.latestTransitionedEpoch = currentEpoch
-      } catch (err) {
-        await new Promise(r => setTimeout(r, 10000))
-        continue
-      }
-      const time = this.userState.calcEpochRemainingTime()
-      await new Promise(r => setTimeout(r, time * 1000))
-    }
+  async loadReputation() {
+    const epoch = this.userState.calcCurrentEpoch()
+    this.reputation = await this.userState.getRepByAttester(null, epoch)
   }
+
+  // async watchTransition() {
+  //   for (;;) {
+  //     const epoch = this.latestTransitionedEpoch
+  //     const hasSignedUp = await this.userState.hasSignedUp()
+  //     const currentEpoch = this.userState.calcCurrentEpoch()
+  //     this.currentEpoch = currentEpoch
+  //     const { posRep, negRep, graffiti } = await this.userState.getRepByAttester()
+  //     this.posRep = posRep
+  //     this.negRep = negRep
+  //     this.graffiti = graffiti
+  //     try {
+  //       if (hasSignedUp && epoch !== currentEpoch) {
+  //         await this.stateTransition()
+  //       }
+  //       this.latestTransitionedEpoch = currentEpoch
+  //     } catch (err) {
+  //       await new Promise(r => setTimeout(r, 10000))
+  //       continue
+  //     }
+  //     const time = this.userState.calcEpochRemainingTime()
+  //     await new Promise(r => setTimeout(r, time * 1000))
+  //   }
+  // }
 
   async signup(message) {
     const signupProof = await this.userState.genUserSignUpProof()
@@ -90,13 +98,6 @@ class User {
   async requestReputation(posRep, negRep, graffitiPreImage, epkNonce) {
     const epochKeyProof = await this.userState.genEpochKeyProof({nonce: epkNonce})
     const graffiti = hash1([graffitiPreImage])
-    console.log({
-      posRep,
-        negRep,
-        graffiti,
-        publicSignals: epochKeyProof.publicSignals,
-        proof: epochKeyProof.proof,
-    })
     const data = await fetch(`${SERVER}/api/request`, {
       method: 'POST',
       headers: {
@@ -112,6 +113,7 @@ class User {
     }).then(r => r.json())
     await provider.waitForTransaction(data.hash)
     await this.userState.waitForSync()
+    await this.loadReputation()
   }
 
   async stateTransition() {

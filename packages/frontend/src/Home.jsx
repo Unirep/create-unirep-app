@@ -12,8 +12,6 @@ export default observer(() => {
   const [negRep, setNegRep] = React.useState(0)
   const [graffitiPreimage, setGraffitiPreImage] = React.useState('0')
   const [nonce, setNonce] = React.useState(0)
-  const [totalPosRep, setTotalPosRep] = React.useState(0)
-  const [totalNegRep, setTotalNegRep] = React.useState(0)
   const [latestGraffitiPreimage, setLatestGraffitiPreimage] = React.useState(0)
   const [minRep, setMinRep] = React.useState(0)
   const [proveGraffitiPreimage, setProveGraffitiPreimage] = React.useState(0)
@@ -53,7 +51,7 @@ export default observer(() => {
                   setPosRep(event.target.value ?? 0)
                 } }
               ></input>
-              <p>current pos rep: {totalPosRep}</p>
+              <p>current pos rep: {userContext.reputation.posRep.toString()}</p>
               <p>neg rep</p>
               <input
                 value={negRep}
@@ -61,7 +59,7 @@ export default observer(() => {
                   setNegRep(event.target.value ?? 0)
                 } }
               ></input>
-              <p>current neg rep: {totalNegRep}</p>
+              <p>current neg rep: {userContext.reputation.negRep.toString()}</p>
               <p>graffiti preimage</p>
               <input
                 value={graffitiPreimage}
@@ -78,10 +76,8 @@ export default observer(() => {
               <p>current epoch key nonce: {nonce}</p>
 
               <Button onClick={()=> {
-                userContext.requestReputation(posRep, negRep, graffitiPreimage, nonce)
-                setTotalPosRep(Number(posRep)+ Number(totalPosRep))
-                setTotalNegRep(Number(negRep)+ Number(totalNegRep))
                 setLatestGraffitiPreimage(graffitiPreimage)
+                return userContext.requestReputation(posRep, negRep, graffitiPreimage, nonce)
                 }}>request</Button>
               <br/>
               <Button onClick={()=> userContext.stateTransition()}>transition</Button>
