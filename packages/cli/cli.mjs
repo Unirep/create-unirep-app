@@ -79,8 +79,8 @@ await fs.promises.writeFile(path.join(appPath, 'package.json'), JSON.stringify(p
 const targetDir = path.isAbsolute(projectDir) ? projectDir : path.join(process.cwd(), projectDir)
 await fs.promises.rename(appPath, targetDir)
 
-const installCommend = packageManager === 0 ? ['yarn'] : ['npm', ['i']]
-const install = spawn(...installCommend, {
+const installCommand = packageManager === 0 ? ['yarn'] : ['npm', ['i']]
+const install = spawn(...installCommand, {
   cwd: targetDir,
   stdio: ['inherit', 'inherit', 'inherit']
 })
