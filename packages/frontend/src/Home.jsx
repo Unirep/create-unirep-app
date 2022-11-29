@@ -40,9 +40,18 @@ export default observer(() => {
           <div>Remaining time in epoch: {remainingTime}</div>
               <div>Current epoch {userContext.currentEpoch}</div>
               <div>Latest transition epoch {userContext.latestTransitionedEpoch}</div>
-              <div>Received Pos Rep {userContext.posRep?.toString()}</div>
-              <div>Received Neg Rep {userContext.negRep?.toString()}</div>
-              <div>Received Graffiti {userContext.graffiti?.toString()}</div>
+              <div style={{ fontSize: '18px', fontWeight: '500'}}>
+                Total Reputation
+              </div>
+              <div>Pos Rep {userContext.posRep?.toString()}</div>
+              <div>Neg Rep {userContext.negRep?.toString()}</div>
+              <div>Graffiti {userContext.graffiti?.toString()}</div>
+              <div style={{ fontSize: '18px', fontWeight: '500'}}>
+                Provable Reputation
+              </div>
+              <div>Pos Rep {userContext.posRep?.toString()}</div>
+              <div>Neg Rep {userContext.negRep?.toString()}</div>
+              <div>Graffiti {userContext.graffiti?.toString()}</div>
               <div>
               <p>pos rep</p>
               <input
