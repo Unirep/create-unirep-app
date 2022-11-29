@@ -60,30 +60,6 @@ class User {
     this.provableReputation = await this.userState.getRepByAttester()
   }
 
-  // async watchTransition() {
-  //   for (;;) {
-  //     const epoch = this.latestTransitionedEpoch
-  //     const hasSignedUp = await this.userState.hasSignedUp()
-  //     const currentEpoch = this.userState.calcCurrentEpoch()
-  //     this.currentEpoch = currentEpoch
-  //     const { posRep, negRep, graffiti } = await this.userState.getRepByAttester()
-  //     this.posRep = posRep
-  //     this.negRep = negRep
-  //     this.graffiti = graffiti
-  //     try {
-  //       if (hasSignedUp && epoch !== currentEpoch) {
-  //         await this.stateTransition()
-  //       }
-  //       this.latestTransitionedEpoch = currentEpoch
-  //     } catch (err) {
-  //       await new Promise(r => setTimeout(r, 10000))
-  //       continue
-  //     }
-  //     const time = this.userState.calcEpochRemainingTime()
-  //     await new Promise(r => setTimeout(r, time * 1000))
-  //   }
-  // }
-
   async signup(message) {
     const signupProof = await this.userState.genUserSignUpProof()
     const data = await fetch(`${SERVER}/api/signup`, {
