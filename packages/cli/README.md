@@ -1,11 +1,11 @@
-# `cli`
+# create-unirep-app
 
-> TODO: description
+A command line application for bootstrapping a [Universal Reputation Attester](https://developer.unirep.io/docs/protocol/users-and-attesters#attester-).
 
 ## Usage
 
-```
-const cli = require('cli');
+`npx create-unirep-app`
 
-// TODO: DEMONSTRATE API
-```
+## License
+
+MIT
