@@ -18,6 +18,12 @@ class User {
     graffiti: 0,
     timestamp: 0,
   }
+  provableReputation = {
+    posRep: 0,
+    negRep: 0,
+    graffiti: 0,
+    timestamp: 0,
+  }
   valid = false
 
   constructor() {
@@ -51,6 +57,7 @@ class User {
   async loadReputation() {
     const epoch = this.userState.calcCurrentEpoch()
     this.reputation = await this.userState.getRepByAttester(null, epoch)
+    this.provableReputation = await this.userState.getRepByAttester()
   }
 
   // async watchTransition() {
