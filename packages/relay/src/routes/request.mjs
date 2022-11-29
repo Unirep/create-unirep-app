@@ -19,7 +19,7 @@ export default ({ app, db, synchronizer }) => {
         return
       }
       const epoch = await synchronizer.loadCurrentEpoch()
-      
+
       const appContract = new ethers.Contract(APP_ADDRESS, UnirepApp.abi)
       // const contract =
       const calldata = appContract.interface.encodeFunctionData(
