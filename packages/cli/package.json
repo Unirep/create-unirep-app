@@ -1,0 +1,27 @@
+{
+  "name": "create-unirep-app",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "> TODO: description",
+  "author": "Chance <jchancehud@gmail.com>",
+  "homepage": "https://github.com/unirep/create-unirep-app#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unirep/create-unirep-app.git"
+  },
+  "scripts": {
+    "test": "exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/unirep/create-unirep-app/issues"
+  },
+  "bin": {
+    "create-unirep-app": "./cli.mjs"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.0",
+    "prompts": "^2.4.2",
+    "tar": "^6.1.12"
+  }
+}
