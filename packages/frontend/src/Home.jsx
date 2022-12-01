@@ -43,15 +43,15 @@ export default observer(() => {
               <div style={{ fontSize: '18px', fontWeight: '500'}}>
                 Total Reputation
               </div>
-              <div>Pos Rep {userContext.posRep?.toString()}</div>
-              <div>Neg Rep {userContext.negRep?.toString()}</div>
-              <div>Graffiti {userContext.graffiti?.toString()}</div>
+              <div>Pos Rep {userContext.reputation.posRep?.toString()}</div>
+              <div>Neg Rep {userContext.reputation.negRep?.toString()}</div>
+              <div>Graffiti {userContext.reputation.graffiti?.toString()}</div>
               <div style={{ fontSize: '18px', fontWeight: '500'}}>
                 Provable Reputation
               </div>
-              <div>Pos Rep {userContext.posRep?.toString()}</div>
-              <div>Neg Rep {userContext.negRep?.toString()}</div>
-              <div>Graffiti {userContext.graffiti?.toString()}</div>
+              <div>Pos Rep {userContext.provableReputation.posRep?.toString()}</div>
+              <div>Neg Rep {userContext.provableReputation.negRep?.toString()}</div>
+              <div>Graffiti {userContext.provableReputation.graffiti?.toString()}</div>
               <div>
               <p>pos rep</p>
               <input
