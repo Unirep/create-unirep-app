@@ -6,6 +6,7 @@ import { MemoryConnector } from 'anondb/web'
 import { constructSchema } from 'anondb/types'
 import { provider, UNIREP_ADDRESS, APP_ADDRESS, SERVER } from '../config'
 import prover from './prover'
+import poseidon from 'poseidon-lite'
 
 class User {
 
@@ -24,7 +25,6 @@ class User {
     graffiti: 0,
     timestamp: 0,
   }
-  valid = false
 
   constructor() {
     makeAutoObservable(this)
@@ -52,11 +52,21 @@ class User {
     this.hasSignedUp = await userState.hasSignedUp()
     this.userState = userState
     await this.loadReputation()
+    this.latestTransitionedEpoch = await this.userState.latestTransitionedEpoch()
+  }
+
+  // TODO: make this non-async
+  async epochKey(nonce) {
+    if (!this.userState) return '0x'
+    const epoch = this.userState.calcCurrentEpoch()
+    const keys = await this.userState.getEpochKeys(epoch)
+    const key = keys[nonce]
+    return `0x${key.toString(16)}`
   }
 
   async loadReputation() {
     const epoch = this.userState.calcCurrentEpoch()
-    this.reputation = await this.userState.getRepByAttester(null, epoch)
+    this.reputation = await this.userState.getRepByAttester(null, epoch + 1)
     this.provableReputation = await this.userState.getRepByAttester()
   }
 
@@ -114,16 +124,19 @@ class User {
     }).then(r => r.json())
     await provider.waitForTransaction(data.hash)
     await this.userState.waitForSync()
+    this.latestTransitionedEpoch = await this.userState.latestTransitionedEpoch()
   }
 
-  async proveReputation(minRep, graffitiPreImage) {
+  async proveReputation(minRep = 0, _graffitiPreImage = 0) {
+    let graffitiPreImage = _graffitiPreImage
+    if (typeof graffitiPreImage === 'string') {
+      graffitiPreImage = poseidon([_graffitiPreImage])
+    }
     const reputationProof = await this.userState.genProveReputationProof({
       epkNonce: 0,
       minRep: Number(minRep), graffitiPreImage
     })
-    this.publicSignals = reputationProof.publicSignals
-    this.proof = reputationProof.proof
-    this.valid = await reputationProof.verify()
+    return { ...reputationProof, valid: await reputationProof.verify() }
   }
 }
 
