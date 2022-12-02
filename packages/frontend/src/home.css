@@ -25,3 +25,20 @@
     background: rgba(0, 0, 0, 0);
   }
 }
+
+.title1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-container {
+  border: 1px solid black;
+  padding: 2px;
+  margin: 10px 0px;
+}
+
+.action-container {
+  border: 1px solid black;
+  padding: 2px;
+  margin: 10px 0px;
+}
