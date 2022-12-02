@@ -10,6 +10,8 @@ This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In 
 npx create-unirep-app
 ```
 
+Then `cd` into the directory that was created.
+
 ## 2. Start a node
 
 ```shell
