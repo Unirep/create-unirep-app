@@ -7,7 +7,7 @@ This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In 
 ## 1. Installation
 
 ```shell
-yarn
+npx create-unirep-app
 ```
 
 ## 2. Start a node
