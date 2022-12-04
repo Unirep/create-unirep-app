@@ -17,6 +17,15 @@
   padding: 2px;
 }
 
+@keyframes highlight {
+  from {
+    background: yellow;
+  }
+  to {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
 .landing {
   display: flex;
   margin: 50px;
@@ -28,28 +37,46 @@
   font-size: 1.3em;
 }
 
-@keyframes highlight {
-  from {
-    background: yellow;
-  }
-  to {
-    background: rgba(0, 0, 0, 0);
-  }
+.icon {
+  margin: auto 20px;
+  cursor: pointer;
+}
+
+.icon-sm {
+  margin-right: 2px;
+  cursor: pointer;
 }
 
 .title1 {
   font-size: 18px;
   font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.title2 {
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  justify-content: center;
 }
 
 .info-container {
-  border: 1px solid black;
-  padding: 2px;
-  margin: 10px 0px;
+  display: flex;
+  border: 3px solid yellowgreen;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 20px 0px;
 }
 
 .action-container {
-  border: 1px solid black;
-  padding: 2px;
-  margin: 10px 0px;
+  display: flex;
+  border: 3px solid yellowgreen;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0px;
+}
+
+.transition {
+  justify-content: center;
 }
