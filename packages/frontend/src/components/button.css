@@ -1,4 +1,5 @@
 .button-outer {
+  margin: 10px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,9 +12,10 @@
   font-weight: bold;
   user-select: none;
   text-align: center;
-  font-size: 16px;
-  border: 1px solid black;
-  padding: 4px 8px;
+  font-size: 1.2em;
+  background-color: YellowGreen;
+  border: 2px solid black;
+  padding: .3em 2.3em;
   -webkit-user-select: none;
   -ms-user-select: none;
 }

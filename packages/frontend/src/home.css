@@ -17,6 +17,17 @@
   padding: 2px;
 }
 
+.landing {
+  display: flex;
+  margin: 50px;
+}
+
+.join {
+  margin: auto;
+  text-align: center;
+  font-size: 1.3em;
+}
+
 @keyframes highlight {
   from {
     background: yellow;
