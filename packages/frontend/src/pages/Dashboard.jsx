@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite'
 import './dashboard.css'
 import InfoIcon from '../components/InfoIcon'
 import Button from '../components/Button'
-import InfoModal from '../components/InfoModal'
 
 import User from '../contexts/User'
 
@@ -13,7 +12,6 @@ export default observer(() => {
   const [reqRep, setReqRep] = React.useState({})
   const [repProofInputs, setRepProofInputs] = React.useState({})
   const [repProof, setRepProof] = React.useState(null)
-  const [hovered, setHovered] = React.useState(false)
 
   const updateTimer = () => {
     if (!userContext.userState) {
@@ -40,14 +38,6 @@ export default observer(() => {
     }
   }, [reqRep.nonce])
 
-  const handleMouseOver = () => {
-    setHovered(true);
-  };
-
-  const handleMouseOut = () => {
-    setHovered(false);
-  };
-
   if (!userContext.userState) {
     return (
       <div className="container">
@@ -61,81 +51,64 @@ export default observer(() => {
       <h1>Dashboard</h1>
       <div className="container">
         <div className="info-container">
-          {/* <div className='icon' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <MdOutlineTimelapse color='YellowGreen' font-size='3.5em' />
-            {hovered && <InfoModal index='0'/>}
-          </div> */}
           <div className='info-item'>
             <h3>Epoch</h3>
             <InfoIcon />
           </div>
           <div className='info-item'>
             <div>Current epoch #</div>
-            <div>{userContext.userState?.calcCurrentEpoch()}</div>
+            <div className='stat'>{userContext.userState?.calcCurrentEpoch()}</div>
           </div>
           <div className='info-item'>
             <div>Remaining time</div>
-            <div>{remainingTime}</div>
+            <div className='stat'>{remainingTime}</div>
           </div>
           <div className='info-item'>
             <div>Latest transition epoch</div>
-            <div>{userContext.latestTransitionedEpoch}</div>
+            <div className='stat'>{userContext.latestTransitionedEpoch}</div>
           </div>
 
           <hr/>
 
-          {/* <div className='icon' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <BsPersonCircle color='YellowGreen' font-size='3em' />
-            {hovered && <InfoModal index='1'/>}
-          </div> */}
           <div className='info-item'>
             <h3>Latest Reputation</h3>
             <InfoIcon />
           </div>
           <div className='info-item'>
             <div>Positive</div>
-            <div>{userContext.reputation.posRep?.toString()}</div>
+            <div className='stat'>{userContext.reputation.posRep?.toString()}</div>
           </div>
           <div className='info-item'>
             <div>Negative</div>
-            <div>{userContext.reputation.negRep?.toString()}</div>
+            <div className='stat'>{userContext.reputation.negRep?.toString()}</div>
           </div>
           <div className='info-item'>
             <div>Graffiti</div>
-            <div>0x{userContext.reputation.graffiti?.toString(16)}</div>
+            <div className='stat'>0x{userContext.reputation.graffiti?.toString(16)}</div>
           </div>
 
           <hr/>
 
-          {/* <div className='icon' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <HiShieldCheck color='YellowGreen' font-size='3.5em' />
-            {hovered && <InfoModal index='2'/>}
-          </div> */}
           <div className='info-item'>
             <h3>Provable Reputation</h3>
             <InfoIcon />
           </div>
           <div className='info-item'>
             <div>Positive</div>
-            <div>{userContext.provableReputation.posRep?.toString()}</div>
+            <div className='stat'>{userContext.provableReputation.posRep?.toString()}</div>
           </div>
           <div className='info-item'>
             <div>Negative</div>
-            <div>{userContext.provableReputation.negRep?.toString()}</div>
+            <div className='stat'>{userContext.provableReputation.negRep?.toString()}</div>
           </div>
           <div className='info-item'>
             <div>Graffiti</div>
-            <div>0x{userContext.provableReputation.graffiti?.toString(16)}</div>
+            <div className='stat'>0x{userContext.provableReputation.graffiti?.toString(16)}</div>
           </div>
         </div>
 
         <div style={{ width: '70%' }}>
-
           <div className="action-container transition">
-            {/* <div className='icon' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-              <MdPublishedWithChanges color='YellowGreen' font-size='4em' />
-              {hovered && <InfoModal index='7'/>}
-            </div> */}
             <div className='icon'>
               <h2>User State Transition</h2>
               <InfoIcon />
@@ -146,10 +119,6 @@ export default observer(() => {
           <div style={{ display: 'flex' }}>
             <div className="action-container">
               <div className='icon'>
-                  {/* <div className='icon-sm' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                    <HiQuestionMarkCircle color='yellowgreen' font-size='.8em'/>
-                    {hovered && <InfoModal index='3'/>}
-                  </div> */}
                 <h2>Request Reputation</h2>
                 <InfoIcon />
               </div>
@@ -171,10 +140,6 @@ export default observer(() => {
                     setReqRep((v) => ({...v, negRep: event.target.value ?? 0}))
                 } }
               />
-                  {/* <div className='icon-sm' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                    <HiQuestionMarkCircle color='yellowgreen' font-size='1em'/>
-                    {hovered && <InfoModal index='4'/>}
-                  </div> */}
               <div className='icon'>
                 <p>Graffiti preimage</p>
                 <InfoIcon />
@@ -186,10 +151,6 @@ export default observer(() => {
                   setReqRep((v) => ({ ...v, graffitiPreImage: event.target.value ?? 0 }))
                 } }
               />
-                  {/* <div className='icon-sm' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                    <HiQuestionMarkCircle color='yellowgreen' font-size='1em'/>
-                    {hovered && <InfoModal index='5'/>}
-                  </div> */}
               <div className='icon'>
                 <p>Epoch key nonce</p>
                 <InfoIcon />
@@ -219,10 +180,6 @@ export default observer(() => {
 
             <div className="action-container">
               <div className='icon'>
-                  {/* <div className='icon-sm' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                    <HiQuestionMarkCircle color='yellowgreen' font-size='.8em'/>
-                    {hovered && <InfoModal index='6'/>}
-                  </div> */}
                 <h2>Prove Reputation</h2>
                 <InfoIcon />
               </div>
@@ -264,7 +221,6 @@ export default observer(() => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )

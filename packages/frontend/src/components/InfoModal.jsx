@@ -19,3 +19,18 @@ export default ({ index }) => {
         </div>
     )
 }
+
+
+//   const [hovered, setHovered] = React.useState(false)
+
+  // const handleMouseOver = () => {
+  //   setHovered(true);
+  // };
+
+  // const handleMouseOut = () => {
+  //   setHovered(false);
+  // };
+  {/* <div className='icon' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+  <MdOutlineTimelapse color='YellowGreen' font-size='3.5em' />
+  {hovered && <InfoModal index='0'/>}
+  </div> */}
