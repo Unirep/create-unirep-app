@@ -28,6 +28,7 @@
 
 .landing {
   display: flex;
+  justify-content: space-between;
   margin: 50px;
 }
 
