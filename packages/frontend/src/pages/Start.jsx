@@ -24,9 +24,9 @@ export default observer(() => {
                 <Hummingbird />
             </div>
             <div className='content'>
-                <h1>Congratulations</h1>
-                <h2>You have created a new UniRep attester.</h2>
-                <h2>Clicking 'Join' adds a user to this attester's membership group.</h2>
+                <div style={{fontSize: '80px', fontWeight: '600'}}>Congratulations</div>
+                <p>You have created a new UniRep attester.</p>
+                <p>Clicking 'Join' adds a user to this attester's membership group.</p>
                 <div className='join'>
                     {!userContext.hasSignedUp ? (
                         <Button onClick={() => userContext.signup()}>Join</Button>
