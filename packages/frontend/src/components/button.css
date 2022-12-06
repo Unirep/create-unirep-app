@@ -9,12 +9,12 @@
 .button-inner {
   border-radius: 24px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   user-select: none;
   text-align: center;
-  font-size: 1.2em;
-  background-color: YellowGreen;
-  border: 2px solid black;
+  font-size: 20px;
+  background-color: #A0D8DB;
+  border: 1px solid black;
   padding: .3em 2.3em;
   -webkit-user-select: none;
   -ms-user-select: none;

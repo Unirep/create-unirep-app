@@ -1,17 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import './dashboard.css'
-import Logo  from '../components/Logo'
 import Button from '../components/Button'
 import InfoModal from '../components/InfoModal'
 
 import User from '../contexts/User'
-
-// import { MdOutlineTimelapse} from 'react-icons/md'
-// import { BsPersonCircle } from 'react-icons/bs'
-// import { HiShieldCheck } from 'react-icons/hi'
-// import { HiQuestionMarkCircle } from 'react-icons/hi'
-// import { MdPublishedWithChanges } from 'react-icons/md'
 
 export default observer(() => {
   const userContext = React.useContext(User)
@@ -66,21 +59,15 @@ export default observer(() => {
     return (
       <div className='landing'>
         <div>
-          <Logo />
-        </div>
-        <div>
-          
-        </div>
-          <div>
-            <div className='join'>
-              <h2>Congratulations 🎉</h2>
-              <p>You have created a new UniRep attester.</p>
-              <p>Clicking 'Join' adds a user to this attester's membership group.</p>
-              <Button onClick={() => userContext.signup()}>Join</Button>
-              <p>After joining, the member can interact with reputation in the attester's application. </p>
-              <p>Customize this landing page to onboard new users to your app!</p>
-            </div>
+          <div className='join'>
+            <h2>Congratulations 🎉</h2>
+            <p>You have created a new UniRep attester.</p>
+            <p>Clicking 'Join' adds a user to this attester's membership group.</p>
+            <Button onClick={() => userContext.signup()}>Join</Button>
+            <p>After joining, the member can interact with reputation in the attester's application. </p>
+            <p>Customize this landing page to onboard new users to your app!</p>
           </div>
+        </div>
       </div>   
     )
   }

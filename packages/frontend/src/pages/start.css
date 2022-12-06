@@ -1,0 +1,26 @@
+h1 {
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 91px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 28px;
+}
+
+.bg {
+    position: absolute;
+    right: 0px;
+    z-index: 0;
+}
+
+.container {
+    position: absolute;
+    bottom: 0px;
+    padding: 0 0 50px 80px;
+    z-index: 10;
+    font-size: 16px;
+    font-weight: 200;
+}

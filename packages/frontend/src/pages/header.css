@@ -12,7 +12,7 @@ a:visited {
 .header {
     display: flex;
     justify-content: space-between;
-    margin: 50px;
+    margin: 50px 80px 0 80px;
 }
 
 .links {
