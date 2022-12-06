@@ -1,23 +1,46 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import { observer } from 'mobx-react-lite'
 import './start.css'
 import Hummingbird from '../components/Hummingbird'
 import Button from '../components/Button'
 
-export default () => {
+import User from '../contexts/User'
+
+export default observer(() => {
+    const userContext = React.useContext(User)
+
+    // if (!userContext.userState) {
+    //     return (
+    //     <div className="container">
+    //         Loading...
+    //     </div>
+    //     )
+    // }
+
     return (
         <>
             <div className='bg'>
                 <Hummingbird />
             </div>
-            <div className='container'>
+            <div className='content'>
                 <h1>Congratulations</h1>
                 <h2>You have created a new UniRep attester.</h2>
                 <h2>Clicking 'Join' adds a user to this attester's membership group.</h2>
-                <Button onClick={() => userContext.signup()}>Join</Button>
+                <div className='join'>
+                    {!userContext.hasSignedUp ? (
+                        <Button onClick={() => userContext.signup()}>Join</Button>
+                    ) : (
+                        <div>
+                            <p>USER ADDED!</p>
+                            <Link to='/dashboard'><Button>go to Dashboard</Button></Link>
+                        </div>
+                    )}          
+                </div>
                 <p>After joining, the member can interact with reputation in the attester's application. </p>
                 <p>Customize this landing page to onboard new users to your app.</p>
             </div>
         </>
 
     )
-}
+})

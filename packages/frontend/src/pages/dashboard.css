@@ -26,18 +26,6 @@
   }
 }
 
-.landing {
-  display: flex;
-  justify-content: space-between;
-  margin: 50px;
-}
-
-.join {
-  margin: auto;
-  text-align: center;
-  font-size: 1.3em;
-}
-
 .icon {
   margin: auto 20px;
   cursor: pointer;

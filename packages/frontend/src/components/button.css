@@ -1,21 +1,29 @@
+svg {
+  padding-left: 15px;
+}
+
 .button-outer {
-  margin: 10px 20px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   user-select: none;
 }
 
 .button-inner {
-  border-radius: 24px;
+  border-radius: 32px;
   cursor: pointer;
   font-weight: 600;
   user-select: none;
   text-align: center;
   font-size: 20px;
   background-color: #A0D8DB;
-  border: 1px solid black;
-  padding: .3em 2.3em;
+  padding: 16px 48px;
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+.button-text {
+  display: flex;
+  align-items: center;
+}
+

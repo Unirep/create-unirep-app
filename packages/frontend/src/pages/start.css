@@ -1,13 +1,12 @@
 h1 {
     font-size: 96px;
     font-weight: 700;
-    line-height: 91px;
+    line-height: 95%;
 }
 
 h2 {
     font-size: 20px;
     font-weight: 200;
-    line-height: 28px;
 }
 
 .bg {
@@ -16,11 +15,17 @@ h2 {
     z-index: 0;
 }
 
-.container {
+.content {
     position: absolute;
     bottom: 0px;
     padding: 0 0 50px 80px;
     z-index: 10;
     font-size: 16px;
     font-weight: 200;
+}
+
+.join {
+    width: 350px;
+    margin: 40px 0;
+    text-align: center;
 }
