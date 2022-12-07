@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import './start.css'
 import Hummingbird from '../components/Hummingbird'
 import Button from '../components/Button'
+import Arrow from '../components/Arrow';
 
 import User from '../contexts/User'
 
@@ -29,11 +30,11 @@ export default observer(() => {
                 <p>Clicking 'Join' adds a user to this attester's membership group.</p>
                 <div className='join'>
                     {!userContext.hasSignedUp ? (
-                        <Button onClick={() => userContext.signup()}>Join</Button>
+                        <Button onClick={() => userContext.signup()}>Join<span><Arrow /></span></Button>
                     ) : (
                         <div>
                             <p>USER ADDED!</p>
-                            <Link to='/dashboard'><Button>go to Dashboard</Button></Link>
+                            <Link to='/dashboard'><Button>go to Dashboard<span><Arrow /></span></Button></Link>
                         </div>
                     )}          
                 </div>
