@@ -200,7 +200,7 @@ export default observer(() => {
                   setRepProofInputs((v) => ({ ...v, graffitiPreImage: event.target.value ?? 0 }))
                 }}
               />
-              <div style={{marginTop: '20px'}}>
+              <div style={{margin: '20px 0 20px'}}>
                 <Button onClick={async ()=> {
                   const proof = await userContext.proveReputation(repProofInputs.minRep, repProofInputs.graffitiPreimage)
                   setRepProofInputs({})
@@ -212,7 +212,7 @@ export default observer(() => {
               {repProof ?
                 (
                   <>
-                    <div>Is proof valid?: {repProof?.valid?.toString() ?? ''}</div>
+                    <div style={{marginBottom: '10px'}}>Is proof valid? <span style={{fontWeight: '600'}}> {repProof?.valid?.toString() ?? ''}</span></div>
                     <textarea readOnly value={JSON.stringify(repProof, null, 2)} />
                   </>
                 ) :

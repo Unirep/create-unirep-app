@@ -21,9 +21,3 @@ svg {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
-.button-text {
-  display: flex;
-  align-items: center;
-}
-
