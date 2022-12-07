@@ -1,8 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import './dashboard.css'
-import InfoIcon from '../components/InfoIcon'
 import Button from '../components/Button'
+import Tooltip from '../components/Tooltip'
 
 import User from '../contexts/User'
 
@@ -53,7 +53,7 @@ export default observer(() => {
         <div className="info-container">
           <div className='info-item'>
             <h3>Epoch</h3>
-            <InfoIcon />
+            <Tooltip text='This is info about the epoch.'/>
           </div>
           <div className='info-item'>
             <div>Current epoch #</div>
@@ -72,7 +72,7 @@ export default observer(() => {
 
           <div className='info-item'>
             <h3>Latest Reputation</h3>
-            <InfoIcon />
+            <Tooltip text='This is info about latest reputation.'/>
           </div>
           <div className='info-item'>
             <div>Positive</div>
@@ -91,7 +91,7 @@ export default observer(() => {
 
           <div className='info-item'>
             <h3>Provable Reputation</h3>
-            <InfoIcon />
+            <Tooltip text='This is info about provable reputation.'/>
           </div>
           <div className='info-item'>
             <div>Positive</div>
@@ -111,7 +111,7 @@ export default observer(() => {
           <div className="action-container transition">
             <div className='icon'>
               <h2>User State Transition</h2>
-              <InfoIcon />
+              <Tooltip text='This is info about user state transition.'/>
             </div>
             <Button onClick={()=> userContext.stateTransition()}>Transition</Button>
           </div>
@@ -120,11 +120,10 @@ export default observer(() => {
             <div className="action-container">
               <div className='icon'>
                 <h2>Request Reputation</h2>
-                <InfoIcon />
+                <Tooltip text='This is info about requesting reputation.'/>
               </div>
               <p>Positive</p>
               <input
-                style={{ width: '180px', height: '40px' }}
                 value={reqRep.posRep ?? ''}
                 onChange={(event) => {
                   if (!/^\d*$/.test(event.target.value)) return
@@ -133,7 +132,6 @@ export default observer(() => {
               />
               <p>Negative</p>
               <input
-                style={{ width: '180px', height: '40px' }}
                 value={reqRep.negRep ?? ''}
                 onChange={(event) => {
                     if (!/^\d*$/.test(event.target.value)) return
@@ -142,10 +140,9 @@ export default observer(() => {
               />
               <div className='icon'>
                 <p>Graffiti preimage</p>
-                <InfoIcon />
+                <Tooltip text='This is info about graffiti.'/>
               </div>
               <input
-                style={{ width: '180px', height: '40px' }}
                 value={reqRep.graffitiPreImage ?? ''}
                 onChange={(event) => {
                   setReqRep((v) => ({ ...v, graffitiPreImage: event.target.value ?? 0 }))
@@ -153,9 +150,9 @@ export default observer(() => {
               />
               <div className='icon'>
                 <p>Epoch key nonce</p>
-                <InfoIcon />
+                <Tooltip text='This is info about epoch keys.'/>
               </div>
-              <select style={{ width: '120px', height: '40px' }} value={reqRep.nonce ?? 0} onChange={(event) => {
+              <select value={reqRep.nonce ?? 0} onChange={(event) => {
                 setReqRep((v) => ({ ...v, nonce: event.target.value }))
               }}>
                 <option value="0">0</option>
@@ -181,11 +178,10 @@ export default observer(() => {
             <div className="action-container">
               <div className='icon'>
                 <h2>Prove Reputation</h2>
-                <InfoIcon />
+                <Tooltip text='This is info about proving reputation.'/>
               </div>
               <p>Minimum reputation:</p>
               <input
-                style={{ width: '180px', height: '40px' }}
                 value={repProofInputs.minRep ?? ''}
                 onChange={(event) => {
                   if (!/^\d*$/.test(event.target.value)) return
@@ -194,7 +190,6 @@ export default observer(() => {
               />
               <p>Graffiti preimage:</p>
               <input
-                style={{ width: '180px', height: '40px' }}
                 value={repProofInputs.graffitiPreImage ?? ''}
                 onChange={(event) => {
                   setRepProofInputs((v) => ({ ...v, graffitiPreImage: event.target.value ?? 0 }))
