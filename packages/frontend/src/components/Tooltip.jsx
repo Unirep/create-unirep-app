@@ -3,7 +3,6 @@ import measureText from '../utils/measure-text'
 import './tooltip.css'
 import UIContext from '../contexts/interface'
 import { observer } from 'mobx-react-lite'
-import InfoIcon from './InfoIcon'
 
 export default observer(({
   text,
@@ -53,7 +52,7 @@ export default observer(({
         onMouseEnter={!ui.isMobile && setShowingPopup.bind(null, true)}
         onMouseLeave={!ui.isMobile && setShowingPopup.bind(null, false)}
       >
-        <InfoIcon />
+        <img src={require('../../public/info_icon.svg')} alt="info icon"/>
       </div>
       {showingPopup &&
         <div className={`tooltip-popup ${ui.modeCssClass}`}

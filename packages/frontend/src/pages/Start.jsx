@@ -2,9 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { observer } from 'mobx-react-lite'
 import './start.css'
-import Hummingbird from '../components/Hummingbird'
+import Tooltip from '../components/Tooltip';
 import Button from '../components/Button'
-import Arrow from '../components/Arrow';
 
 import User from '../contexts/User'
 
@@ -22,19 +21,22 @@ export default observer(() => {
     return (
         <>
             <div className='bg'>
-                <Hummingbird />
+                <img src={require('../../public/hummingbird.svg')} alt="hummingbird at a flower"/>
             </div>
             <div className='content'>
-                <div style={{fontSize: '80px', fontWeight: '600'}}>Congratulations</div>
-                <p>You have created a new UniRep attester.</p>
+                <div style={{fontSize: '70px', fontWeight: '600'}}>Congratulations</div>
+                <div className='attester'>
+                    <div style={{marginRight: '12px'}}>You have created a new UniRep attester </div>
+                    <Tooltip text='Info about attesters and users'/>
+                </div>
                 <p>Clicking 'Join' adds a user to this attester's membership group.</p>
                 <div className='join'>
                     {!userContext.hasSignedUp ? (
-                        <Button onClick={() => userContext.signup()}>Join<span><Arrow /></span></Button>
+                        <Button onClick={() => userContext.signup()}>Join<span style={{marginLeft: '12px'}}><img src={require('../../public/arrow.svg')} alt="right arrow"/></span></Button>
                     ) : (
                         <div>
-                            <p>USER ADDED!</p>
-                            <Link to='/dashboard'><Button>go to Dashboard<span><Arrow /></span></Button></Link>
+                            <p style={{ fontWeight: '400', lineHeight: '.5em'}}>USER ADDED!</p>
+                            <Link to='/dashboard'><Button>Dashboard<span style={{marginLeft: '12px'}}><img src={require('../../public/arrow.svg')} alt="right arrow"/></span></Button></Link>
                         </div>
                     )}          
                 </div>
