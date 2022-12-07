@@ -139,7 +139,7 @@ export default observer(() => {
                 } }
               />
               <div className='icon'>
-                <p>Graffiti preimage</p>
+                <p style={{marginRight: '8px'}}>Graffiti preimage</p>
                 <Tooltip text='This is info about graffiti.'/>
               </div>
               <input
@@ -149,7 +149,7 @@ export default observer(() => {
                 } }
               />
               <div className='icon'>
-                <p>Epoch key nonce</p>
+                <p style={{marginRight: '8px'}}>Epoch key nonce</p>
                 <Tooltip text='This is info about epoch keys.'/>
               </div>
               <select value={reqRep.nonce ?? 0} onChange={(event) => {
