@@ -82,10 +82,9 @@ export default observer(() => {
             <div>Negative</div>
             <div className='stat'>{userContext.reputation.negRep?.toString()}</div>
           </div>
-          <div className='info-item'>
-            <div>Graffiti</div>
-            <div className='stat'>0x{userContext.reputation.graffiti?.toString(16)}</div>
-          </div>
+          {/* <div className='graffiti'><span style={{marginRight: '200px'}}>Graffiti</span><span className='stat'>0x{userContext.reputation.graffiti?.toString(16)}</span></div> */}
+          <div>Graffiti</div>
+          <div className='graffiti'>0x{userContext.reputation.graffiti?.toString(16)}</div>
 
           <hr/>
 
@@ -101,10 +100,8 @@ export default observer(() => {
             <div>Negative</div>
             <div className='stat'>{userContext.provableReputation.negRep?.toString()}</div>
           </div>
-          <div className='info-item'>
-            <div>Graffiti</div>
-            <div className='stat'>0x{userContext.provableReputation.graffiti?.toString(16)}</div>
-          </div>
+          <div>Graffiti</div>
+          <div className='graffiti'>0x{userContext.provableReputation.graffiti?.toString(16)}</div>
         </div>
 
         <div style={{ width: '70%' }}>

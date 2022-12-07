@@ -5,7 +5,6 @@
 .tooltip-popup {
     padding: 12px;
     background: black;
-    /* border: 2px solid black; */
     z-index: 100000;
     position: absolute;
     border-radius: 8px;
