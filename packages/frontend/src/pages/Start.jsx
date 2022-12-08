@@ -27,7 +27,7 @@ export default observer(() => {
                 <div style={{fontSize: '70px', fontWeight: '600'}}>Congratulations</div>
                 <div className='attester'>
                     <div style={{marginRight: '12px'}}>You have created a new UniRep attester </div>
-                    <Tooltip text='Info about attesters and users'/>
+                    <Tooltip text='Attesters define their own reputation systems and are able to attest to users, giving them reputation and graffiti.'/>
                 </div>
                 <p>Clicking 'Join' adds a user to this attester's membership group.</p>
                 <div className='join'>
@@ -38,7 +38,7 @@ export default observer(() => {
                             <p style={{ fontWeight: '400', lineHeight: '.5em'}}>USER ADDED!</p>
                             <Link to='/dashboard'><Button>Dashboard<span style={{marginLeft: '12px'}}><img src={require('../../public/arrow.svg')} alt="right arrow"/></span></Button></Link>
                         </div>
-                    )}          
+                    )}
                 </div>
                 <p>After joining, the member can interact with reputation in the attester's application. </p>
                 <p>Customize this landing page to onboard new users to your app.</p>
