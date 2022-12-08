@@ -163,7 +163,7 @@ export default observer(() => {
                 await userContext.requestReputation(
                   reqRep.posRep ?? 0,
                   reqRep.negRep ?? 0,
-                  reqRep.graffitiPreimage ?? 0,
+                  reqRep.graffitiPreImage ?? 0,
                   reqRep.nonce ?? 0
                 )
                 setReqRep({})
