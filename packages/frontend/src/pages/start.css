@@ -1,0 +1,33 @@
+p {
+    font-size: 14px;
+    font-weight: 200;
+    line-height: .8em;
+}
+
+.content {
+    position: absolute;
+    bottom: 0px;
+    padding: 0 0 40px 140px;
+    z-index: 10;
+}
+
+.attester {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.join {
+    width: 260px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.bg {
+    position: absolute;
+    right: 0px;
+    z-index: 0;
+}

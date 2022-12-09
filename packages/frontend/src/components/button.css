@@ -1,19 +1,19 @@
 .button-outer {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   user-select: none;
 }
 
 .button-inner {
-  border-radius: 24px;
+  border-radius: 32px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   user-select: none;
   text-align: center;
-  font-size: 16px;
-  border: 1px solid black;
-  padding: 4px 8px;
+  font-size: 20px;
+  background-color: #A0D8DB;
+  padding: 16px 48px;
   -webkit-user-select: none;
   -ms-user-select: none;
 }

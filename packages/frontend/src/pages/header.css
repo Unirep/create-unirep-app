@@ -1,0 +1,20 @@
+a:link {
+    margin-left: 80px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 80px 0 80px;
+}
+
+.links {
+    display: flex;
+}
