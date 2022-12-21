@@ -1,0 +1,120 @@
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 80px 80px 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-right: 12px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+hr {
+  margin: 10px 2px;
+}
+
+input {
+  width: 180px;
+  height: 40px;
+  text-align: center;
+  font-size: 20px;
+}
+
+select {
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+textarea {
+  width: 100%;
+  height: 147px;
+  margin-top: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 80px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 16px 16px 30px;
+  width: 30%;
+  height: fit-content;
+  font-weight: 200;
+  line-height: 32px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.stat {
+  font-weight: 600;
+}
+
+.graffiti {
+  font-weight: 600;
+  margin-left: 50px;
+  word-break: break-all;
+}
+
+.action-container {
+  width: 50%;
+  height: fit-content;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 16px 16px 30px;
+  margin: 0 0 20px 20px;
+  font-weight: 300;
+}
+
+.transition {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* .story {
+  margin: 4px 0px;
+}
+
+.end-divider {
+  color: gray;
+  text-align: center;
+  margin: 5px 0px;
+  border: 1px solid gray;
+  padding: 2px;
+}
+
+@keyframes highlight {
+  from {
+    background: yellow;
+  }
+
+  to {
+    background: rgba(0, 0, 0, 0);
+  }
+} */
