@@ -124,6 +124,7 @@ class User {
     }).then(r => r.json())
     await provider.waitForTransaction(data.hash)
     await this.userState.waitForSync()
+    await this.loadReputation()
     this.latestTransitionedEpoch = await this.userState.latestTransitionedEpoch()
   }
 
