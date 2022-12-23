@@ -11,7 +11,8 @@
     "install": "lerna bootstrap",
     "contracts": "yarn workspace @unirep-app/contracts run",
     "frontend": "yarn workspace @unirep-app/frontend run",
-    "relay": "yarn workspace @unirep-app/relay run"
+    "relay": "yarn workspace @unirep-app/relay run",
+    "start": "node scripts/start.mjs"
   },
   "devDependencies": {
     "lerna": "^6.0.1"
