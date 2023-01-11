@@ -90,7 +90,7 @@ class User {
 
   async requestReputation(posRep, negRep, graffitiPreImage, epkNonce) {
     const epochKeyProof = await this.userState.genEpochKeyProof({nonce: epkNonce})
-    const graffiti = hash1([`0x${Buffer.from(graffitiPreImage).toString('hex')}`])
+    const graffiti = hash1([`0x${Buffer.from(graffitiPreImage.toString()).toString('hex')}`])
     const data = await fetch(`${SERVER}/api/request`, {
       method: 'POST',
       headers: {
