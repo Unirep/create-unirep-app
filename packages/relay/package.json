@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@unirep-app/contracts": "1.0.0",
-    "@unirep/circuits": "^2.0.0-alpha-1",
+    "@unirep/circuits": "2.0.0-alpha-1",
     "@unirep/core": "2.0.0-alpha-2",
     "anondb": "^0.0.13",
     "dotenv": "^16.0.3",
