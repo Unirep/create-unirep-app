@@ -33,6 +33,9 @@ const relay = spawn('yarn relay start', { shell: true });
 relay.stderr.on('data', (data) => {
     console.error(`relay stderr: ${data}`)
 })
+relay.stdout.on('data', (data) => {
+    console.log(`${data}`)
+})
 relay.on('close', (code) => {
     console.error(`relay exit with code: ${code}`);
     hardhat.kill()
@@ -51,6 +54,9 @@ console.log('Relay started');
 const frontend = spawn('yarn frontend start', { shell: true });
 frontend.stderr.on('data', (data) => {
     console.error(`frontend stderr: ${data}`)
+})
+frontend.stdout.on('data', (data) => {
+    console.log(`${data}`)
 })
 frontend.on('close', (code) => {
     console.error(`frontend exit with code: ${code}`);
