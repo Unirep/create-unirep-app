@@ -1,4 +1,4 @@
-import { UserStateTransitionProof } from '@unirep/contracts'
+import { UserStateTransitionProof } from '@unirep/circuits'
 import TransactionManager from '../singletons/TransactionManager.mjs'
 
 export default ({ app, db, synchronizer }) => {

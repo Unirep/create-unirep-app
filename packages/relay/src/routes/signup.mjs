@@ -1,4 +1,4 @@
-import { SignupProof } from '@unirep/contracts'
+import { SignupProof } from '@unirep/circuits'
 import { ethers } from 'ethers'
 import { APP_ADDRESS } from '../config.mjs'
 import TransactionManager from '../singletons/TransactionManager.mjs'
