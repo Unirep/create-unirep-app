@@ -2329,7 +2329,7 @@
   dependencies:
     "@types/node" "*"
 
-"@unirep/circuits@2.0.0-alpha-1", "@unirep/circuits@^2.0.0-alpha-1":
+"@unirep/circuits@2.0.0-alpha-1":
   version "2.0.0-alpha-1"
   resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-alpha-1.tgz#43021a3c995be039a59415ff1c10e7030c3f6647"
   integrity sha512-fnFOJrKwb6i5WE2HkPwslYJaSAwuKK4p8KUecFO9s5k7+SO9LY3YoKy5ppJPanW9mxrswUd2SGyXOsbPI/9hmQ==

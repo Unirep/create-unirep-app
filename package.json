@@ -12,7 +12,9 @@
     "contracts": "yarn workspace @unirep-app/contracts run",
     "frontend": "yarn workspace @unirep-app/frontend run",
     "relay": "yarn workspace @unirep-app/relay run",
-    "start": "node scripts/start.mjs"
+    "start": "node scripts/start.mjs",
+    "linkUnirep": "sh ./scripts/linkUnirep.sh",
+    "copyUnirep": "sh ./scripts/copyUnirep.sh"
   },
   "devDependencies": {
     "lerna": "^6.0.1",
