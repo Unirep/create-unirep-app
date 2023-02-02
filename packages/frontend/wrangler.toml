@@ -1,4 +1,4 @@
-name = "unirep demo app"
+name = "unirep-demo"
 main = "worker.js"
 compatibility_date = "2022-10-18"
 
