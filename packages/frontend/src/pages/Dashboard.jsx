@@ -18,7 +18,7 @@ export default observer(() => {
       setRemainingTime('Loading...')
       return
     }
-    const time = userContext.userState.calcEpochRemainingTime()
+    const time = userContext.userState.sync.calcEpochRemainingTime()
     setRemainingTime(time)
   }
 
@@ -57,7 +57,7 @@ export default observer(() => {
           </div>
           <div className='info-item'>
             <div>Current epoch #</div>
-            <div className='stat'>{userContext.userState?.calcCurrentEpoch()}</div>
+            <div className='stat'>{userContext.userState?.sync.calcCurrentEpoch()}</div>
           </div>
           <div className='info-item'>
             <div>Remaining time</div>

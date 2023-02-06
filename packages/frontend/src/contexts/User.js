@@ -38,16 +38,14 @@ class User {
       localStorage.setItem('id', identity.serializeIdentity())
     }
 
-    const db = new MemoryConnector(constructSchema(schema))
     const userState = new UserState({
-      db,
       provider,
       prover,
       unirepAddress: UNIREP_ADDRESS,
       attesterId: APP_ADDRESS,
       _id: identity,
     })
-    await userState.start()
+    await userState.sync.start()
     await userState.waitForSync()
     this.hasSignedUp = await userState.hasSignedUp()
     this.userState = userState
@@ -58,7 +56,7 @@ class User {
   // TODO: make this non-async
   async epochKey(nonce) {
     if (!this.userState) return '0x'
-    const epoch = this.userState.calcCurrentEpoch()
+    const epoch = this.userState.sync.calcCurrentEpoch()
     const keys = await this.userState.getEpochKeys(epoch)
     const key = keys[nonce]
     return `0x${key.toString(16)}`
@@ -84,7 +82,7 @@ class User {
     await provider.waitForTransaction(data.hash)
     await this.userState.waitForSync()
     this.hasSignedUp = await this.userState.hasSignedUp()
-    this.latestTransitionedEpoch = this.userState.calcCurrentEpoch()
+    this.latestTransitionedEpoch = this.userState.sync.calcCurrentEpoch()
   }
 
   async requestReputation(posRep, negRep, graffitiPreImage, epkNonce) {
