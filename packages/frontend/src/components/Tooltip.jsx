@@ -45,8 +45,12 @@ export default observer(({ text, maxWidth, ...props }) => {
       {...props}
     >
       <div
-        onMouseEnter={!ui.isMobile && setShowingPopup.bind(null, true)}
-        onMouseLeave={!ui.isMobile && setShowingPopup.bind(null, false)}
+        onMouseEnter={
+          !ui.isMobile ? setShowingPopup.bind(null, true) : undefined
+        }
+        onMouseLeave={
+          !ui.isMobile ? setShowingPopup.bind(null, false) : undefined
+        }
       >
         <img src={require('../../public/info_icon.svg')} alt="info icon" />
       </div>

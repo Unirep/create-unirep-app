@@ -148,7 +148,7 @@ export default observer(() => {
             <p style={{ fontSize: '12px' }}>Requesting data with epoch key:</p>
             <p
               style={{
-                maxWidth: '500px',
+                minWidth: '400px',
                 wordBreak: 'break-all',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
