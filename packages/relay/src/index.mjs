@@ -32,5 +32,5 @@ const routeDir = path.join(__dirname, 'routes')
 const routes = await fs.promises.readdir(routeDir)
 for (const routeFile of routes) {
   const { default: route } = await import(path.join(routeDir, routeFile))
-  route({ app, db: synchronizer._db, synchronizer})
+  route({ app, db: synchronizer._db, synchronizer })
 }

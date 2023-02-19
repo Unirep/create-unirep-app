@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "type": "module",
   "description": "A CLI for bootstrapping a UniRep attester",
-  "keywords": ["ethereum", "zk", "unirep", "circom"],
+  "keywords": [
+    "ethereum",
+    "zk",
+    "unirep",
+    "circom"
+  ],
   "author": "UniRep Team <team@unirep.io>",
   "homepage": "https://developer.unirep.io",
   "license": "MIT",

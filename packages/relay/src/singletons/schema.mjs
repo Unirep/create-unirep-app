@@ -7,8 +7,8 @@ const _schema = [
     rows: [
       ['signedData', 'String'],
       ['address', 'String'],
-      ['nonce', 'Int']
-    ]
+      ['nonce', 'Int'],
+    ],
   },
   {
     name: 'AccountNonce',
@@ -17,7 +17,7 @@ const _schema = [
       ['address', 'String'],
       ['nonce', 'Int'],
     ],
-  }
+  },
 ]
 
 export default [...schema, ..._schema]

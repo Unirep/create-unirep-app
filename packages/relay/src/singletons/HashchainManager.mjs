@@ -12,7 +12,7 @@ class HashchainManager {
     await this.sync()
     for (;;) {
       // try to make a
-      await new Promise(r => setTimeout(r, 10000))
+      await new Promise((r) => setTimeout(r, 10000))
       await this.sync()
     }
   }
@@ -28,7 +28,10 @@ class HashchainManager {
         // for view only functions
         await synchronizer.provider.send('evm_mine', [])
       }
-      const isSealed = await synchronizer.unirepContract.attesterEpochSealed(synchronizer.attesterId, x)
+      const isSealed = await synchronizer.unirepContract.attesterEpochSealed(
+        synchronizer.attesterId,
+        x
+      )
       if (!isSealed) {
         console.log('executing epoch', x)
         // otherwise we need to make an ordered tree
@@ -43,7 +46,9 @@ class HashchainManager {
   async processEpochKeys(epoch) {
     // first check if there is an unprocessed hashchain
     const leafPreimages = await synchronizer.genEpochTreePreimages(epoch)
-    const { circuitInputs } = await BuildOrderedTree.buildInputsForLeaves(leafPreimages)
+    const { circuitInputs } = await BuildOrderedTree.buildInputsForLeaves(
+      leafPreimages
+    )
     const r = await synchronizer.prover.genProofAndPublicSignals(
       Circuit.buildOrderedTree,
       stringifyBigInts(circuitInputs)
@@ -54,12 +59,7 @@ class HashchainManager {
     )
     const calldata = synchronizer.unirepContract.interface.encodeFunctionData(
       'sealEpoch',
-      [
-        epoch,
-        synchronizer.attesterId,
-        publicSignals,
-        proof
-      ]
+      [epoch, synchronizer.attesterId, publicSignals, proof]
     )
     const hash = await TransactionManager.queueTransaction(
       synchronizer.unirepContract.address,
