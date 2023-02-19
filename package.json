@@ -14,10 +14,14 @@
     "relay": "yarn workspace @unirep-app/relay run",
     "start": "node scripts/start.mjs",
     "linkUnirep": "sh ./scripts/linkUnirep.sh",
-    "copyUnirep": "sh ./scripts/copyUnirep.sh"
+    "copyUnirep": "sh ./scripts/copyUnirep.sh",
+    "prettier ."
   },
   "devDependencies": {
     "lerna": "^6.0.1",
     "node-fetch": "^3.3.0"
+  },
+  "dependencies": {
+    "prettier": "^2.8.4"
   }
 }

@@ -23,6 +23,11 @@ class HashchainManager {
     const currentEpoch = synchronizer.calcCurrentEpoch()
     for (let x = this.latestSyncEpoch; x < currentEpoch; x++) {
       // check the owed keys
+      if (synchronizer.provider.network.chainId === 31337) {
+        // hardhat dev nodes need to have their state refreshed manually
+        // for view only functions
+        await synchronizer.provider.send('evm_mine', [])
+      }
       const isSealed = await synchronizer.unirepContract.attesterEpochSealed(synchronizer.attesterId, x)
       if (!isSealed) {
         console.log('executing epoch', x)

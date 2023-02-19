@@ -24,5 +24,7 @@
     "@unirep/contracts": "2.0.0-alpha-2",
     "hardhat": "^2.12.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "poseidon-solidity": "^0.0.3"
+  }
 }

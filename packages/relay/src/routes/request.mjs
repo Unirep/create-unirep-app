@@ -10,7 +10,7 @@ export default ({ app, db, synchronizer }) => {
   app.post('/api/request', async (req, res) => {
 
     try {
-      const { posRep, negRep, graffiti, publicSignals, proof } = req.body
+      const { reqData, publicSignals, proof } = req.body
 
       const epochKeyProof = new EpochKeyProof(publicSignals, proof, synchronizer.prover)
       const valid = await epochKeyProof.verify()
@@ -19,13 +19,22 @@ export default ({ app, db, synchronizer }) => {
         return
       }
       const epoch = await synchronizer.loadCurrentEpoch()
-
       const appContract = new ethers.Contract(APP_ADDRESS, UnirepApp.abi)
-      // const contract =
-      const calldata = appContract.interface.encodeFunctionData(
-        'submitAttestation',
-        [epoch, epochKeyProof.epochKey, posRep, negRep, graffiti]
-      )
+
+      const keys = Object.keys(reqData)
+      let calldata
+      if (keys.length === 1) {
+        calldata = appContract.interface.encodeFunctionData(
+          'submitAttestation',
+          [epochKeyProof.epochKey, epoch, keys[0], reqData[keys[0]]]
+        )
+      } else if (keys.length > 1) {
+        calldata = appContract.interface.encodeFunctionData(
+          'submitManyAttestations',
+          [epochKeyProof.epochKey, epoch, keys, keys.map(k => reqData[k])]
+        )
+      }
+
       const hash = await TransactionManager.queueTransaction(
         APP_ADDRESS,
         calldata,

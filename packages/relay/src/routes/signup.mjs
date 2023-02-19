@@ -22,9 +22,7 @@ export default ({ app, db, synchronizer }) => {
         res.status(400).json({ error: 'Wrong epoch' })
         return
       }
-      // make a transaction lil bish
       const appContract = new ethers.Contract(APP_ADDRESS, UnirepApp.abi)
-      // const contract =
       const calldata = appContract.interface.encodeFunctionData(
         'userSignUp',
         [signupProof.publicSignals, signupProof.proof]

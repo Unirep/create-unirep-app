@@ -1,7 +1,7 @@
 h1 {
   font-size: 48px;
   font-weight: 700;
-  margin: 80px 80px 20px;
+  margin: 40px 80px 20px;
 }
 
 h2 {
@@ -52,7 +52,7 @@ textarea {
   border: 1px solid black;
   border-radius: 8px;
   padding: 16px 16px 30px;
-  width: 30%;
+  min-width: 300px;
   height: fit-content;
   font-weight: 200;
   line-height: 32px;
@@ -62,21 +62,14 @@ textarea {
   display: flex;
   flex-direction:row;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
 }
 
 .stat {
   font-weight: 600;
 }
 
-.graffiti {
-  font-weight: 600;
-  margin-left: 50px;
-  word-break: break-all;
-}
-
 .action-container {
-  width: 50%;
   height: fit-content;
   border: 1px solid black;
   border-radius: 8px;
@@ -88,6 +81,7 @@ textarea {
 .transition {
   width: auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
