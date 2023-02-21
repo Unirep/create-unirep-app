@@ -6,13 +6,9 @@ WORKDIR /src
 
 RUN yarn && rm -rf packages/frontend
 
-RUN rm -rf /src/packages/relay/node_modules/@unirep
-RUN rm -rf /src/packages/contracts/node_modules/@unirep
-COPY packages/relay/node_modules/@unirep /src/packages/relay/node_modules/@unirep
-COPY packages/contracts/node_modules/@unirep /src/packages/contracts/node_modules/@unirep
+RUN sh scripts/loadKeys.sh
 
-RUN rm -rf /src/packages/relay/node_modules/@unirep/circuits/zksnarkBuild
-RUN rm -rf /src/packages/contracts/node_modules/@unirep/circuits/zksnarkBuild
+RUN rm -r packages/relay/keys/buildOrdered*
 
 FROM node:16-buster
 
