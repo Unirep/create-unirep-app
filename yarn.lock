@@ -543,7 +543,7 @@
     elliptic "6.5.4"
     hash.js "1.1.7"
 
-"@ethersproject/solidity@5.7.0":
+"@ethersproject/solidity@5.7.0", "@ethersproject/solidity@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/solidity/-/solidity-5.7.0.tgz#5e9c911d8a2acce2a5ebb48a5e2e0af20b631cb8"
   integrity sha512-HmabMd2Dt/raavyaGukF4XxizWKhKQ24DoLtdNbBmNKUOPqwjsKQSdV9GQtj9CBEea9DlzETlVER1gYeXXBGaA==
@@ -2329,42 +2329,45 @@
   dependencies:
     "@types/node" "*"
 
-"@unirep/circuits@2.0.0-alpha-1":
-  version "2.0.0-alpha-1"
-  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-alpha-1.tgz#43021a3c995be039a59415ff1c10e7030c3f6647"
-  integrity sha512-fnFOJrKwb6i5WE2HkPwslYJaSAwuKK4p8KUecFO9s5k7+SO9LY3YoKy5ppJPanW9mxrswUd2SGyXOsbPI/9hmQ==
+"@unirep/circuits@2.0.0-beta-1":
+  version "2.0.0-beta-1"
+  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-beta-1.tgz#509032805a061ce504352a65c5bc1b8c21a8d71f"
+  integrity sha512-JxIRGuTgMKsjNMpsrbJvG36TwmkYxi3uz6aiokmpXGf91NP+X2ZtB6ZNqSUvJv8iMvyAjfCSPfmm/zAQ29/4yA==
   dependencies:
-    "@unirep/utils" "2.0.0-alpha-1"
+    "@ethersproject/solidity" "^5.7.0"
+    "@unirep/utils" "2.0.0-beta-1"
     snarkjs "^0.5.0"
 
-"@unirep/contracts@2.0.0-alpha-2":
-  version "2.0.0-alpha-2"
-  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0-alpha-2.tgz#711a7b5069af382daf1e8d2d602ed36435184628"
-  integrity sha512-kNb0SNhOYFsPXWKZnW9xQfT+lzv48T2W/Bss1TgxuCa8mw79RPN9pleaTxbDNhlGSBxB3jGONY+ixRQNOSdp+Q==
+"@unirep/contracts@2.0.0-beta-1":
+  version "2.0.0-beta-1"
+  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0-beta-1.tgz#f0b6dc41932fbf9fe56b889612f5f80834154322"
+  integrity sha512-yFb4C0/74ePhCMtQYfj+S0KvjCeq8pZySpz9IISn/98IlTkF2rz1gu3leuBBhTor/JIXBV07Em/FqqZThTuxEQ==
   dependencies:
-    "@unirep/circuits" "2.0.0-alpha-1"
-    "@unirep/utils" "2.0.0-alpha-1"
+    "@unirep/circuits" "2.0.0-beta-1"
+    "@unirep/utils" "2.0.0-beta-1"
     "@zk-kit/incremental-merkle-tree.sol" "^1.2.0"
     circomlibjs "0.0.8"
     ethers "^5.6.8"
+    poseidon-solidity "^0.0.3"
     solc "^0.8.16"
 
-"@unirep/core@2.0.0-alpha-2":
-  version "2.0.0-alpha-2"
-  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0-alpha-2.tgz#e45eaf6917fb7b71785ab102dce0bf3d6527a037"
-  integrity sha512-cvUUOKOga1F3D8FdhjEUtbHoYU3wOyQijavThPnK3ndq4OKJ5sc6Ixwgz1Z2owoxWZ1l+2NTN7oLqiPPcjENNQ==
+"@unirep/core@2.0.0-beta-1":
+  version "2.0.0-beta-1"
+  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0-beta-1.tgz#375993954c574516a804103883a44d3db8ef906d"
+  integrity sha512-cUsNDY/wHriSpvFwm5Uxokpjz09JHSngejqepl1wL2N0pIEmIM3470ZB3pN6DK4ZyA3iECdehomC3iINgKYuWg==
   dependencies:
-    "@unirep/circuits" "2.0.0-alpha-1"
-    "@unirep/contracts" "2.0.0-alpha-2"
-    "@unirep/utils" "2.0.0-alpha-1"
+    "@unirep/circuits" "2.0.0-beta-1"
+    "@unirep/contracts" "2.0.0-beta-1"
+    "@unirep/utils" "2.0.0-beta-1"
     anondb "^0.0.16"
+    async-lock "^1.4.0"
     ethers "^5.6.8"
     nanoid "3"
 
-"@unirep/utils@2.0.0-alpha-1":
-  version "2.0.0-alpha-1"
-  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0-alpha-1.tgz#d660a145ed9b630f5b73cdbb2986292362f5a43f"
-  integrity sha512-PueCGuertErzPOzf5idPrKVt5g8/4LCCGH7PqfFUIu0MJ1sz+dNNhrEGF+1+jGl1tzz6NXQuTVb9KxwSZVsTMw==
+"@unirep/utils@2.0.0-beta-1":
+  version "2.0.0-beta-1"
+  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0-beta-1.tgz#e18f96bcc6f693d7dbf5b0592a1e4a622459469f"
+  integrity sha512-xl9MRxFTlAHoJqsgrHA50gms1R+T0DmmyRQbOBO/l87IelhgXtFlPuY4N3Md1osRczSH4BV4t4NDhRAu8sDq8w==
   dependencies:
     "@zk-kit/incremental-merkle-tree" "^0.4.3"
     maci-crypto "^0.9.1"
@@ -2879,7 +2882,7 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
-async-lock@^1.2.11:
+async-lock@^1.2.11, async-lock@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/async-lock/-/async-lock-1.4.0.tgz#c8b6630eff68fbbdd8a5b6eb763dac3bfbb8bf02"
   integrity sha512-coglx5yIWuetakm3/1dsX9hxCNox22h7+V80RQOu2XUUMidtArxKoZoOtHUPuR84SycKTXzgGzAUR5hJxujyJQ==

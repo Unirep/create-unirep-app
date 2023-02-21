@@ -139,7 +139,7 @@ export default observer(() => {
                 <option value="2">2</option>
               </select>
               <p style={{ fontSize: '12px' }}>Requesting data with epoch key:</p>
-              <p style={{ maxWidth: '500px', wordBreak: 'break-all', overflow: 'hidden', textOverflow: 'ellipsis'}}>{userContext.epochKey(reqInfo.nonce ?? 0)}</p>
+              <p style={{ maxWidth: '650px', wordBreak: 'break-all', overflow: 'hidden', textOverflow: 'ellipsis'}}>{userContext.epochKey(reqInfo.nonce ?? 0)}</p>
 
               <Button onClick={async () => {
                 if (userContext.userState.sync.calcCurrentEpoch() !== await userContext.userState.latestTransitionedEpoch()) {

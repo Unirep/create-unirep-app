@@ -25,6 +25,5 @@ export default ({ app, db, synchronizer }) => {
     } catch (error) {
       res.status(500).json({ error })
     }
-
   })
 }

@@ -7,6 +7,7 @@ import synchronizer from './AppSynchronizer.mjs'
 class HashchainManager {
   latestSyncEpoch = 0
   async startDaemon() {
+    return
     // first sync up all the historical epochs
     // then start watching
     await this.sync()
