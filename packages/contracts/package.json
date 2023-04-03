@@ -9,9 +9,9 @@
   "repository": "git+https://github.com/vivianjeng/create-unirep-app.git",
   "scripts": {
     "build": "hardhat compile && yarn abi",
-    "abi": "node scripts/abi",
+    "abi": "ts-node scripts/abi",
     "hardhat": "hardhat",
-    "deploy": "hardhat run scripts/deploy.mjs",
+    "deploy": "hardhat run scripts/deploy.ts",
     "test": "hardhat test test/UnirepApp.test.js --network hardhat"
   },
   "bugs": {
@@ -21,8 +21,13 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.0",
     "@openzeppelin/contracts": "^4.7.3",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "@types/node": "^18.15.11",
     "@unirep/contracts": "2.0.0-alpha-2",
-    "hardhat": "^2.12.0"
-  },
-  "dependencies": {}
+    "hardhat": "^2.12.0",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.1",
+    "typescript": "^5.0.3"
+  }
 }

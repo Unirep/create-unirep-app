@@ -1,6 +1,8 @@
-require('@nomiclabs/hardhat-ethers')
+import "@typechain/hardhat";
+import "@nomiclabs/hardhat-ethers";
 
-module.exports = {
+
+export default {
     defaultNetwork: 'local',
     networks: {
         hardhat: {
