@@ -30,7 +30,7 @@ async function main() {
 
   TransactionManager.configure(PRIVATE_KEY, provider, synchronizer._db)
   await TransactionManager.start()
-  
+
   HashchainManager.configure(synchronizer);
   HashchainManager.startDaemon()
   
@@ -50,7 +50,7 @@ async function main() {
   const routes = await fs.promises.readdir(routeDir)
   for (const routeFile of routes) {
     const { default: route } = await import(path.join(routeDir, routeFile))
-    route({ app, db: synchronizer._db, synchronizer})
+    route(app, synchronizer._db, synchronizer)
   }  
 }
 

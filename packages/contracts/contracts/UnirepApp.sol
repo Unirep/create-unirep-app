@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
-import {Unirep} from "@unirep/contracts/Unirep.sol";
+import { Unirep } from "@unirep/contracts/Unirep.sol";
 
 // Uncomment this line to use console.log
 // import "hardhat/console.sol";
@@ -24,20 +24,29 @@ contract UnirepApp {
         unirep.userSignUp(publicSignals, proof);
     }
 
-    // submit attestations
-    function submitAttestation(
-        uint256 targetEpoch,
+    function submitManyAttestations(
         uint256 epochKey,
-        uint256 posRep,
-        uint256 negRep,
-        uint256 graffiti
+        uint256 targetEpoch,
+        uint[] calldata fieldIndices,
+        uint[] calldata vals
     ) public {
-        unirep.submitAttestation(
-            targetEpoch,
+        require(fieldIndices.length == vals.length, 'arrmismatch');
+        for (uint8 x = 0; x < fieldIndices.length; x++) {
+            unirep.attest(epochKey, targetEpoch, fieldIndices[x], vals[x]);
+        }
+    }
+
+    function submitAttestation(
+        uint256 epochKey,
+        uint256 targetEpoch,
+        uint256 fieldIndex,
+        uint256 val
+    ) public {
+        unirep.attest(
             epochKey,
-            posRep,
-            negRep,
-            graffiti
+            targetEpoch,
+            fieldIndex,
+            val
         );
     }
 }

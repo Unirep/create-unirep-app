@@ -13,18 +13,9 @@ class User {
   currentEpoch
   latestTransitionedEpoch
   hasSignedUp = false
-  reputation = {
-    posRep: 0,
-    negRep: 0,
-    graffiti: 0,
-    timestamp: 0,
-  }
-  provableReputation = {
-    posRep: 0,
-    negRep: 0,
-    graffiti: 0,
-    timestamp: 0,
-  }
+  data = []
+  provableData = []
+  userState = null
 
   constructor() {
     makeAutoObservable(this)
@@ -38,36 +29,40 @@ class User {
       localStorage.setItem('id', identity.serializeIdentity())
     }
 
-    const db = new MemoryConnector(constructSchema(schema))
     const userState = new UserState({
-      db,
       provider,
       prover,
       unirepAddress: UNIREP_ADDRESS,
       attesterId: APP_ADDRESS,
       _id: identity,
     })
-    await userState.start()
+    await userState.sync.start()
+    this.userState = userState
     await userState.waitForSync()
     this.hasSignedUp = await userState.hasSignedUp()
-    this.userState = userState
     await this.loadReputation()
     this.latestTransitionedEpoch = await this.userState.latestTransitionedEpoch()
   }
 
-  // TODO: make this non-async
-  async epochKey(nonce) {
+  get fieldCount() {
+    return this.userState?.sync.settings.fieldCount
+  }
+
+  get sumFieldCount() {
+    return this.userState?.sync.settings.sumFieldCount
+  }
+
+  epochKey(nonce) {
     if (!this.userState) return '0x'
-    const epoch = this.userState.calcCurrentEpoch()
-    const keys = await this.userState.getEpochKeys(epoch)
+    const epoch = this.userState.sync.calcCurrentEpoch()
+    const keys = this.userState.getEpochKeys(epoch)
     const key = keys[nonce]
     return `0x${key.toString(16)}`
   }
 
   async loadReputation() {
-    const epoch = this.userState.calcCurrentEpoch()
-    this.reputation = await this.userState.getRepByAttester(null, epoch + 1)
-    this.provableReputation = await this.userState.getRepByAttester()
+    this.data = await this.userState.getData()
+    this.provableData = await this.userState.getProvableData()
   }
 
   async signup(message) {
@@ -85,21 +80,27 @@ class User {
     await provider.waitForTransaction(data.hash)
     await this.userState.waitForSync()
     this.hasSignedUp = await this.userState.hasSignedUp()
-    this.latestTransitionedEpoch = this.userState.calcCurrentEpoch()
+    this.latestTransitionedEpoch = this.userState.sync.calcCurrentEpoch()
   }
 
-  async requestReputation(posRep, negRep, graffitiPreImage, epkNonce) {
+  async requestReputation(reqData, epkNonce) {
+    for (const key of Object.keys(reqData)) {
+      if (reqData[key] === '') {
+        delete reqData[key]
+        continue
+      }
+      if (+key > this.sumFieldCount && +key % 2 !== this.sumFieldCount % 2) {
+        throw new Error('Cannot change timestamp field')
+      }
+    }
     const epochKeyProof = await this.userState.genEpochKeyProof({nonce: epkNonce})
-    const graffiti = graffitiPreImage ? hash1([`0x${Buffer.from(graffitiPreImage.toString()).toString('hex')}`]) : 0
     const data = await fetch(`${SERVER}/api/request`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify(stringifyBigInts({
-        posRep,
-        negRep,
-        graffiti,
+        reqData,
         publicSignals: epochKeyProof.publicSignals,
         proof: epochKeyProof.proof,
       }))
@@ -110,6 +111,10 @@ class User {
   }
 
   async stateTransition() {
+    const sealed = await this.userState.sync.isEpochSealed(await this.userState.latestTransitionedEpoch())
+    if (!sealed) {
+      throw new Error('From epoch is not yet sealed')
+    }
     await this.userState.waitForSync()
     const signupProof = await this.userState.genUserStateTransitionProof()
     const data = await fetch(`${SERVER}/api/transition`, {

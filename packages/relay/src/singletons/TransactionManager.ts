@@ -55,19 +55,18 @@ export class TransactionManager {
 
     async tryBroadcastTransaction(signedData: string) {
         if (!this.wallet) throw new Error('Not initialized')
+        const hash = ethers.utils.keccak256(signedData)
         try {
-            console.log(`Sending tx ${ethers.utils.keccak256(signedData)}`)
+            console.log(`Sending tx ${hash}`)
             await this.wallet.provider.sendTransaction(signedData)
             return true
         } catch (err: any) {
-            if (
-                err
-                    .toString()
-                    .indexOf('VM Exception while processing transaction') !== -1
-            ) {
+            const tx = await this.wallet.provider.getTransaction(hash)
+            if (tx) {
                 // if the transaction is reverted the nonce is still used, so we return true
                 return true
-            } else if (
+            }
+            if (
                 err
                     .toString()
                     .indexOf(

@@ -1,4 +1,4 @@
-import { SignupProof } from '@unirep/contracts'
+import { SignupProof } from '@unirep/circuits'
 import { ethers } from 'ethers'
 import { Express } from "express";
 import { DB } from "anondb/node";

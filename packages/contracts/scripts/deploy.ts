@@ -23,7 +23,7 @@ async function main() {
   console.log(`Unirep app with epoch length ${epochLength} deployed to ${app.address}`);
   
   const config =
-  `export default = {
+  `export default {
     UNIREP_ADDRESS: '${unirep.address}',
     APP_ADDRESS: '${app.address}',
     ETH_PROVIDER_URL: '${hardhat.network.config.url ?? ''}',

@@ -32,7 +32,13 @@ export default observer(() => {
                 <p>Clicking 'Join' adds a user to this attester's membership group.</p>
                 <div className='join'>
                     {!userContext.hasSignedUp ? (
-                        <Button onClick={() => userContext.signup()}>Join<span style={{marginLeft: '12px'}}><img src={require('../../public/arrow.svg')} alt="right arrow"/></span></Button>
+                        <Button onClick={() => {
+                            if (!userContext.userState) return
+                            return userContext.signup()
+                        }}>
+                        {userContext.userState ? 'Join' : 'Initializing...'}
+                        <span style={{marginLeft: '12px'}}>
+                        <img src={require('../../public/arrow.svg')} alt="right arrow"/></span></Button>
                     ) : (
                         <div>
                             <p style={{ fontWeight: '400', lineHeight: '.5em'}}>USER ADDED!</p>
