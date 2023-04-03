@@ -1,12 +1,13 @@
 import { SignupProof } from '@unirep/contracts'
 import { ethers } from 'ethers'
-import { APP_ADDRESS } from '../config.mjs'
-import TransactionManager from '../singletons/TransactionManager.mjs'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const UnirepApp = require("@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json")
+import { Express } from "express";
+import { DB } from "anondb/node";
+import { Synchronizer } from "@unirep/core";
+import { APP_ADDRESS } from '../config'
+import TransactionManager from '../singletons/TransactionManager'
+import UNIREP_APP from "@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json"
 
-export default ({ app, db, synchronizer }) => {
+export default (app: Express, db: DB, synchronizer: Synchronizer) => {
   app.post('/api/signup', async (req, res) => {
 
     try {
@@ -18,12 +19,12 @@ export default ({ app, db, synchronizer }) => {
         return
       }
       const currentEpoch = synchronizer.calcCurrentEpoch()
-      if (currentEpoch !== Number(BigInt(signupProof.epoch))) {
+      if (currentEpoch !== Number(signupProof.epoch)) {
         res.status(400).json({ error: 'Wrong epoch' })
         return
       }
       // make a transaction lil bish
-      const appContract = new ethers.Contract(APP_ADDRESS, UnirepApp.abi)
+      const appContract = new ethers.Contract(APP_ADDRESS, UNIREP_APP.abi)
       // const contract =
       const calldata = appContract.interface.encodeFunctionData(
         'userSignUp',

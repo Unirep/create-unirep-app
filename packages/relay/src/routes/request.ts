@@ -1,12 +1,13 @@
 import { ethers } from 'ethers'
+import { Express } from "express";
+import { DB } from "anondb/node";
+import { Synchronizer } from "@unirep/core";
 import { EpochKeyProof } from '@unirep/contracts'
-import { APP_ADDRESS } from '../config.mjs'
-import TransactionManager from '../singletons/TransactionManager.mjs'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const UnirepApp = require("@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json")
+import { APP_ADDRESS } from '../config'
+import TransactionManager from '../singletons/TransactionManager'
+import UNIREP_APP from "@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json"
 
-export default ({ app, db, synchronizer }) => {
+export default (app: Express, db: DB, synchronizer: Synchronizer) => {
   app.post('/api/request', async (req, res) => {
 
     try {
@@ -20,7 +21,7 @@ export default ({ app, db, synchronizer }) => {
       }
       const epoch = await synchronizer.loadCurrentEpoch()
 
-      const appContract = new ethers.Contract(APP_ADDRESS, UnirepApp.abi)
+      const appContract = new ethers.Contract(APP_ADDRESS, UNIREP_APP.abi)
       // const contract =
       const calldata = appContract.interface.encodeFunctionData(
         'submitAttestation',
@@ -31,7 +32,7 @@ export default ({ app, db, synchronizer }) => {
         calldata,
       )
       res.json({ hash })
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({ error })
     }
 

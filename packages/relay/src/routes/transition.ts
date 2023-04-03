@@ -1,7 +1,10 @@
 import { UserStateTransitionProof } from '@unirep/contracts'
-import TransactionManager from '../singletons/TransactionManager.mjs'
+import TransactionManager from '../singletons/TransactionManager'
+import { Express } from "express";
+import { DB } from "anondb/node";
+import { Synchronizer } from "@unirep/core";
 
-export default ({ app, db, synchronizer }) => {
+export default (app: Express, db: DB, synchronizer: Synchronizer) => {
   app.post('/api/transition', async (req, res) => {
 
     try {
@@ -22,7 +25,7 @@ export default ({ app, db, synchronizer }) => {
         calldata
       )
       res.json({ hash })
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({ error })
     }
 

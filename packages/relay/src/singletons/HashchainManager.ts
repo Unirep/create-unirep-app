@@ -1,8 +1,14 @@
-import TransactionManager from './TransactionManager.mjs'
-import synchronizer from './AppSynchronizer.mjs'
+import TransactionManager from './TransactionManager'
+import { Synchronizer } from "@unirep/core";
 
 class HashchainManager {
   latestSyncEpoch = 0
+  synchronizer?: Synchronizer;
+
+  configure(_synchronizer: Synchronizer) {
+    this.synchronizer = _synchronizer;
+  }
+
   async startDaemon() {
     // first sync up all the historical epochs
     // then start watching
@@ -15,9 +21,11 @@ class HashchainManager {
   }
 
   async sync() {
+    if (!this.synchronizer) throw new Error("Not initialized");
+
     // Make sure we're synced up
-    await synchronizer.waitForSync()
-    const currentEpoch = synchronizer.calcCurrentEpoch()
+    await this.synchronizer.waitForSync()
+    const currentEpoch = this.synchronizer.calcCurrentEpoch()
     for (let x = this.latestSyncEpoch; x <= currentEpoch; x++) {
       // check the owed keys
       const [
@@ -25,14 +33,14 @@ class HashchainManager {
         processedHashchains,
         totalHashchains,
       ] = await Promise.all([
-        synchronizer.unirepContract.attesterOwedEpochKeys(synchronizer.attesterId, x),
-        synchronizer.unirepContract.attesterHashchainProcessedCount(synchronizer.attesterId, x),
-        synchronizer.unirepContract.attesterHashchainTotalCount(synchronizer.attesterId, x),
+        this.synchronizer.unirepContract.attesterOwedEpochKeys(this.synchronizer.attesterId, x),
+        this.synchronizer.unirepContract.attesterHashchainProcessedCount(this.synchronizer.attesterId, x),
+        this.synchronizer.unirepContract.attesterHashchainTotalCount(this.synchronizer.attesterId, x),
       ])
       if (
         BigInt(owedKeys.toString()) === BigInt(0) &&
         BigInt(processedHashchains.toString()) === BigInt(totalHashchains.toString()) &&
-        synchronizer.calcCurrentEpoch() !== x
+        this.synchronizer.calcCurrentEpoch() !== x
       ) {
         this.latestSyncEpoch = x
         console.log('processed epoch', x)
@@ -40,8 +48,8 @@ class HashchainManager {
       }
       if (
         BigInt(processedHashchains.toString()) === BigInt(totalHashchains.toString()) &&
-        BigInt(owedKeys.toString()) < BigInt(synchronizer.settings.aggregateKeyCount) &&
-        synchronizer.calcCurrentEpoch() === x
+        BigInt(owedKeys.toString()) < BigInt(this.synchronizer.settings.aggregateKeyCount) &&
+        this.synchronizer.calcCurrentEpoch() === x
       ) {
         // wait until there are more epoch keys to process
         // or the current epoch ends
@@ -56,27 +64,29 @@ class HashchainManager {
   }
 
   async processEpochKeys(epoch) {
+    if (!this.synchronizer) throw new Error("Not initialized");
+
     // first check if there is an unprocessed hashchain
     {
-      const processedHashchains = await synchronizer.unirepContract.attesterHashchainProcessedCount(synchronizer.attesterId, epoch)
-      const totalHashchains = await synchronizer.unirepContract.attesterHashchainTotalCount(synchronizer.attesterId, epoch)
+      const processedHashchains = await this.synchronizer.unirepContract.attesterHashchainProcessedCount(this.synchronizer.attesterId, epoch)
+      const totalHashchains = await this.synchronizer.unirepContract.attesterHashchainTotalCount(this.synchronizer.attesterId, epoch)
       if (BigInt(processedHashchains.toString()) === BigInt(totalHashchains.toString())) {
         // build a hashchain
-        const calldata = synchronizer.unirepContract.interface.encodeFunctionData(
+        const calldata = this.synchronizer.unirepContract.interface.encodeFunctionData(
           'buildHashchain',
-          [synchronizer.attesterId, epoch]
+          [this.synchronizer.attesterId, epoch]
         )
         const hash = await TransactionManager.queueTransaction(
-          synchronizer.unirepContract.address,
+          this.synchronizer.unirepContract.address,
           calldata
         )
-        await synchronizer.provider.waitForTransaction(hash)
+        await this.synchronizer.provider.waitForTransaction(hash)
       }
     }
 
-    const totalHashchains = await synchronizer.unirepContract.attesterHashchainTotalCount(synchronizer.attesterId, epoch)
-    const hashchain = await synchronizer.unirepContract.attesterHashchain(
-      synchronizer.attesterId,
+    const totalHashchains = await this.synchronizer.unirepContract.attesterHashchainTotalCount(this.synchronizer.attesterId, epoch)
+    const hashchain = await this.synchronizer.unirepContract.attesterHashchain(
+      this.synchronizer.attesterId,
       epoch,
       BigInt(totalHashchains.toString()) - BigInt(1)
     )
@@ -84,7 +94,7 @@ class HashchainManager {
       // it already got processed somehow
       return
     }
-    const aggProof = await synchronizer.genAggregateEpochKeysProof({
+    const aggProof = await this.synchronizer.genAggregateEpochKeysProof({
       epochKeys: hashchain.epochKeys,
       hashchainIndex: hashchain.index,
       epoch,
@@ -94,15 +104,15 @@ class HashchainManager {
       throw new Error('Invalid aggregate proof generated')
     }
     const { publicSignals, proof } = aggProof
-    const calldata = synchronizer.unirepContract.interface.encodeFunctionData(
+    const calldata = this.synchronizer.unirepContract.interface.encodeFunctionData(
       'processHashchain',
       [publicSignals, proof]
     )
     const hash = await TransactionManager.queueTransaction(
-      synchronizer.unirepContract.address,
+      this.synchronizer.unirepContract.address,
       calldata
     )
-    await synchronizer.provider.waitForTransaction(hash)
+    await this.synchronizer.provider.waitForTransaction(hash)
   }
 }
 
