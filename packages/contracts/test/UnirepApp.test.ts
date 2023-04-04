@@ -1,12 +1,11 @@
-const { ethers } = require('hardhat')
-const { deployUnirep } = require('@unirep/contracts/deploy')
-const { genRandomSalt, ZkIdentity, stringifyBigInts } = require('@unirep/utils')
-const { schema, UserState } = require('@unirep/core')
-const { SQLiteConnector } = require('anondb/node')
-const { Circuit, BuildOrderedTree } = require('@unirep/circuits')
-const {
-  defaultProver: prover,
-} = require('@unirep/circuits/provers/defaultProver')
+//@ts-ignore
+import { ethers } from 'hardhat'
+import { deployUnirep } from '@unirep/contracts/deploy'
+import { genRandomSalt, ZkIdentity, stringifyBigInts } from '@unirep/utils'
+import { schema, UserState } from '@unirep/core'
+import { SQLiteConnector } from 'anondb/node'
+import { Circuit, BuildOrderedTree } from '@unirep/circuits'
+import { defaultProver as prover } from '@unirep/circuits/provers/defaultProver'
 
 async function genUserState(id, app) {
   // generate a user state
@@ -19,8 +18,7 @@ async function genUserState(id, app) {
     unirepAddress,
     provider: ethers.provider,
     attesterId,
-    _id: id,
-  })
+  }, id)
   await userState.sync.start()
   await userState.waitForSync()
   return userState
