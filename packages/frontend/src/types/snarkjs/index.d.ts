@@ -1,1 +1,1 @@
-declare module "snarkjs";
+declare module 'snarkjs'

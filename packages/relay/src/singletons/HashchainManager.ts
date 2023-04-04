@@ -1,14 +1,14 @@
-import { Synchronizer } from "@unirep/core";
+import { Synchronizer } from '@unirep/core'
 import { Circuit, BuildOrderedTree } from '@unirep/circuits'
 import { stringifyBigInts } from '@unirep/utils'
 import TransactionManager from './TransactionManager'
 
 class HashchainManager {
   latestSyncEpoch = 0
-  synchronizer?: Synchronizer;
+  synchronizer?: Synchronizer
 
   configure(_synchronizer: Synchronizer) {
-    this.synchronizer = _synchronizer;
+    this.synchronizer = _synchronizer
   }
 
   async startDaemon() {
@@ -18,13 +18,13 @@ class HashchainManager {
     await this.sync()
     for (;;) {
       // try to make a
-      await new Promise(r => setTimeout(r, 10000))
+      await new Promise((r) => setTimeout(r, 10000))
       await this.sync()
     }
   }
 
   async sync() {
-    if (!this.synchronizer) throw new Error("Not initialized");
+    if (!this.synchronizer) throw new Error('Not initialized')
 
     // Make sure we're synced up
     await this.synchronizer.waitForSync()
@@ -36,7 +36,11 @@ class HashchainManager {
         // for view only functions
         await this.synchronizer.provider.send('evm_mine', [])
       }
-      const isSealed = await this.synchronizer.unirepContract.attesterEpochSealed(this.synchronizer.attesterId, x)
+      const isSealed =
+        await this.synchronizer.unirepContract.attesterEpochSealed(
+          this.synchronizer.attesterId,
+          x
+        )
       if (!isSealed) {
         console.log('executing epoch', x)
         // otherwise we need to make an ordered tree
@@ -49,11 +53,13 @@ class HashchainManager {
   }
 
   async processEpochKeys(epoch) {
-    if (!this.synchronizer) throw new Error("Not initialized");
+    if (!this.synchronizer) throw new Error('Not initialized')
 
     // first check if there is an unprocessed hashchain
     const leafPreimages = await this.synchronizer.genEpochTreePreimages(epoch)
-    const { circuitInputs } = await BuildOrderedTree.buildInputsForLeaves(leafPreimages)
+    const { circuitInputs } = await BuildOrderedTree.buildInputsForLeaves(
+      leafPreimages
+    )
     const r = await this.synchronizer.prover.genProofAndPublicSignals(
       Circuit.buildOrderedTree,
       stringifyBigInts(circuitInputs)
@@ -62,15 +68,11 @@ class HashchainManager {
       r.publicSignals,
       r.proof
     )
-    const calldata = this.synchronizer.unirepContract.interface.encodeFunctionData(
-      'sealEpoch',
-      [
-        epoch,
-        this.synchronizer.attesterId,
-        publicSignals,
-        proof
-      ]
-    )
+    const calldata =
+      this.synchronizer.unirepContract.interface.encodeFunctionData(
+        'sealEpoch',
+        [epoch, this.synchronizer.attesterId, publicSignals, proof]
+      )
     const hash = await TransactionManager.queueTransaction(
       this.synchronizer.unirepContract.address,
       calldata

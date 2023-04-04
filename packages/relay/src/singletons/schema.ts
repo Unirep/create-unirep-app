@@ -1,6 +1,6 @@
 import { schema } from '@unirep/core'
-import { TableData } from "anondb/node";
-import { nanoid } from "nanoid";
+import { TableData } from 'anondb/node'
+import { nanoid } from 'nanoid'
 
 const _schema = [
   {
@@ -9,8 +9,8 @@ const _schema = [
     rows: [
       ['signedData', 'String'],
       ['address', 'String'],
-      ['nonce', 'Int']
-    ]
+      ['nonce', 'Int'],
+    ],
   },
   {
     name: 'AccountNonce',
@@ -19,7 +19,7 @@ const _schema = [
       ['address', 'String'],
       ['nonce', 'Int'],
     ],
-  }
+  },
 ]
 
 export default _schema
@@ -27,16 +27,15 @@ export default _schema
     (obj) =>
       ({
         ...obj,
-        primaryKey: obj.primaryKey || "_id",
+        primaryKey: obj.primaryKey || '_id',
         rows: [
           ...obj.rows,
           {
-            name: "_id",
-            type: "String",
+            name: '_id',
+            type: 'String',
             default: () => nanoid(),
           },
         ],
       } as TableData)
   )
-  .concat(schema);
-
+  .concat(schema)

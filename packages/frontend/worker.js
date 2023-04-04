@@ -1,4 +1,7 @@
-import { getAssetFromKV, serveSinglePageApp } from '@cloudflare/kv-asset-handler'
+import {
+  getAssetFromKV,
+  serveSinglePageApp,
+} from '@cloudflare/kv-asset-handler'
 
 addEventListener('fetch', (event) => {
   event.respondWith(handleEvent(event))

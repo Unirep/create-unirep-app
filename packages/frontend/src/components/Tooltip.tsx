@@ -5,15 +5,11 @@ import UIContext from '../contexts/interface'
 import { observer } from 'mobx-react-lite'
 
 type Props = {
-  text: string,
+  text: string
   maxWidth?: number
 }
 
-export default observer(({
-  text,
-  maxWidth,
-  ...props
-}: Props) => {
+export default observer(({ text, maxWidth, ...props }: Props) => {
   const ui = React.useContext(UIContext)
   const containerEl: React.RefObject<any> = React.createRef()
   const [timer, setTimer] = useState<any>(null)
@@ -31,18 +27,18 @@ export default observer(({
     const { x } = containerEl.current.getBoundingClientRect()
     const screenMaxWidth = window.innerWidth - x
     const minWidth = _maxWidth + 20
-    setLeftOffset(screenMaxWidth > minWidth ? 0 : (minWidth - screenMaxWidth))
+    setLeftOffset(screenMaxWidth > minWidth ? 0 : minWidth - screenMaxWidth)
   })
 
   const onMouseEnter = () => {
     if (!ui.isMobile) {
-      setShowingPopup(true);
+      setShowingPopup(true)
     }
   }
 
   const onMouseLeave = () => {
     if (!ui.isMobile) {
-      setShowingPopup(false);
+      setShowingPopup(false)
     }
   }
 
@@ -66,26 +62,20 @@ export default observer(({
       ref={containerEl}
       {...props}
     >
-      <div
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        <img src={require('../../public/info_icon.svg')} alt="info icon"/>
+      <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <img src={require('../../public/info_icon.svg')} alt="info icon" />
       </div>
-      {showingPopup &&
-        <div className={`tooltip-popup ${ui.modeCssClass}`}
-            style={{
-              width: `${textWidth}px`,
-              left: `-${leftOffset}px`,
-            }}
+      {showingPopup && (
+        <div
+          className={`tooltip-popup ${ui.modeCssClass}`}
+          style={{
+            width: `${textWidth}px`,
+            left: `-${leftOffset}px`,
+          }}
         >
-          <div
-            className={`tooltip-inner ${ui.modeCssClass}`}
-          >
-            {text}
-          </div>
+          <div className={`tooltip-inner ${ui.modeCssClass}`}>{text}</div>
         </div>
-      }
+      )}
     </div>
   )
 })

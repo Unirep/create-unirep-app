@@ -12,13 +12,16 @@ async function genUserState(id, app) {
   const db = await SQLiteConnector.create(schema, ':memory:')
   const unirepAddress = await app.unirep()
   const attesterId = BigInt(app.address)
-  const userState = new UserState({
-    db,
-    prover,
-    unirepAddress,
-    provider: ethers.provider,
-    attesterId,
-  }, id)
+  const userState = new UserState(
+    {
+      db,
+      prover,
+      unirepAddress,
+      provider: ethers.provider,
+      attesterId,
+    },
+    id
+  )
   await userState.sync.start()
   await userState.waitForSync()
   return userState

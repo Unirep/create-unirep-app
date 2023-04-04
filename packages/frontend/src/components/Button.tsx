@@ -2,9 +2,9 @@ import React from 'react'
 import './button.css'
 
 type Props = {
-  style?: {[key: string]: string},
-  loadingText?: string,
-  onClick?: () => void,
+  style?: { [key: string]: string }
+  loadingText?: string
+  onClick?: () => void
   children: any
 }
 
@@ -27,9 +27,13 @@ export default ({ style, loadingText, onClick, children }: Props) => {
   }
   return (
     <div className="button-outer">
-      <div className="button-inner" style={{ ...(style || {})}} onClick={handleClick}>
+      <div
+        className="button-inner"
+        style={{ ...(style || {}) }}
+        onClick={handleClick}
+      >
         {!loading && !error ? children : null}
-        {loading ? (loadingText ?? 'Loading...') : null}
+        {loading ? loadingText ?? 'Loading...' : null}
         {error ? error : null}
       </div>
     </div>
