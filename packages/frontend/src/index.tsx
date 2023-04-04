@@ -7,20 +7,20 @@ import Dashboard from './pages/Dashboard'
 import './index.css'
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<Start />} />
-          <Route path="dashboard" element={<Dashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Header />}>
+                    <Route index element={<Start />} />
+                    <Route path="dashboard" element={<Dashboard />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 const rootElement = document.getElementById('root')
 if (rootElement) {
-  const root = createRoot(rootElement)
-  root.render(<App />)
+    const root = createRoot(rootElement)
+    root.render(<App />)
 }

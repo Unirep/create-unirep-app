@@ -1,21 +1,21 @@
 a:link {
-  margin-left: 80px;
-  font-weight: 600;
-  color: black;
-  text-decoration: none;
+    margin-left: 80px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
 }
 
 a:visited {
-  color: black;
+    color: black;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 50px 80px 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 80px 0 80px;
 }
 
 .links {
-  display: flex;
+    display: flex;
 }

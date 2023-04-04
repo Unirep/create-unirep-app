@@ -1,36 +1,36 @@
 {
-  "name": "@unirep-app/contracts",
-  "version": "1.0.0",
-  "description": "Smart contracts of the Unirep Application",
-  "keywords": [],
-  "author": "Ya-wen, Jeng <vivi432@yahoo.com.tw>",
-  "license": "ISC",
-  "main": "build/src/index.js",
-  "repository": "git+https://github.com/vivianjeng/create-unirep-app.git",
-  "scripts": {
-    "build": "hardhat compile && yarn abi",
-    "abi": "ts-node scripts/abi",
-    "hardhat": "hardhat",
-    "deploy": "hardhat run scripts/deploy.ts",
-    "test": "hardhat test --network hardhat"
-  },
-  "bugs": {
-    "url": "https://github.com/vivianjeng/create-unirep-app/issues"
-  },
-  "homepage": "https://github.com/vivianjeng/create-unirep-app#readme",
-  "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.2.0",
-    "@openzeppelin/contracts": "^4.7.3",
-    "@typechain/ethers-v5": "^10.2.0",
-    "@typechain/hardhat": "^6.1.5",
-    "@types/node": "^18.15.11",
-    "@unirep/contracts": "2.0.0-beta-1",
-    "hardhat": "^2.12.0",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.1.1",
-    "typescript": "^5.0.3"
-  },
-  "dependencies": {
-    "poseidon-solidity": "^0.0.3"
-  }
+    "name": "@unirep-app/contracts",
+    "version": "1.0.0",
+    "description": "Smart contracts of the Unirep Application",
+    "keywords": [],
+    "author": "Ya-wen, Jeng <vivi432@yahoo.com.tw>",
+    "license": "ISC",
+    "main": "build/src/index.js",
+    "repository": "git+https://github.com/vivianjeng/create-unirep-app.git",
+    "scripts": {
+        "build": "hardhat compile && yarn abi",
+        "abi": "ts-node scripts/abi",
+        "hardhat": "hardhat",
+        "deploy": "hardhat run scripts/deploy.ts",
+        "test": "hardhat test --network hardhat"
+    },
+    "bugs": {
+        "url": "https://github.com/vivianjeng/create-unirep-app/issues"
+    },
+    "homepage": "https://github.com/vivianjeng/create-unirep-app#readme",
+    "devDependencies": {
+        "@nomiclabs/hardhat-ethers": "^2.2.0",
+        "@openzeppelin/contracts": "^4.7.3",
+        "@typechain/ethers-v5": "^10.2.0",
+        "@typechain/hardhat": "^6.1.5",
+        "@types/node": "^18.15.11",
+        "@unirep/contracts": "2.0.0-beta-1",
+        "hardhat": "^2.12.0",
+        "ts-node": "^10.9.1",
+        "typechain": "^8.1.1",
+        "typescript": "^5.0.3"
+    },
+    "dependencies": {
+        "poseidon-solidity": "^0.0.3"
+    }
 }
