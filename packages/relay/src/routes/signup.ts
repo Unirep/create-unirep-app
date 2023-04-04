@@ -12,6 +12,7 @@ export default (app: Express, db: DB, synchronizer: Synchronizer) => {
 
     try {
       const { publicSignals, proof } = req.body
+      
       const signupProof = new SignupProof(publicSignals, proof, synchronizer.prover)
       const valid = await signupProof.verify()
       if (!valid) {

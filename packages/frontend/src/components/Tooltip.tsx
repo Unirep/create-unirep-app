@@ -4,17 +4,22 @@ import './tooltip.css'
 import UIContext from '../contexts/interface'
 import { observer } from 'mobx-react-lite'
 
+type Props = {
+  text: string,
+  maxWidth?: number
+}
+
 export default observer(({
   text,
   maxWidth,
   ...props
-}) => {
+}: Props) => {
   const ui = React.useContext(UIContext)
-  const containerEl = React.createRef()
-  const [timer, setTimer] = useState(null)
-  const [showingPopup, setShowingPopup] = useState(false)
-  const [leftOffset, setLeftOffset] = useState(0)
-  const [textWidth, setTextWidth] = useState(0)
+  const containerEl: React.RefObject<any> = React.createRef()
+  const [timer, setTimer] = useState<any>(null)
+  const [showingPopup, setShowingPopup] = useState<boolean>(false)
+  const [leftOffset, setLeftOffset] = useState<number>(0)
+  const [textWidth, setTextWidth] = useState<number>(0)
   useEffect(() => {
     const _textWidth = measureText(text, {
       fontSize: '12px',
@@ -28,6 +33,19 @@ export default observer(({
     const minWidth = _maxWidth + 20
     setLeftOffset(screenMaxWidth > minWidth ? 0 : (minWidth - screenMaxWidth))
   })
+
+  const onMouseEnter = () => {
+    if (!ui.isMobile) {
+      setShowingPopup(true);
+    }
+  }
+
+  const onMouseLeave = () => {
+    if (!ui.isMobile) {
+      setShowingPopup(false);
+    }
+  }
+
   return (
     <div
       onMouseDown={() => {
@@ -38,7 +56,7 @@ export default observer(({
           return
         }
         setShowingPopup(true)
-        const _timer = setTimeout(() => {
+        const _timer: ReturnType<typeof setTimeout> = setTimeout(() => {
           setShowingPopup(false)
           setTimer(null)
         }, 3000)
@@ -49,8 +67,8 @@ export default observer(({
       {...props}
     >
       <div
-        onMouseEnter={!ui.isMobile && setShowingPopup.bind(null, true)}
-        onMouseLeave={!ui.isMobile && setShowingPopup.bind(null, false)}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <img src={require('../../public/info_icon.svg')} alt="info icon"/>
       </div>

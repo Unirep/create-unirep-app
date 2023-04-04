@@ -23,6 +23,9 @@
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-react": "^7.18.6",
+    "@types/react": "^18.0.32",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
     "anondb": "^0.0.16",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.5",
@@ -40,6 +43,8 @@
     "react-router-dom": "^6.4.2",
     "snarkjs": "^0.5.0",
     "stream-browserify": "^3.0.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.3",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"

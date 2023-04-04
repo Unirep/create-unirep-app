@@ -34,7 +34,7 @@ export class Interface {
     this.isMobile = this.screenWidth <= MAX_MOBILE_WIDTH;
   }
 
-  setDarkmode(enabled) {
+  setDarkmode(enabled: boolean) {
     this.darkmode = enabled;
     if (enabled) {
       if (typeof window !== "undefined") {

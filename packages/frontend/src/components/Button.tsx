@@ -1,7 +1,14 @@
 import React from 'react'
 import './button.css'
 
-export default ({ style, children, loadingText, onClick }) => {
+type Props = {
+  style?: {[key: string]: string},
+  loadingText?: string,
+  onClick?: () => void,
+  children: any
+}
+
+export default ({ style, loadingText, onClick, children }: Props) => {
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const handleClick = async () => {
@@ -9,8 +16,8 @@ export default ({ style, children, loadingText, onClick }) => {
     if (typeof onClick !== 'function') return
     try {
       setLoading(true)
-      await onClick()
-    } catch (err) {
+      onClick()
+    } catch (err: any) {
       console.log(err)
       setError(err.toString())
       setTimeout(() => setError(''), 2000)

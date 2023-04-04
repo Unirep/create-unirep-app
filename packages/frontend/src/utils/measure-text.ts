@@ -1,4 +1,4 @@
-export default (text, style = {}) => {
+export default (text: string, style = {}) => {
   const el = document.createElement('div')
   el.style.whiteSpace = 'nowrap'
   el.style.width = 'auto'

@@ -6,11 +6,15 @@ import Tooltip from '../components/Tooltip'
 
 import User from '../contexts/User'
 
+type ReqInfo = {
+  nonce: number
+}
+
 export default observer(() => {
   const userContext = React.useContext(User)
-  const [remainingTime, setRemainingTime] = React.useState(0)
-  const [reqData, setReqData] = React.useState({})
-  const [reqInfo, setReqInfo] = React.useState({})
+  const [remainingTime, setRemainingTime] = React.useState<number|string>(0)
+  const [reqData, setReqData] = React.useState<{[key: number]: number | string}>({})
+  const [reqInfo, setReqInfo] = React.useState<ReqInfo>({nonce: 0})
 
   const updateTimer = () => {
     if (!userContext.userState) {
@@ -21,7 +25,7 @@ export default observer(() => {
     setRemainingTime(time)
   }
 
-  const fieldType = (i) => {
+  const fieldType = (i: number) => {
     if (i < userContext.sumFieldCount) {
       return 'sum'
     } else if (i % 2 === userContext.sumFieldCount % 2) {
@@ -108,7 +112,7 @@ export default observer(() => {
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
               {
-                Array(userContext.userState.sync.settings.fieldCount).fill().map((_, i) => {
+                Array(userContext.userState.sync.settings.fieldCount).fill(0).map((_, i) => {
                   return (
                     <div key={i} style={{margin: '4px'}}>
                       <p>Data {i} ({fieldType(i)})</p>
@@ -116,10 +120,11 @@ export default observer(() => {
                         value={reqData[i] ?? ''}
                         onChange={(event) => {
                           if (!/^\d*$/.test(event.target.value)) return
-                          setReqData((v) => ({
+                          setReqData(() => ({
                             ...reqData,
-                            [i]: event.target.value ?? 0
-                          }))
+                            [i]: event.target.value
+                          }
+                        ))
                         }}
                       />
                     </div>
@@ -132,7 +137,7 @@ export default observer(() => {
                 <Tooltip text='Epoch keys are short lived identifiers for a user. They can be used to receive reputation and are valid only for 1 epoch.'/>
               </div>
               <select value={reqInfo.nonce ?? 0} onChange={(event) => {
-                setReqInfo((v) => ({ ...v, nonce: event.target.value }))
+                setReqInfo((v) => ({ ...v, nonce: Number(event.target.value) }))
               }}>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -142,13 +147,13 @@ export default observer(() => {
               <p style={{ maxWidth: '650px', wordBreak: 'break-all', overflow: 'hidden', textOverflow: 'ellipsis'}}>{userContext.epochKey(reqInfo.nonce ?? 0)}</p>
 
               <Button onClick={async () => {
-                if (userContext.userState.sync.calcCurrentEpoch() !== await userContext.userState.latestTransitionedEpoch()) {
+                if (userContext.userState && userContext.userState.sync.calcCurrentEpoch() !== await userContext.userState.latestTransitionedEpoch()) {
                   throw new Error('Needs transition')
                 }
                 await userContext.requestReputation(reqData,
                   reqInfo.nonce ?? 0
                 )
-                setReqData({})
+                setReqData(new Array(userContext.fieldCount).fill(0))
               }}>
                 Attest
               </Button>
