@@ -29,7 +29,7 @@ await new Promise((rs, rj) =>
 )
 
 // start relay
-const relay = spawn('yarn relay start', { shell: true })
+const relay = spawn('yarn relay keys && yarn relay start', { shell: true })
 relay.stderr.on('data', (data) => {
   console.error(`relay stderr: ${data}`)
 })
