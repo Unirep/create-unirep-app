@@ -10,7 +10,7 @@
     "scripts": {
         "install": "lerna bootstrap",
         "build": "lerna run build",
-        "circuits": "yarn workspace @unirep-app/contracts run",
+        "circuits": "yarn workspace @unirep-app/circuits run",
         "contracts": "yarn workspace @unirep-app/contracts run",
         "frontend": "yarn workspace @unirep-app/frontend run",
         "relay": "yarn workspace @unirep-app/relay run",
