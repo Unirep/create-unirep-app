@@ -36,7 +36,7 @@ describe('Unirep App', function () {
     let app
 
     // epoch length
-    const epochLength = 30
+    const epochLength = 300
     // generate random user id
     const id = new ZkIdentity()
 
