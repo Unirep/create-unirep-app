@@ -47,7 +47,6 @@ yarn contracts deploy
 ### 2.2.4 Start a relayer (backend)
 
 ```shell
-yarn relay keys &&
 yarn relay start
 ```
 
