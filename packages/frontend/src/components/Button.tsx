@@ -16,7 +16,7 @@ export default ({ style, loadingText, onClick, children }: Props) => {
         if (typeof onClick !== 'function') return
         try {
             setLoading(true)
-            onClick()
+            await onClick()
         } catch (err: any) {
             console.log(err)
             setError(err.toString())

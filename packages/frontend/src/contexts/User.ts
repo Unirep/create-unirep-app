@@ -1,12 +1,10 @@
 import { createContext } from 'react'
 import { makeAutoObservable } from 'mobx'
-import { ZkIdentity, Strategy, hash1, stringifyBigInts } from '@unirep/utils'
-import { UserState, schema } from '@unirep/core'
-import { MemoryConnector } from 'anondb/web'
-import { constructSchema } from 'anondb/types'
+import { ZkIdentity, Strategy, stringifyBigInts } from '@unirep/utils'
+import { UserState } from '@unirep/core'
+import { DataProof } from '@unirep-app/circuits'
 import { provider, UNIREP_ADDRESS, APP_ADDRESS, SERVER } from '../config'
 import prover from './prover'
-import poseidon from 'poseidon-lite'
 
 class User {
     currentEpoch: number = 0
@@ -76,7 +74,6 @@ class User {
         if (!this.userState) throw new Error('user state not initialized')
 
         const signupProof = await this.userState.genUserSignUpProof()
-        console.log('signup proof:', signupProof)
         const data = await fetch(`${SERVER}/api/signup`, {
             method: 'POST',
             headers: {
@@ -156,21 +153,39 @@ class User {
             await this.userState.latestTransitionedEpoch()
     }
 
-    async proveReputation(minRep = 0, _graffitiPreImage: number | string = 0) {
+    async proveData(data: { [key: number]: string | number }) {
         if (!this.userState) throw new Error('user state not initialized')
-
-        let graffitiPreImage: number | string = _graffitiPreImage
-        if (typeof _graffitiPreImage === 'string') {
-            graffitiPreImage = `0x${Buffer.from(_graffitiPreImage).toString(
-                'hex'
-            )}`
+        const epoch = await this.userState.sync.loadCurrentEpoch()
+        const stateTree = await this.userState.sync.genStateTree(epoch)
+        const index = await this.userState.latestStateTreeLeafIndex(epoch)
+        const stateTreeProof = stateTree.createProof(index)
+        const provableData = await this.userState.getProvableData()
+        const sumFieldCount = this.userState.sync.settings.sumFieldCount
+        const values = Array(sumFieldCount).fill(0)
+        for (let [key, value] of Object.entries(data)) {
+            values[Number(key)] = value
         }
-        const reputationProof = await this.userState.genProveReputationProof({
-            epkNonce: 0,
-            minRep: Number(minRep),
-            graffitiPreImage: BigInt(graffitiPreImage),
+        const attesterId = this.userState.sync.attesterId
+        const circuitInputs = stringifyBigInts({
+            identity_secret: this.userState.id.secretHash,
+            state_tree_indexes: stateTreeProof.pathIndices,
+            state_tree_elements: stateTreeProof.siblings,
+            data: provableData,
+            epoch: epoch,
+            attester_id: attesterId,
+            value: values,
         })
-        return { ...reputationProof, valid: await reputationProof.verify() }
+        const { publicSignals, proof } = await prover.genProofAndPublicSignals(
+            'dataProof',
+            circuitInputs
+        )
+        const dataProof = new DataProof(publicSignals, proof, prover)
+        const valid = await dataProof.verify()
+        return stringifyBigInts({
+            publicSignals: dataProof.publicSignals,
+            proof: dataProof.proof,
+            valid,
+        })
     }
 }
 

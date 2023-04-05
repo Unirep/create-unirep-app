@@ -10,6 +10,12 @@ type ReqInfo = {
     nonce: number
 }
 
+type ProofInfo = {
+    publicSignals: string[]
+    proof: string[]
+    valid: boolean
+}
+
 export default observer(() => {
     const userContext = React.useContext(User)
     const [remainingTime, setRemainingTime] = React.useState<number | string>(0)
@@ -17,6 +23,14 @@ export default observer(() => {
         [key: number]: number | string
     }>({})
     const [reqInfo, setReqInfo] = React.useState<ReqInfo>({ nonce: 0 })
+    const [proveData, setProveData] = React.useState<{
+        [key: number]: number | string
+    }>({})
+    const [repProof, setRepProof] = React.useState<ProofInfo>({
+        publicSignals: [],
+        proof: [],
+        valid: false,
+    })
 
     const updateTimer = () => {
         if (!userContext.userState) {
@@ -197,7 +211,9 @@ export default observer(() => {
                                     reqInfo.nonce ?? 0
                                 )
                                 setReqData(
-                                    new Array(userContext.fieldCount).fill(0)
+                                    new Array(userContext.fieldCount).fill(
+                                        undefined
+                                    )
                                 )
                             }}
                         >
@@ -215,6 +231,70 @@ export default observer(() => {
                         <Button onClick={() => userContext.stateTransition()}>
                             Transition
                         </Button>
+                    </div>
+
+                    <div className="action-container">
+                        <div className="icon">
+                            <h2>Prove Data</h2>
+                            <Tooltip text="Users can prove they control some amount of data without revealing exactly how much they control." />
+                        </div>
+                        {Array(
+                            userContext.userState.sync.settings.sumFieldCount
+                        )
+                            .fill(0)
+                            .map((_, i) => {
+                                return (
+                                    <div key={i} style={{ margin: '4px' }}>
+                                        <p>
+                                            Data {i} ({fieldType(i)})
+                                        </p>
+                                        <input
+                                            value={proveData[i] ?? '0'}
+                                            onChange={(event) => {
+                                                if (
+                                                    !/^\d*$/.test(
+                                                        event.target.value
+                                                    )
+                                                )
+                                                    return
+                                                setProveData(() => ({
+                                                    ...proveData,
+                                                    [i]: event.target.value,
+                                                }))
+                                            }}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        <div style={{ margin: '20px 0 20px' }}>
+                            <Button
+                                onClick={async () => {
+                                    const proof = await userContext.proveData(
+                                        proveData
+                                    )
+                                    setRepProof(proof)
+                                }}
+                            >
+                                Generate Proof
+                            </Button>
+                        </div>
+                        {repProof.proof.length ? (
+                            <>
+                                <div>
+                                    Is proof valid?{' '}
+                                    <span style={{ fontWeight: '600' }}>
+                                        {' '}
+                                        {repProof.proof.length === 0
+                                            ? ''
+                                            : repProof.valid.toString()}
+                                    </span>
+                                </div>
+                                <textarea
+                                    readOnly
+                                    value={JSON.stringify(repProof, null, 2)}
+                                />
+                            </>
+                        ) : null}
                     </div>
                 </div>
             </div>

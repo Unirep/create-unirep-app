@@ -2,7 +2,7 @@
 import { ethers } from 'hardhat'
 import { expect } from 'chai'
 import { deployUnirep } from '@unirep/contracts/deploy'
-import { genRandomSalt, ZkIdentity, stringifyBigInts } from '@unirep/utils'
+import { ZkIdentity, stringifyBigInts } from '@unirep/utils'
 import { schema, UserState } from '@unirep/core'
 import { SQLiteConnector } from 'anondb/node'
 import { Circuit, BuildOrderedTree } from '@unirep/circuits'
@@ -37,11 +37,8 @@ describe('Unirep App', function () {
 
     // epoch length
     const epochLength = 30
-    let startTime = 0
     // generate random user id
     const id = new ZkIdentity()
-    // graffiti preimage
-    const graffitiPreImage = genRandomSalt()
 
     it('deployment', async function () {
         const [deployer] = await ethers.getSigners()
@@ -52,9 +49,6 @@ describe('Unirep App', function () {
         const App = await ethers.getContractFactory('UnirepApp')
         app = await App.deploy(unirep.address, verifier.address, epochLength)
         await app.deployed()
-        startTime = (
-            await unirep.attesterStartTimestamp(app.address)
-        ).toNumber()
     })
 
     it('user sign up', async () => {

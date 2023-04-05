@@ -10,7 +10,6 @@ export default {
         proof: SnarkProof
     ) => {
         const url = new URL(`/build/${circuitName}.vkey.json`, KEY_SERVER)
-        console.log('vkey file:', url)
         const vkey = await fetch(url.toString()).then((r) => r.json())
         return snarkjs.groth16.verify(vkey, publicSignals, proof)
     },
@@ -19,7 +18,6 @@ export default {
         inputs: any
     ) => {
         const wasmUrl = new URL(`${circuitName}.wasm`, KEY_SERVER)
-        console.log('wasm file:', wasmUrl)
 
         const wasm = await fetch(wasmUrl.toString()).then((r) =>
             r.arrayBuffer()
