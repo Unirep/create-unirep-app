@@ -1,27 +1,30 @@
+import { ethers } from 'hardhat'
 import * as fs from 'fs'
 import * as path from 'path'
 import { deployUnirep } from '@unirep/contracts/deploy/index.js'
 import * as hardhat from 'hardhat'
 
-main().catch((err) => {
+const epochLength = 300
+
+deployApp().catch((err) => {
     console.log(`Uncaught error: ${err}`)
     process.exit(1)
 })
 
-async function main() {
-    const { ethers } = hardhat
-
+export async function deployApp() {
     const [signer] = await ethers.getSigners()
     const unirep = await deployUnirep(signer)
-    const epochLength = 100
 
+    const verifierF = await ethers.getContractFactory('DataProofVerifier')
+    const verifier = await verifierF.deploy()
+    await verifier.deployed()
     const App = await ethers.getContractFactory('UnirepApp')
-    const app = await App.deploy(unirep.address, epochLength)
+    const app = await App.deploy(unirep.address, verifier.address, epochLength)
 
     await app.deployed()
 
     console.log(
-        `Unirep app with epoch length ${epochLength} deployed to ${app.address}`
+        `Unirep app with epoch length ${epochLength} is deployed to ${app.address}`
     )
 
     const config = `export default {
