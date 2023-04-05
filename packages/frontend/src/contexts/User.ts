@@ -98,6 +98,7 @@ class User {
 
         for (const key of Object.keys(reqData)) {
             if (
+                reqData[+key] &&
                 +key > this.sumFieldCount &&
                 +key % 2 !== this.sumFieldCount % 2
             ) {

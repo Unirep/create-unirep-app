@@ -211,9 +211,7 @@ export default observer(() => {
                                     reqInfo.nonce ?? 0
                                 )
                                 setReqData(
-                                    new Array(userContext.fieldCount).fill(
-                                        undefined
-                                    )
+                                    {}
                                 )
                             }}
                         >
