@@ -4,7 +4,7 @@ import prompts from 'prompts'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { exec } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { promisify } from 'node:util'
 import { pipeline } from 'node:stream'
 import fetch from 'node-fetch'
@@ -92,24 +92,12 @@ const targetDir = path.isAbsolute(projectDir)
 await fs.promises.rename(appPath, targetDir)
 
 const installCommand = packageManager === 0 ? ['yarn'] : ['npm', ['i']]
-await new Promise((rs, rj) =>
-    exec(
-        ...installCommand,
-        {
-            cwd: targetDir,
-        },
-        (err) => (err ? rj(err) : rs(console.log('Installation complete')))
-    )
-)
-const buildCommand =
-    packageManager === 0 ? ['yarn build'] : ['npm run build', ['i']]
-
-await new Promise((rs, rj) =>
-    exec(
-        ...buildCommand,
-        {
-            cwd: targetDir,
-        },
-        (err) => (err ? rj(err) : rs(console.log('Build complete')))
-    )
-)
+const install = spawn(...installCommand, {
+    cwd: targetDir,
+    stdio: ['inherit', 'inherit', 'inherit'],
+})
+install.on('error', (err) => {
+    console.log(err)
+    console.error('Install process failed!')
+    process.exit(1)
+})
