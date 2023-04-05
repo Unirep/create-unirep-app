@@ -5,12 +5,24 @@ import { Unirep } from "@unirep/contracts/Unirep.sol";
 // Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
+interface IVerifier {
+    function verifyProof(
+        uint256[5] calldata publicSignals,
+        uint256[8] calldata proof
+    ) external view returns (bool);
+}
+
+
 contract UnirepApp {
     Unirep public unirep;
+    IVerifier internal dataVerifier;
 
-    constructor(Unirep _unirep, uint256 _epochLength) {
+    constructor(Unirep _unirep, IVerifier _dataVerifier, uint256 _epochLength) {
         // set unirep address
         unirep = _unirep;
+
+        // set verifier address
+        dataVerifier = _dataVerifier;
 
         // sign up as an attester
         unirep.attesterSignUp(_epochLength);
@@ -47,6 +59,16 @@ contract UnirepApp {
             targetEpoch,
             fieldIndex,
             val
+        );
+    }
+
+    function verifyDataProof(
+        uint256[5] calldata publicSignals,
+        uint256[8] calldata proof
+    ) public view returns(bool) {
+        return dataVerifier.verifyProof(
+            publicSignals,
+            proof
         );
     }
 }

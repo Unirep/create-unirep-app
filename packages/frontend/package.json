@@ -2,12 +2,12 @@
     "name": "@unirep-app/frontend",
     "version": "1.0.0",
     "description": "> TODO: description",
-    "author": "Ya-wen, Jeng <vivi432@yahoo.com.tw>",
-    "homepage": "https://github.com/vivianjeng/create-unirep-app#readme",
+    "author": "Unirep team <team@unirep.io>",
+    "homepage": "https://github.com/Unirep/create-unirep-app#readme",
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/vivianjeng/create-unirep-app.git"
+        "url": "git+https://github.com/Unirep/create-unirep-app.git"
     },
     "scripts": {
         "start": "webpack-dev-server",

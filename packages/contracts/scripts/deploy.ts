@@ -3,12 +3,12 @@ import * as path from 'path'
 import { deployUnirep } from '@unirep/contracts/deploy/index.js'
 import * as hardhat from 'hardhat'
 
-main().catch((err) => {
+deployApp().catch((err) => {
     console.log(`Uncaught error: ${err}`)
     process.exit(1)
 })
 
-async function main() {
+export async function deployApp() {
     const { ethers } = hardhat
 
     const [signer] = await ethers.getSigners()
@@ -21,7 +21,7 @@ async function main() {
     await app.deployed()
 
     console.log(
-        `Unirep app with epoch length ${epochLength} deployed to ${app.address}`
+        `Unirep app with epoch length ${epochLength} is deployed to ${app.address}`
     )
 
     const config = `export default {

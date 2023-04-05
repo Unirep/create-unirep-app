@@ -1,11 +1,15 @@
 //@ts-ignore
 import { ethers } from 'hardhat'
+import { expect } from 'chai'
 import { deployUnirep } from '@unirep/contracts/deploy'
 import { genRandomSalt, ZkIdentity, stringifyBigInts } from '@unirep/utils'
 import { schema, UserState } from '@unirep/core'
 import { SQLiteConnector } from 'anondb/node'
 import { Circuit, BuildOrderedTree } from '@unirep/circuits'
-import { defaultProver as prover } from '@unirep/circuits/provers/defaultProver'
+import { DataProof } from '@unirep-app/circuits'
+import defaultConfig from '@unirep/circuits/config'
+const { SUM_FIELD_COUNT } = defaultConfig
+import { defaultProver as prover } from '@unirep-app/circuits/provers/defaultProver'
 
 async function genUserState(id, app) {
     // generate a user state
@@ -42,8 +46,11 @@ describe('Unirep App', function () {
     it('deployment', async function () {
         const [deployer] = await ethers.getSigners()
         unirep = await deployUnirep(deployer)
+        const verifierF = await ethers.getContractFactory('DataProofVerifier')
+        const verifier = await verifierF.deploy()
+        await verifier.deployed()
         const App = await ethers.getContractFactory('UnirepApp')
-        app = await App.deploy(unirep.address, epochLength)
+        app = await App.deploy(unirep.address, verifier.address, epochLength)
         await app.deployed()
         startTime = (
             await unirep.attesterStartTimestamp(app.address)
@@ -114,17 +121,34 @@ describe('Unirep App', function () {
         userState.sync.stop()
     })
 
-    it('reputation proof', async () => {
+    it('data proof', async () => {
         const userState = await genUserState(id, app)
-
-        const { publicSignals, proof } =
-            await userState.genProveReputationProof({
-                epkNonce: 0,
-                minRep: 4,
-            })
-        await unirep
-            .verifyReputationProof(publicSignals, proof)
-            .then((t) => t.wait())
+        const epoch = await userState.sync.loadCurrentEpoch()
+        const stateTree = await userState.sync.genStateTree(epoch)
+        const index = await userState.latestStateTreeLeafIndex(epoch)
+        const stateTreeProof = stateTree.createProof(index)
+        const data = await userState.getProvableData()
+        const attesterId = app.address
+        const value = Array(SUM_FIELD_COUNT).fill(0)
+        const circuitInputs = stringifyBigInts({
+            identity_secret: id.secretHash,
+            state_tree_indexes: stateTreeProof.pathIndices,
+            state_tree_elements: stateTreeProof.siblings,
+            data: data,
+            epoch: epoch,
+            attester_id: attesterId,
+            value: value,
+        })
+        const { publicSignals, proof } = await prover.genProofAndPublicSignals(
+            'dataProof',
+            circuitInputs
+        )
+        const dataProof = new DataProof(publicSignals, proof, prover)
+        const isValid = await app.verifyDataProof(
+            dataProof.publicSignals,
+            dataProof.proof
+        )
+        expect(isValid).to.be.true
         userState.sync.stop()
     })
 })

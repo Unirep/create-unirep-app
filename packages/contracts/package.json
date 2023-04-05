@@ -3,21 +3,22 @@
     "version": "1.0.0",
     "description": "Smart contracts of the Unirep Application",
     "keywords": [],
-    "author": "Ya-wen, Jeng <vivi432@yahoo.com.tw>",
+    "author": "Unirep Team <team@unirep.io>",
     "license": "ISC",
     "main": "build/src/index.js",
-    "repository": "git+https://github.com/vivianjeng/create-unirep-app.git",
+    "repository": "git+https://github.com/Unirep/create-unirep-app.git",
     "scripts": {
-        "build": "hardhat compile && yarn abi",
+        "build": "yarn buildVerifier && hardhat compile && yarn abi",
+        "buildVerifier": "ts-node ./scripts/genVerifier.ts ",
         "abi": "ts-node scripts/abi",
         "hardhat": "hardhat",
         "deploy": "hardhat run scripts/deploy.ts",
         "test": "hardhat test --network hardhat"
     },
     "bugs": {
-        "url": "https://github.com/vivianjeng/create-unirep-app/issues"
+        "url": "https://github.com/Unirep/create-unirep-app/issue"
     },
-    "homepage": "https://github.com/vivianjeng/create-unirep-app#readme",
+    "homepage": "https://github.com/Unirep/create-unirep-app#readme",
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.2.0",
         "@openzeppelin/contracts": "^4.7.3",
