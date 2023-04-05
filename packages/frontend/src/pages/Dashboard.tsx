@@ -210,9 +210,7 @@ export default observer(() => {
                                     reqData,
                                     reqInfo.nonce ?? 0
                                 )
-                                setReqData(
-                                    {}
-                                )
+                                setReqData({})
                             }}
                         >
                             Attest
