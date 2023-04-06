@@ -97,6 +97,10 @@ class User {
         if (!this.userState) throw new Error('user state not initialized')
 
         for (const key of Object.keys(reqData)) {
+            if (reqData[+key] === '') {
+                delete reqData[+key]
+                continue
+            }
             if (
                 reqData[+key] &&
                 +key > this.sumFieldCount &&
@@ -104,6 +108,9 @@ class User {
             ) {
                 throw new Error('Cannot change timestamp field')
             }
+        }
+        if (Object.keys(reqData).length === 0) {
+            throw new Error('No data in the attestation')
         }
         const epochKeyProof = await this.userState.genEpochKeyProof({
             nonce: epkNonce,
