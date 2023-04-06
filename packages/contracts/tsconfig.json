@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./build",
+        "lib": ["ES2021.String"]
+    },
+    "include": ["./src", "./deploy", "./typechain"],
+    "files": ["./hardhat.config.ts"]
+}

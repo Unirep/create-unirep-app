@@ -1,28 +1,33 @@
 {
-  "name": "create-unirep-app",
-  "version": "0.0.0",
-  "type": "module",
-  "description": "A CLI for bootstrapping a UniRep attester",
-  "keywords": ["ethereum", "zk", "unirep", "circom"],
-  "author": "UniRep Team <team@unirep.io>",
-  "homepage": "https://developer.unirep.io",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unirep/create-unirep-app.git"
-  },
-  "scripts": {
-    "test": "exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/unirep/create-unirep-app/issues"
-  },
-  "bin": {
-    "create-unirep-app": "./cli.mjs"
-  },
-  "dependencies": {
-    "node-fetch": "^3.3.0",
-    "prompts": "^2.4.2",
-    "tar": "^6.1.12"
-  }
+    "name": "create-unirep-app",
+    "version": "0.0.0",
+    "type": "module",
+    "description": "A CLI for bootstrapping a UniRep attester",
+    "keywords": [
+        "ethereum",
+        "zk",
+        "unirep",
+        "circom"
+    ],
+    "author": "UniRep Team <team@unirep.io>",
+    "homepage": "https://developer.unirep.io",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/unirep/create-unirep-app.git"
+    },
+    "scripts": {
+        "test": "exit 1"
+    },
+    "bugs": {
+        "url": "https://github.com/unirep/create-unirep-app/issues"
+    },
+    "bin": {
+        "create-unirep-app": "./cli.mjs"
+    },
+    "dependencies": {
+        "node-fetch": "^3.3.0",
+        "prompts": "^2.4.2",
+        "tar": "^6.1.12"
+    }
 }

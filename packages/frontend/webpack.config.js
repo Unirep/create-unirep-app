@@ -6,40 +6,55 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
 module.exports = (env) => ({
-    entry: ['./src/index.jsx'],
+    entry: ['./src/index.tsx'],
     mode: 'development',
     devServer: {
         port: 3000,
         historyApiFallback: true,
     },
     optimization: {
-      splitChunks: {
-        chunks: 'all',
-        automaticNameDelimiter: '-',
-      }
+        splitChunks: {
+            chunks: 'all',
+            automaticNameDelimiter: '-',
+        },
     },
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.json', '.scss'],
+        extensions: ['*', '.js', '.jsx', '.json', '.scss', '.ts', '.tsx'],
         fallback: {
-        path: require.resolve('path-browserify'),
-        crypto: require.resolve('crypto-browserify'),
-        assert: require.resolve('assert/'),
-        stream: require.resolve('stream-browserify'),
-        os: require.resolve('os-browserify/browser'),
-        events: require.resolve('events/'),
-        fs: false,
-        readline: false,
-        constants: false
+            path: require.resolve('path-browserify'),
+            crypto: require.resolve('crypto-browserify'),
+            assert: require.resolve('assert/'),
+            stream: require.resolve('stream-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            events: require.resolve('events/'),
+            fs: false,
+            readline: false,
+            constants: false,
         },
     },
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-react'],
+                        },
+                    },
+                    {
+                        loader: 'ts-loader',
+                    },
+                ],
+            },
+            {
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
@@ -61,10 +76,7 @@ module.exports = (env) => ({
             {
                 test: /\.(css)$/,
                 // exclude: /node_modules/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
         ],
     },

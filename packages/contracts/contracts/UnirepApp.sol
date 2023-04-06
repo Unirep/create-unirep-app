@@ -1,16 +1,28 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
-import {Unirep} from "@unirep/contracts/Unirep.sol";
+import { Unirep } from "@unirep/contracts/Unirep.sol";
 
 // Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
+interface IVerifier {
+    function verifyProof(
+        uint256[5] calldata publicSignals,
+        uint256[8] calldata proof
+    ) external view returns (bool);
+}
+
+
 contract UnirepApp {
     Unirep public unirep;
+    IVerifier internal dataVerifier;
 
-    constructor(Unirep _unirep, uint256 _epochLength) {
+    constructor(Unirep _unirep, IVerifier _dataVerifier, uint256 _epochLength) {
         // set unirep address
         unirep = _unirep;
+
+        // set verifier address
+        dataVerifier = _dataVerifier;
 
         // sign up as an attester
         unirep.attesterSignUp(_epochLength);
@@ -24,20 +36,39 @@ contract UnirepApp {
         unirep.userSignUp(publicSignals, proof);
     }
 
-    // submit attestations
-    function submitAttestation(
-        uint256 targetEpoch,
+    function submitManyAttestations(
         uint256 epochKey,
-        uint256 posRep,
-        uint256 negRep,
-        uint256 graffiti
+        uint256 targetEpoch,
+        uint[] calldata fieldIndices,
+        uint[] calldata vals
     ) public {
-        unirep.submitAttestation(
-            targetEpoch,
+        require(fieldIndices.length == vals.length, 'arrmismatch');
+        for (uint8 x = 0; x < fieldIndices.length; x++) {
+            unirep.attest(epochKey, targetEpoch, fieldIndices[x], vals[x]);
+        }
+    }
+
+    function submitAttestation(
+        uint256 epochKey,
+        uint256 targetEpoch,
+        uint256 fieldIndex,
+        uint256 val
+    ) public {
+        unirep.attest(
             epochKey,
-            posRep,
-            negRep,
-            graffiti
+            targetEpoch,
+            fieldIndex,
+            val
+        );
+    }
+
+    function verifyDataProof(
+        uint256[5] calldata publicSignals,
+        uint256[8] calldata proof
+    ) public view returns(bool) {
+        return dataVerifier.verifyProof(
+            publicSignals,
+            proof
         );
     }
 }

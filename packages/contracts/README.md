@@ -21,7 +21,9 @@ yarn test
 ```shell
 yarn hardhat node
 ```
+
 and
+
 ```shell
 yarn deploy
 ```

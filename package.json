@@ -1,21 +1,29 @@
 {
-  "name": "create-unirep-app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "install": "lerna bootstrap",
-    "contracts": "yarn workspace @unirep-app/contracts run",
-    "frontend": "yarn workspace @unirep-app/frontend run",
-    "relay": "yarn workspace @unirep-app/relay run",
-    "start": "node scripts/start.mjs"
-  },
-  "devDependencies": {
-    "lerna": "^6.0.1",
-    "node-fetch": "^3.3.0"
-  }
+    "name": "create-unirep-app",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "install": "lerna bootstrap",
+        "build": "lerna run build",
+        "circuits": "yarn workspace @unirep-app/circuits run",
+        "contracts": "yarn workspace @unirep-app/contracts run",
+        "frontend": "yarn workspace @unirep-app/frontend run",
+        "relay": "yarn workspace @unirep-app/relay run",
+        "start": "node scripts/start.mjs",
+        "linkUnirep": "sh ./scripts/linkUnirep.sh",
+        "copyUnirep": "sh ./scripts/copyUnirep.sh",
+        "lint": "prettier ."
+    },
+    "devDependencies": {
+        "lerna": "^6.0.1",
+        "node-fetch": "^3.3.0"
+    },
+    "dependencies": {
+        "prettier": "^2.8.4"
+    }
 }
