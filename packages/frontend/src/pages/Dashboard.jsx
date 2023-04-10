@@ -134,9 +134,9 @@ export default observer(() => {
               <select value={reqInfo.nonce ?? 0} onChange={(event) => {
                 setReqInfo((v) => ({ ...v, nonce: event.target.value }))
               }}>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                {userContext.userState?.getEpochKeys().map((_, i) => (
+                  <option key={i} value={i.toString()}>{i}</option>
+                ))}
               </select>
               <p style={{ fontSize: '12px' }}>Requesting data with epoch key:</p>
               <p style={{ maxWidth: '650px', wordBreak: 'break-all', overflow: 'hidden', textOverflow: 'ellipsis'}}>{userContext.epochKey(reqInfo.nonce ?? 0)}</p>

@@ -6,7 +6,7 @@ export const ETH_PROVIDER_URL = config.ETH_PROVIDER_URL
 
 export const provider = ETH_PROVIDER_URL.startsWith('http') ? new ethers.providers.JsonRpcProvider(ETH_PROVIDER_URL) : new ethers.providers.WebSocketProvider(ETH_PROVIDER_URL)
 
-// export const SERVER = 'http://localhost:8000'
-export const SERVER = 'https://relay.demo.unirep.io'
-// export const KEY_SERVER = 'https://localhost:8000/build/'
-export const KEY_SERVER = 'https://keys.unirep.io/2-beta-1/'
+export const SERVER = 'http://localhost:8000'
+// export const SERVER = 'https://relay.demo.unirep.io'
+export const KEY_SERVER = 'http://localhost:8000/build/'
+// export const KEY_SERVER = 'https://keys.unirep.io/2-beta-1/'

@@ -33,7 +33,7 @@ export class TransactionManager {
                 },
             })
             if (!nextTx) {
-                await new Promise((r) => setTimeout(r, 5000))
+                await new Promise((r) => setTimeout(r, 500))
                 continue
             }
             const sent = await this.tryBroadcastTransaction(nextTx.signedData)

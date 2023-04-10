@@ -1,6 +1,7 @@
 import { createContext} from 'react'
 import { makeAutoObservable } from 'mobx'
-import { ZkIdentity, Strategy, hash1, stringifyBigInts } from '@unirep/utils'
+import { hash1, stringifyBigInts } from '@unirep/utils'
+import { Identity } from '@semaphore-protocol/identity'
 import { UserState, schema } from '@unirep/core'
 import { MemoryConnector } from 'anondb/web'
 import { constructSchema } from 'anondb/types'
@@ -23,10 +24,10 @@ class User {
   }
 
   async load() {
-    const id = localStorage.getItem('id')
-    const identity = new ZkIdentity(id ? Strategy.SERIALIZED : Strategy.RANDOM, id)
+    const id = localStorage.getItem('id') ?? undefined
+    const identity = new Identity(id)
     if (!id) {
-      localStorage.setItem('id', identity.serializeIdentity())
+      localStorage.setItem('id', identity.toString())
     }
 
     const userState = new UserState({
@@ -111,20 +112,16 @@ class User {
   }
 
   async stateTransition() {
-    const sealed = await this.userState.sync.isEpochSealed(await this.userState.latestTransitionedEpoch())
-    if (!sealed) {
-      throw new Error('From epoch is not yet sealed')
-    }
     await this.userState.waitForSync()
-    const signupProof = await this.userState.genUserStateTransitionProof()
+    const ustProof = await this.userState.genUserStateTransitionProof()
     const data = await fetch(`${SERVER}/api/transition`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        publicSignals: signupProof.publicSignals,
-        proof: signupProof.proof,
+        publicSignals: ustProof.publicSignals,
+        proof: ustProof.proof,
       })
     }).then(r => r.json())
     await provider.waitForTransaction(data.hash)
