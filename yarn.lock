@@ -2550,6 +2550,11 @@
   resolved "https://registry.yarnpkg.com/@zk-kit/incremental-merkle-tree.sol/-/incremental-merkle-tree.sol-1.3.1.tgz#335442c29adeba7477f35deb33fa643faaf81b63"
   integrity sha512-KdGPoEooSX5MJH7oBE7MCRt/Aej+6n7U6v81w9fIzorSbykNuKH5lMbjkDAsis5xhp2qBC+y1V0xYBA2SNMt8A==
 
+"@zk-kit/incremental-merkle-tree.sol@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@zk-kit/incremental-merkle-tree.sol/-/incremental-merkle-tree.sol-1.5.0.tgz#df34507d12503d3a9260d26a720dd9385d74affd"
+  integrity sha512-Z/fucjlDYPPBR0FskeUBNprEmR+rxfKVvTrnD9Q3MUegcE+6ItGHB2yTxMVnhWXDW5Mm3E4ctRiPN2zxt+Ncjg==
+
 "@zk-kit/incremental-merkle-tree@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@zk-kit/incremental-merkle-tree/-/incremental-merkle-tree-0.4.3.tgz#197f72102d35dd9c546a6a432896d6d6f6de05f4"

@@ -24,9 +24,7 @@ export default observer(() => {
   const fieldType = (i) => {
     if (i < userContext.sumFieldCount) {
       return 'sum'
-    } else if (i % 2 === userContext.sumFieldCount % 2) {
-      return 'replace'
-    } else return 'timestamp'
+    } else return 'replace'
   }
 
   React.useEffect(() => {

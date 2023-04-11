@@ -90,9 +90,6 @@ class User {
         delete reqData[key]
         continue
       }
-      if (+key > this.sumFieldCount && +key % 2 !== this.sumFieldCount % 2) {
-        throw new Error('Cannot change timestamp field')
-      }
     }
     const epochKeyProof = await this.userState.genEpochKeyProof({nonce: epkNonce})
     const data = await fetch(`${SERVER}/api/request`, {
