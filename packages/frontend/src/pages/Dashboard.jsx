@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import './dashboard.css'
 import Button from '../components/Button'
 import Tooltip from '../components/Tooltip'
+import Data from '../components/Data'
 
 import User from '../contexts/User'
 
@@ -69,43 +70,14 @@ export default observer(() => {
             <h3>Latest Reputation</h3>
             <Tooltip text='This is all the reputation the user has received. The user cannot prove reputation from the current epoch.'/>
           </div>
-          {
-            userContext.data.map((data, i) => {
-              return (
-                <div key={i} className='info-item'>
-                  <div>Data {i}</div>
-                  {
-                    i >= userContext.userState?.sync.settings.sumFieldCount ? (
-                      <div className='stat'>
-                        <span>{(BigInt(data ?? 0) >> BigInt(254-userContext.userState?.sync.settings.replNonceBits)).toString()}</span>
-                        <span>:</span>
-                        <span>{(BigInt(data ?? 0) & (2n**BigInt(254-userContext.userState?.sync.settings.replNonceBits) - 1n)).toString()}</span>
-                      </div>
-                      ) : (
-                      <div className='stat'>{(data || 0).toString()}</div>
-                      )
-                  }
-                </div>
-              )
-            })
-          }
-
+          <Data input={userContext.data} />
           <br/>
 
           <div className='info-item'>
             <h3>Provable Reputation</h3>
             <Tooltip text='This is the reputation the user has received up until their last transitioned epoch. This reputation can be proven in ZK.'/>
           </div>
-          {
-            userContext.provableData.map((data, i) => {
-              return (
-                <div key={i} className='info-item'>
-                  <div>Data {i}</div>
-                  <div className='stat'>{(data || 0).toString()}</div>
-                </div>
-              )
-            })
-          }
+          <Data input={userContext.data} />
           </div>
 
           <div style={{ display: 'flex' }}>
