@@ -16,7 +16,7 @@
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@semaphore-protocol/identity": "3.5.0",
-    "@unirep/core": "2.0.0-beta-2",
+    "@unirep/core": "2.0.0-beta-3",
     "ethers": "^5.7.2",
     "file-loader": "^6.2.0",
     "mobx-react-lite": "^3.4.0"

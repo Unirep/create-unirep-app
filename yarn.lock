@@ -2274,50 +2274,50 @@
   dependencies:
     "@types/node" "*"
 
-"@unirep/circuits@2.0.0-beta-2":
-  version "2.0.0-beta-2"
-  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-beta-2.tgz#53db31d1ab2456a5fe779380fa2fb17e421a672f"
-  integrity sha512-JjZLlm8s2NpoUWC7gKs2WsAaJ4RJjAQcMiLq+cKsb/29XlYDfGa819SdRIhzTkLK1o1/uBdovTLdglMUAKBETw==
+"@unirep/circuits@2.0.0-beta-3":
+  version "2.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-beta-3.tgz#225bb97ad8404cf2f90102a18bb0baaa9ad97ad3"
+  integrity sha512-LSCiNWt/g13fUjNeYEFnDpniVLCzLglEfNvMCnLaIaPqvTNLRysCzY+dRE53G8eX7nGRj7Y8K6NsBXbl+T6Hfg==
   dependencies:
     "@ethersproject/solidity" "^5.7.0"
-    "@unirep/utils" "2.0.0-beta-2"
+    "@unirep/utils" "2.0.0-beta-3"
     snarkjs "^0.5.0"
 
-"@unirep/contracts@2.0.0-beta-2":
-  version "2.0.0-beta-2"
-  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0-beta-2.tgz#9a661a704aa34538c5ceebf6d255d6543fdb77d0"
-  integrity sha512-FoVAEKudx/XIT2PdGpmPEBNpdtW+DJTFBcFfUm0HYj4nyYeP9oDd38nzM+TOcrVJXAk+5jLRXUuzMis948PG4A==
+"@unirep/contracts@2.0.0-beta-3":
+  version "2.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0-beta-3.tgz#fff4326d89d3a4a0d9fc23c54df5b4ad707a1242"
+  integrity sha512-zKvivmTfgPp5QT72XWDI9RSBhxz9XIuFYaFLmvAHZi1Hm/j2Lq/AjYopZBFCI7KAKUD+Rb+/HXBuhVgOnZijog==
   dependencies:
-    "@unirep/circuits" "2.0.0-beta-2"
-    "@unirep/utils" "2.0.0-beta-2"
+    "@unirep/circuits" "2.0.0-beta-3"
+    "@unirep/utils" "2.0.0-beta-3"
     "@zk-kit/incremental-merkle-tree.sol" "^1.4.0"
     ethers "^5.6.8"
     global-factory "^0.0.0"
     poseidon-solidity "^0.0.3"
     solc "^0.8.16"
 
-"@unirep/core@2.0.0-beta-2":
-  version "2.0.0-beta-2"
-  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0-beta-2.tgz#9d3587e7232e11a5f625d1f07c1c313ebb5c1a49"
-  integrity sha512-EccICH8WmQJeNL63snYzkwNd5pGEUtZbGKOiryGyj8jU1BKV6ncJ1KayQzN8fInqj4cuuQeyobgAlVJQhkYtaA==
+"@unirep/core@2.0.0-beta-3":
+  version "2.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0-beta-3.tgz#26a95fac248cb743bd751fcdc7987ce498a9f91c"
+  integrity sha512-xnlzpZEk6vAATfHXls2LIYqHalN+echNNYcEUCSxS3DO3lw70i9AgkAl7PUPMKmdgm8geY1cJbmWrdS0WKEe+w==
   dependencies:
     "@semaphore-protocol/identity" "^3.5.0"
-    "@unirep/circuits" "2.0.0-beta-2"
-    "@unirep/contracts" "2.0.0-beta-2"
-    "@unirep/utils" "2.0.0-beta-2"
+    "@unirep/circuits" "2.0.0-beta-3"
+    "@unirep/contracts" "2.0.0-beta-3"
+    "@unirep/utils" "2.0.0-beta-3"
     anondb "^0.0.16"
     async-lock "^1.4.0"
     ethers "^5.6.8"
     nanoid "3"
 
-"@unirep/utils@2.0.0-beta-2":
-  version "2.0.0-beta-2"
-  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0-beta-2.tgz#e761bbd041fdd7d2e212d45ca10dd1f3004844cf"
-  integrity sha512-z1lQ/GO73ab7bYNckCKRl7/ynXWA86/UKkwMWLKt0skZAGI5IqOF8yw1SUJzZWUXHLN5tdFtoiqZY1dPeH6xSw==
+"@unirep/utils@2.0.0-beta-3":
+  version "2.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0-beta-3.tgz#843241dcf2b11a0c9f2ff5a668d006d334c7fc16"
+  integrity sha512-xf/SAURPcvvsFIEBuGTw7w6AEVeuzIKxEzt+Cphkx09raOESTGxNxHxg8DUtfJ7yZ507Qy3AcSikpOTzLnY7zw==
   dependencies:
     "@zk-kit/incremental-merkle-tree" "^0.4.3"
     poseidon-lite "^0.0.2"
-    randomf "^0.0.1"
+    randomf "^0.0.3"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -7413,10 +7413,10 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
-randomf@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/randomf/-/randomf-0.0.1.tgz#2d4e524b0da778eef0daa8bb70f82c2ae9569e28"
-  integrity sha512-yaKZlDxEsJlUSIl/r0PC7t8PaGuTvKBkGuztibkkfg+pSv6tjwYAhaLHf0bkAEq8rwPDHeAk7VlVJ/8uCPElgQ==
+randomf@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/randomf/-/randomf-0.0.3.tgz#c4db23042e8d4d9dd77b70e04ad3858e78026718"
+  integrity sha512-hcZAFZNPZ3YeNpYLkC3MYjVedW4Hb4I0OhQdEHRd/UdDM8roGRH1vCtt8/UTaIHy4VKPLh6kfzS9ljzlMD2Y2Q==
 
 randomfill@^1.0.3:
   version "1.0.4"
