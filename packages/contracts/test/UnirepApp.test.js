@@ -33,7 +33,7 @@ describe("Unirep App", function () {
     let app
 
     // epoch length
-    const epochLength = 30
+    const epochLength = 300
     let startTime = 0
     // generate random user id
     const id = new Identity()
@@ -80,7 +80,7 @@ describe("Unirep App", function () {
     it("user state transition", async () => {
         const userState = await genUserState(id, app)
         const oldEpoch = await unirep.attesterCurrentEpoch(app.address)
-        await ethers.provider.send('evm_increaseTime', [userState.sync.calcEpochRemainingTime()+10])
+        await ethers.provider.send('evm_increaseTime', [userState.sync.calcEpochRemainingTime()+1])
         await ethers.provider.send('evm_mine', [])
         const newEpoch = await unirep.attesterCurrentEpoch(app.address)
         const { publicSignals, proof } = await userState.genUserStateTransitionProof({ toEpoch: newEpoch })
