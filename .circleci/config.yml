@@ -51,7 +51,9 @@ jobs:
                 command: yarn
             - run:
                 name: Build backend image
-                command: docker build . -t jchancehud/unirep-demo-relay:latest
+                command: |
+                    echo "module.exports = {}" > config.js
+                    docker build . -t jchancehud/unirep-demo-relay:latest
             - run:
                 name: Push backend image
                 command: |
