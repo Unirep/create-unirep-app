@@ -3,6 +3,11 @@ workflows:
     test:
         jobs:
             - contracts-test
+            - deploy:
+                filters:
+                    branches:
+                        only:
+                            - main
 
 # Just for reusing below
 step_defs:
@@ -31,3 +36,23 @@ jobs:
             - run:
                   name: Test
                   command: yarn contracts test
+    deploy:
+        machine:
+            image: ubuntu-2204:2022.04.1
+        resource_class: large
+        steps:
+            - checkout
+            - run: *node_version
+            - run: *check_version
+            - run:
+                name: Install
+                command: yarn
+            - run:
+                name: Build backend image
+                command: docker build . -t jchancehud/unirep-demo-relay:latest
+            - run:
+                name: Push backend image
+                command: |
+                    echo $DOCKER_TOKEN | docker login -u jchancehud --password-stdin
+                    docker push jchancehud/unirep-demo-relay:latest
+                    rm /home/circleci/.docker/config.json
