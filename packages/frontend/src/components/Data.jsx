@@ -4,7 +4,7 @@ import User from '../contexts/User'
 
 export default observer(({ input }) => {
   const userContext = React.useContext(User)
-  return data.map((data, i) => (
+  return input.map((data, i) => (
     <div key={i} className='info-item'>
       <div>Data {i}</div>
       {
