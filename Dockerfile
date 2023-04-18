@@ -4,7 +4,7 @@ COPY . /src
 
 WORKDIR /src
 
-RUN yarn && rm -rf packages/frontend
+RUN yarn
 
 RUN sh scripts/loadKeys.sh
 
