@@ -9,6 +9,7 @@ workflows:
                     branches:
                         only:
                             - main
+                            - beta-3
 
 # Just for reusing below
 step_defs:
