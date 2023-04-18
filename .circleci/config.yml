@@ -4,6 +4,7 @@ workflows:
         jobs:
             - contracts-test
             - deploy:
+                context: docker
                 filters:
                     branches:
                         only:
