@@ -12,7 +12,7 @@
     "abi": "node scripts/abi",
     "hardhat": "hardhat",
     "deploy": "hardhat run scripts/deploy.mjs",
-    "test": "hardhat test test/UnirepApp.test.js --network hardhat"
+    "test": "DEPLOY_DELAY=0 hardhat test test/UnirepApp.test.js --network hardhat"
   },
   "bugs": {
     "url": "https://github.com/vivianjeng/create-unirep-app/issues"
