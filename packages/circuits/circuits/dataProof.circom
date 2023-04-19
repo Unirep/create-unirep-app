@@ -7,7 +7,7 @@ include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/gate
 include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/comparators.circom";
 
 
-template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, EPK_R) {
+template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT) {
     // State tree leaf: Identity & user state root
     signal input identity_secret;
     // State tree
@@ -24,7 +24,7 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, EPK_R) {
     /* 1. Check if user exists in the State Tree */
 
     // Compute state tree root
-    component leaf_hasher = StateTreeLeaf(FIELD_COUNT, EPK_R);
+    component leaf_hasher = StateTreeLeaf(FIELD_COUNT);
     leaf_hasher.identity_secret <== identity_secret;
     leaf_hasher.attester_id <== attester_id;
     leaf_hasher.epoch <== epoch;

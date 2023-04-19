@@ -1,6 +1,6 @@
 # create-unirep-app
 
-This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request reputation from the example attester. After transition, user can prove how much reputation he has.
+This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example attester. After transition, user can prove how much data he has.
 
 > See: [Users and Attesters](https://developer.unirep.io/docs/protocol/users-and-attesters)
 

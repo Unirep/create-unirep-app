@@ -12,9 +12,9 @@
                 "type": "address"
             },
             {
-                "internalType": "uint256",
+                "internalType": "uint48",
                 "name": "_epochLength",
-                "type": "uint256"
+                "type": "uint48"
             }
         ],
         "stateMutability": "nonpayable",
@@ -28,9 +28,9 @@
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
+                "internalType": "uint48",
                 "name": "targetEpoch",
-                "type": "uint256"
+                "type": "uint48"
             },
             {
                 "internalType": "uint256",
@@ -52,9 +52,9 @@
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
+                "internalType": "uint48",
                 "name": "targetEpoch",
-                "type": "uint256"
+                "type": "uint48"
             },
             {
                 "internalType": "uint256[]",
