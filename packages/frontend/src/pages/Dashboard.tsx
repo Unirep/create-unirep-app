@@ -44,9 +44,7 @@ export default observer(() => {
     const fieldType = (i: number) => {
         if (i < userContext.sumFieldCount) {
             return 'sum'
-        } else if (i % 2 === userContext.sumFieldCount % 2) {
-            return 'replace'
-        } else return 'timestamp'
+        } else return 'replace'
     }
 
     React.useEffect(() => {
@@ -90,35 +88,61 @@ export default observer(() => {
                     <hr />
 
                     <div className="info-item">
-                        <h3>Latest Reputation</h3>
-                        <Tooltip text="This is all the reputation the user has received. The user cannot prove reputation from the current epoch." />
+                        <h3>Latest Data</h3>
+                        <Tooltip text="This is all the data the user has received. The user cannot prove data from the current epoch." />
                     </div>
                     {userContext.data.map((data, i) => {
-                        return (
-                            <div key={i} className="info-item">
-                                <div>Data {i}</div>
-                                <div className="stat">
-                                    {(data || 0).toString()}
+                        if (i < userContext.sumFieldCount) {
+                            return (
+                                <div key={i} className="info-item">
+                                    <div>Data {i}</div>
+                                    <div className="stat">
+                                        {(data || 0).toString()}
+                                    </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        } else {
+                            return (
+                                <div key={i} className="info-item">
+                                    <div>Data {i}</div>
+                                    <div className="stat">
+                                        {(
+                                            data % BigInt(2 ** 206) || 0
+                                        ).toString()}
+                                    </div>
+                                </div>
+                            )
+                        }
                     })}
 
                     <br />
 
                     <div className="info-item">
-                        <h3>Provable Reputation</h3>
-                        <Tooltip text="This is the reputation the user has received up until their last transitioned epoch. This reputation can be proven in ZK." />
+                        <h3>Provable Data</h3>
+                        <Tooltip text="This is the data the user has received up until their last transitioned epoch. This data can be proven in ZK." />
                     </div>
                     {userContext.provableData.map((data, i) => {
-                        return (
-                            <div key={i} className="info-item">
-                                <div>Data {i}</div>
-                                <div className="stat">
-                                    {(data || 0).toString()}
+                        if (i < userContext.sumFieldCount) {
+                            return (
+                                <div key={i} className="info-item">
+                                    <div>Data {i}</div>
+                                    <div className="stat">
+                                        {(data || 0).toString()}
+                                    </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        } else {
+                            return (
+                                <div key={i} className="info-item">
+                                    <div>Data {i}</div>
+                                    <div className="stat">
+                                        {(
+                                            data % BigInt(2 ** 206) || 0
+                                        ).toString()}
+                                    </div>
+                                </div>
+                            )
+                        }
                     })}
                 </div>
 
@@ -168,7 +192,7 @@ export default observer(() => {
                             <p style={{ marginRight: '8px' }}>
                                 Epoch key nonce
                             </p>
-                            <Tooltip text="Epoch keys are short lived identifiers for a user. They can be used to receive reputation and are valid only for 1 epoch." />
+                            <Tooltip text="Epoch keys are short lived identifiers for a user. They can be used to receive data and are valid only for 1 epoch." />
                         </div>
                         <select
                             value={reqInfo.nonce ?? 0}
@@ -181,7 +205,7 @@ export default observer(() => {
                         >
                             <option value="0">0</option>
                             <option value="1">1</option>
-                            <option value="2">2</option>
+                            {/* TODO: <option value="2">2</option> */}
                         </select>
                         <p style={{ fontSize: '12px' }}>
                             Requesting data with epoch key:
@@ -206,7 +230,7 @@ export default observer(() => {
                                 ) {
                                     throw new Error('Needs transition')
                                 }
-                                await userContext.requestReputation(
+                                await userContext.requestData(
                                     reqData,
                                     reqInfo.nonce ?? 0
                                 )
@@ -221,7 +245,7 @@ export default observer(() => {
                         <div className="icon">
                             <h2>User State Transition</h2>
                             <Tooltip
-                                text={`The user state transition allows a user to insert a state tree leaf into the latest epoch. The user sums all the reputation they've received in the past and proves it in ZK.`}
+                                text={`The user state transition allows a user to insert a state tree leaf into the latest epoch. The user sums all the data they've received in the past and proves it in ZK.`}
                             />
                         </div>
                         <Button onClick={() => userContext.stateTransition()}>

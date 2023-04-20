@@ -1,6 +1,6 @@
 # create-unirep-app
 
-This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request reputation from the example attester. After transition, user can prove how much reputation he has.
+This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example attester. After transition, user can prove how much data he has.
 
 > See: [Users and Attesters](https://developer.unirep.io/docs/protocol/users-and-attesters)
 
@@ -11,32 +11,22 @@ npx create-unirep-app
 ```
 
 Then `cd` into the directory that was created.
-There are two ways to start the example attester:
 
-## 2.1 Start with one command
+## 2 Start with each daemon
 
-```shell
-yarn build &&
-yarn start
-```
-
-Then the frontend will be running at: http://localhost:3000/
-
-## 2.2 Start with each daemon
-
-### 2.2.1 Build the files
+### 2.1 Build the files
 
 ```shell
 yarn build
 ```
 
-### 2.2.2 Start a node
+### 2.2 Start a node
 
 ```shell
 yarn contracts hardhat node
 ```
 
-### 2.2.3 Deploy smart contracts
+### 2.3 Deploy smart contracts
 
 in new terminal window, from root:
 
@@ -44,13 +34,13 @@ in new terminal window, from root:
 yarn contracts deploy
 ```
 
-### 2.2.4 Start a relayer (backend)
+### 2.4 Start a relayer (backend)
 
 ```shell
 yarn relay start
 ```
 
-### 2.2.5 Start a frontend
+### 2.5 Start a frontend
 
 in new terminal window, from root:
 

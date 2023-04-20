@@ -14,7 +14,6 @@ import {
     APP_ADDRESS,
 } from './config'
 import TransactionManager from './singletons/TransactionManager'
-import HashchainManager from './singletons/HashchainManager'
 
 main().catch((err) => {
     console.log(`Uncaught error: ${err}`)
@@ -36,9 +35,6 @@ async function main() {
 
     TransactionManager.configure(PRIVATE_KEY, provider, synchronizer._db)
     await TransactionManager.start()
-
-    HashchainManager.configure(synchronizer)
-    HashchainManager.startDaemon()
 
     const app = express()
     const port = process.env.PORT ?? 8000

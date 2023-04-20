@@ -1,10 +1,12 @@
 import { createContext } from 'react'
 import { makeAutoObservable } from 'mobx'
-import { ZkIdentity, Strategy, stringifyBigInts } from '@unirep/utils'
+import { stringifyBigInts } from '@unirep/utils'
+import { Identity } from '@semaphore-protocol/identity'
 import { UserState } from '@unirep/core'
 import { DataProof } from '@unirep-app/circuits'
-import { provider, UNIREP_ADDRESS, APP_ADDRESS, SERVER } from '../config'
+import { SERVER } from '../config'
 import prover from './prover'
+import { ethers } from 'ethers'
 
 class User {
     currentEpoch: number = 0
@@ -13,6 +15,7 @@ class User {
     data: bigint[] = []
     provableData: bigint[] = []
     userState?: UserState
+    provider: any
 
     constructor() {
         makeAutoObservable(this)
@@ -21,13 +24,19 @@ class User {
 
     async load() {
         const id: string = localStorage.getItem('id') ?? ''
-        const identity = new ZkIdentity(
-            id ? Strategy.SERIALIZED : Strategy.RANDOM,
-            id
-        )
+        const identity = new Identity(id)
         if (!id) {
-            localStorage.setItem('id', identity.serializeIdentity())
+            localStorage.setItem('id', identity.toString())
         }
+
+        const { UNIREP_ADDRESS, APP_ADDRESS, ETH_PROVIDER_URL } = await fetch(
+            `${SERVER}/api/config`
+        ).then((r) => r.json())
+
+        const provider = ETH_PROVIDER_URL.startsWith('http')
+            ? new ethers.providers.JsonRpcProvider(ETH_PROVIDER_URL)
+            : new ethers.providers.WebSocketProvider(ETH_PROVIDER_URL)
+        this.provider = provider
 
         const userState = new UserState(
             {
@@ -43,7 +52,7 @@ class User {
         this.userState = userState
         await userState.waitForSync()
         this.hasSignedUp = await userState.hasSignedUp()
-        await this.loadReputation()
+        await this.loadData()
         this.latestTransitionedEpoch =
             await this.userState.latestTransitionedEpoch()
     }
@@ -63,7 +72,7 @@ class User {
         return `0x${key.toString(16)}`
     }
 
-    async loadReputation() {
+    async loadData() {
         if (!this.userState) throw new Error('user state not initialized')
 
         this.data = await this.userState.getData()
@@ -84,13 +93,13 @@ class User {
                 proof: signupProof.proof,
             }),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         this.hasSignedUp = await this.userState.hasSignedUp()
         this.latestTransitionedEpoch = this.userState.sync.calcCurrentEpoch()
     }
 
-    async requestReputation(
+    async requestData(
         reqData: { [key: number]: string | number },
         epkNonce: number
     ) {
@@ -100,13 +109,6 @@ class User {
             if (reqData[+key] === '') {
                 delete reqData[+key]
                 continue
-            }
-            if (
-                reqData[+key] &&
-                +key > this.sumFieldCount &&
-                +key % 2 !== this.sumFieldCount % 2
-            ) {
-                throw new Error('Cannot change timestamp field')
             }
         }
         if (Object.keys(reqData).length === 0) {
@@ -128,20 +130,14 @@ class User {
                 })
             ),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
-        await this.loadReputation()
+        await this.loadData()
     }
 
     async stateTransition() {
         if (!this.userState) throw new Error('user state not initialized')
 
-        const sealed = await this.userState.sync.isEpochSealed(
-            await this.userState.latestTransitionedEpoch()
-        )
-        if (!sealed) {
-            throw new Error('From epoch is not yet sealed')
-        }
         await this.userState.waitForSync()
         const signupProof = await this.userState.genUserStateTransitionProof()
         const data = await fetch(`${SERVER}/api/transition`, {
@@ -154,9 +150,9 @@ class User {
                 proof: signupProof.proof,
             }),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
-        await this.loadReputation()
+        await this.loadData()
         this.latestTransitionedEpoch =
             await this.userState.latestTransitionedEpoch()
     }
@@ -175,7 +171,7 @@ class User {
         }
         const attesterId = this.userState.sync.attesterId
         const circuitInputs = stringifyBigInts({
-            identity_secret: this.userState.id.secretHash,
+            identity_secret: this.userState.id.secret,
             state_tree_indexes: stateTreeProof.pathIndices,
             state_tree_elements: stateTreeProof.siblings,
             data: provableData,

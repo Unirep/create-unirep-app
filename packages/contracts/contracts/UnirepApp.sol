@@ -17,7 +17,7 @@ contract UnirepApp {
     Unirep public unirep;
     IVerifier internal dataVerifier;
 
-    constructor(Unirep _unirep, IVerifier _dataVerifier, uint256 _epochLength) {
+    constructor(Unirep _unirep, IVerifier _dataVerifier, uint48 _epochLength) {
         // set unirep address
         unirep = _unirep;
 
@@ -38,7 +38,7 @@ contract UnirepApp {
 
     function submitManyAttestations(
         uint256 epochKey,
-        uint256 targetEpoch,
+        uint48 targetEpoch,
         uint[] calldata fieldIndices,
         uint[] calldata vals
     ) public {
@@ -50,7 +50,7 @@ contract UnirepApp {
 
     function submitAttestation(
         uint256 epochKey,
-        uint256 targetEpoch,
+        uint48 targetEpoch,
         uint256 fieldIndex,
         uint256 val
     ) public {

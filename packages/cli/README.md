@@ -1,6 +1,6 @@
 # create-unirep-app
 
-A command line application for bootstrapping a [Universal Reputation Attester](https://developer.unirep.io/docs/protocol/users-and-attesters#attester-).
+A command line application for bootstrapping a [Unirep Attester](https://developer.unirep.io/docs/protocol/users-and-attesters#attester-).
 
 ## Usage
 

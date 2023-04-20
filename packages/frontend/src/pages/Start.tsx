@@ -34,7 +34,7 @@ export default observer(() => {
                     <div style={{ marginRight: '12px' }}>
                         You have created a new UniRep attester{' '}
                     </div>
-                    <Tooltip text="Attesters define their own reputation systems and are able to attest to users, giving them reputation and graffiti." />
+                    <Tooltip text="Attesters define their own data systems and are able to attest to users, giving them data." />
                 </div>
                 <p>
                     Clicking 'Join' adds a user to this attester's membership
@@ -81,8 +81,8 @@ export default observer(() => {
                     )}
                 </div>
                 <p>
-                    After joining, the member can interact with reputation in
-                    the attester's application.{' '}
+                    After joining, the member can interact with data in the
+                    attester's application.{' '}
                 </p>
                 <p>
                     Customize this landing page to onboard new users to your

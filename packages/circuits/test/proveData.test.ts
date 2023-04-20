@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import * as utils from '@unirep/utils'
+import { Identity } from '@semaphore-protocol/identity'
 import { Circuit, CircuitConfig } from '@unirep/circuits'
 import { defaultProver } from '../provers/defaultProver'
 
@@ -8,7 +9,7 @@ const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH } = CircuitConfig.default
 const circuit = 'dataProof'
 
 const genCircuitInput = (config: {
-    id: utils.ZkIdentity
+    id: Identity
     epoch: number
     attesterId: number | bigint
     sumField?: (bigint | number)[]
@@ -37,7 +38,7 @@ const genCircuitInput = (config: {
     // Global state tree
     const stateTree = new utils.IncrementalMerkleTree(STATE_TREE_DEPTH)
     const hashedLeaf = utils.genStateTreeLeaf(
-        id.secretHash,
+        id.secret,
         BigInt(attesterId),
         epoch,
         startBalance as any
@@ -51,7 +52,7 @@ const genCircuitInput = (config: {
     ]
 
     const circuitInputs = {
-        identity_secret: id.secretHash,
+        identity_secret: id.secret,
         state_tree_indexes: stateTreeProof.pathIndices,
         state_tree_elements: stateTreeProof.siblings,
         data: startBalance,
@@ -87,7 +88,7 @@ describe('Prove data in Unirep App', function () {
     this.timeout(300000)
 
     it('should generate a data proof', async () => {
-        const id = new utils.ZkIdentity()
+        const id = new Identity()
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const circuitInputs = genCircuitInput({
@@ -100,7 +101,7 @@ describe('Prove data in Unirep App', function () {
     })
 
     it('should generate a data proof with values', async () => {
-        const id = new utils.ZkIdentity()
+        const id = new Identity()
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
@@ -117,7 +118,7 @@ describe('Prove data in Unirep App', function () {
     })
 
     it('should not generate a data proof with invalid values', async () => {
-        const id = new utils.ZkIdentity()
+        const id = new Identity()
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
