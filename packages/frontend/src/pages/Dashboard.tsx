@@ -205,7 +205,7 @@ export default observer(() => {
                         >
                             <option value="0">0</option>
                             <option value="1">1</option>
-                            <option value="2">2</option>
+                            {/* TODO: <option value="2">2</option> */}
                         </select>
                         <p style={{ fontSize: '12px' }}>
                             Requesting data with epoch key:

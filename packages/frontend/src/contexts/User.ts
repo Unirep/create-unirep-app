@@ -4,8 +4,9 @@ import { stringifyBigInts } from '@unirep/utils'
 import { Identity } from '@semaphore-protocol/identity'
 import { UserState } from '@unirep/core'
 import { DataProof } from '@unirep-app/circuits'
-import { provider, UNIREP_ADDRESS, APP_ADDRESS, SERVER } from '../config'
+import { SERVER } from '../config'
 import prover from './prover'
+import { ethers } from 'ethers'
 
 class User {
     currentEpoch: number = 0
@@ -14,6 +15,7 @@ class User {
     data: bigint[] = []
     provableData: bigint[] = []
     userState?: UserState
+    provider: any
 
     constructor() {
         makeAutoObservable(this)
@@ -26,6 +28,15 @@ class User {
         if (!id) {
             localStorage.setItem('id', identity.toString())
         }
+
+        const { UNIREP_ADDRESS, APP_ADDRESS, ETH_PROVIDER_URL } = await fetch(
+            `${SERVER}/api/config`
+        ).then((r) => r.json())
+
+        const provider = ETH_PROVIDER_URL.startsWith('http')
+            ? new ethers.providers.JsonRpcProvider(ETH_PROVIDER_URL)
+            : new ethers.providers.WebSocketProvider(ETH_PROVIDER_URL)
+        this.provider = provider
 
         const userState = new UserState(
             {
@@ -82,7 +93,7 @@ class User {
                 proof: signupProof.proof,
             }),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         this.hasSignedUp = await this.userState.hasSignedUp()
         this.latestTransitionedEpoch = this.userState.sync.calcCurrentEpoch()
@@ -119,7 +130,7 @@ class User {
                 })
             ),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         await this.loadData()
     }
@@ -139,7 +150,7 @@ class User {
                 proof: signupProof.proof,
             }),
         }).then((r) => r.json())
-        await provider.waitForTransaction(data.hash)
+        await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         await this.loadData()
         this.latestTransitionedEpoch =
