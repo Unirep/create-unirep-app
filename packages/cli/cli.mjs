@@ -89,7 +89,12 @@ await fs.promises.writeFile(
 const targetDir = path.isAbsolute(projectDir)
     ? projectDir
     : path.join(process.cwd(), projectDir)
-await fs.promises.rename(appPath, targetDir)
+await fs.promises.cp(appPath, targetDir, {
+    recursive: true,
+})
+await fs.promises.rm(appPath, {
+    recursive: true,
+})
 
 const installCommand = packageManager === 0 ? ['yarn'] : ['npm', ['i']]
 const install = spawn(...installCommand, {
