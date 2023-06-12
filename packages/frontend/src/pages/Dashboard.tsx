@@ -289,16 +289,24 @@ export default observer(() => {
                         <div style={{ margin: '20px 0 20px' }}>
                             <Button
                                 onClick={async () => {
-                                    const proof = await userContext.proveData(
-                                        proveData
-                                    )
-                                    setRepProof(proof)
+                                    try {
+                                        const proof =
+                                            await userContext.proveData(
+                                                proveData
+                                            )
+                                        setRepProof(proof)
+                                    } catch (error) {
+                                        console.log(error)
+                                        alert(
+                                            'Invalid Proof. You are attempting to prove more data than you have received. Check your provable data, transition if necessary, and try again'
+                                        )
+                                    }
                                 }}
                             >
                                 Generate Proof
                             </Button>
                         </div>
-                        {repProof.proof.length ? (
+                        {repProof.valid ? (
                             <>
                                 <div>
                                     Is proof valid?{' '}
