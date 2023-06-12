@@ -99,6 +99,7 @@ await fs.promises.rm(appPath, {
 const installCommand = packageManager === 0 ? ['yarn'] : ['npm', ['i']]
 const install = spawn(...installCommand, {
     cwd: targetDir,
+    shell: true, // needed for windows compatibility
     stdio: ['inherit', 'inherit', 'inherit'],
 })
 install.on('error', (err) => {
