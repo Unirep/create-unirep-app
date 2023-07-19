@@ -1,1 +1,116 @@
-[{"inputs":[{"internalType":"contract Unirep","name":"_unirep","type":"address"},{"internalType":"contract IVerifier","name":"_dataVerifier","type":"address"},{"internalType":"uint48","name":"_epochLength","type":"uint48"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"uint256","name":"epochKey","type":"uint256"},{"internalType":"uint48","name":"targetEpoch","type":"uint48"},{"internalType":"uint256","name":"fieldIndex","type":"uint256"},{"internalType":"uint256","name":"val","type":"uint256"}],"name":"submitAttestation","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"epochKey","type":"uint256"},{"internalType":"uint48","name":"targetEpoch","type":"uint48"},{"internalType":"uint256[]","name":"fieldIndices","type":"uint256[]"},{"internalType":"uint256[]","name":"vals","type":"uint256[]"}],"name":"submitManyAttestations","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unirep","outputs":[{"internalType":"contract Unirep","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"publicSignals","type":"uint256[]"},{"internalType":"uint256[8]","name":"proof","type":"uint256[8]"}],"name":"userSignUp","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256[5]","name":"publicSignals","type":"uint256[5]"},{"internalType":"uint256[8]","name":"proof","type":"uint256[8]"}],"name":"verifyDataProof","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}]
+[
+    {
+        "inputs": [
+            {
+                "internalType": "contract Unirep",
+                "name": "_unirep",
+                "type": "address"
+            },
+            {
+                "internalType": "contract IVerifier",
+                "name": "_dataVerifier",
+                "type": "address"
+            },
+            {
+                "internalType": "uint48",
+                "name": "_epochLength",
+                "type": "uint48"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "epochKey",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint48",
+                "name": "targetEpoch",
+                "type": "uint48"
+            },
+            {
+                "internalType": "uint256",
+                "name": "fieldIndex",
+                "type": "uint256"
+            },
+            { "internalType": "uint256", "name": "val", "type": "uint256" }
+        ],
+        "name": "submitAttestation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "epochKey",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint48",
+                "name": "targetEpoch",
+                "type": "uint48"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "fieldIndices",
+                "type": "uint256[]"
+            },
+            { "internalType": "uint256[]", "name": "vals", "type": "uint256[]" }
+        ],
+        "name": "submitManyAttestations",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "unirep",
+        "outputs": [
+            { "internalType": "contract Unirep", "name": "", "type": "address" }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "publicSignals",
+                "type": "uint256[]"
+            },
+            {
+                "internalType": "uint256[8]",
+                "name": "proof",
+                "type": "uint256[8]"
+            }
+        ],
+        "name": "userSignUp",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256[5]",
+                "name": "publicSignals",
+                "type": "uint256[5]"
+            },
+            {
+                "internalType": "uint256[8]",
+                "name": "proof",
+                "type": "uint256[8]"
+            }
+        ],
+        "name": "verifyDataProof",
+        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

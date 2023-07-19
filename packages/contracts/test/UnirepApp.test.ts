@@ -7,9 +7,9 @@ import { schema, UserState } from '@unirep/core'
 import { SQLiteConnector } from 'anondb/node'
 import { DataProof } from '@unirep-app/circuits'
 import { Circuit } from '@unirep/circuits'
-import defaultConfig from '@unirep/circuits/config'
+import { CircuitConfig } from '@unirep/circuits'
 import { Identity } from '@semaphore-protocol/identity'
-const { SUM_FIELD_COUNT } = defaultConfig
+const { SUM_FIELD_COUNT } = CircuitConfig.default
 import { defaultProver as prover } from '@unirep-app/circuits/provers/defaultProver'
 
 async function genUserState(id, app) {
@@ -17,16 +17,14 @@ async function genUserState(id, app) {
     const db = await SQLiteConnector.create(schema, ':memory:')
     const unirepAddress = await app.unirep()
     const attesterId = BigInt(app.address)
-    const userState = new UserState(
-        {
-            db,
-            prover,
-            unirepAddress,
-            provider: ethers.provider,
-            attesterId,
-            id
-        }
-    )
+    const userState = new UserState({
+        db,
+        prover,
+        unirepAddress,
+        provider: ethers.provider,
+        attesterId,
+        id,
+    })
     await userState.sync.start()
     await userState.waitForSync()
     return userState
@@ -68,7 +66,10 @@ describe('Unirep App', function () {
         const { publicSignals, proof, epochKey, epoch } =
             await userState.genEpochKeyProof({ nonce })
         const [deployer] = await ethers.getSigners()
-        const epkVerifier = await deployVerifierHelper(deployer, Circuit.epochKey)
+        const epkVerifier = await deployVerifierHelper(
+            deployer,
+            Circuit.epochKey
+        )
         await epkVerifier.verifyAndCheck(publicSignals, proof)
 
         const field = 0
@@ -117,11 +118,12 @@ describe('Unirep App', function () {
             'dataProof',
             circuitInputs
         )
-        const { publicSignals, proof } = new DataProof(p.publicSignals, p.proof, prover)
-        const isValid = await app.verifyDataProof(
-            publicSignals,
-            proof
+        const { publicSignals, proof } = new DataProof(
+            p.publicSignals,
+            p.proof,
+            prover
         )
+        const isValid = await app.verifyDataProof(publicSignals, proof)
         expect(isValid).to.be.true
         userState.stop()
     })

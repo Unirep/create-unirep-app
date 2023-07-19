@@ -11,11 +11,7 @@ export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
         try {
             const { publicSignals, proof } = req.body
 
-            const signupProof = new SignupProof(
-                publicSignals,
-                proof,
-                prover
-            )
+            const signupProof = new SignupProof(publicSignals, proof, prover)
             const valid = await signupProof.verify()
             if (!valid) {
                 res.status(400).json({ error: 'Invalid proof' })
