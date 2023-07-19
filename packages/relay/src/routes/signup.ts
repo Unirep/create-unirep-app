@@ -1,13 +1,12 @@
-import { SignupProof } from '@unirep/circuits'
+import { SignupProof, Prover } from '@unirep/circuits'
 import { ethers } from 'ethers'
 import { Express } from 'express'
-import { DB } from 'anondb/node'
 import { Synchronizer } from '@unirep/core'
 import { APP_ADDRESS } from '../config'
 import TransactionManager from '../singletons/TransactionManager'
 import UNIREP_APP from '@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json'
 
-export default (app: Express, db: DB, synchronizer: Synchronizer) => {
+export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
     app.post('/api/signup', async (req, res) => {
         try {
             const { publicSignals, proof } = req.body
@@ -15,7 +14,7 @@ export default (app: Express, db: DB, synchronizer: Synchronizer) => {
             const signupProof = new SignupProof(
                 publicSignals,
                 proof,
-                synchronizer.prover
+                prover
             )
             const valid = await signupProof.verify()
             if (!valid) {

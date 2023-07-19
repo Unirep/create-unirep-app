@@ -1,17 +1,16 @@
 import { Express } from 'express'
-import { DB } from 'anondb/node'
 import { Synchronizer } from '@unirep/core'
-import { UserStateTransitionProof } from '@unirep/circuits'
+import { UserStateTransitionProof, Prover } from '@unirep/circuits'
 import TransactionManager from '../singletons/TransactionManager'
 
-export default (app: Express, db: DB, synchronizer: Synchronizer) => {
+export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
     app.post('/api/transition', async (req, res) => {
         try {
             const { publicSignals, proof } = req.body
             const transitionProof = new UserStateTransitionProof(
                 publicSignals,
                 proof,
-                synchronizer.prover
+                prover
             )
             const valid = await transitionProof.verify()
             if (!valid) {

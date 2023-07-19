@@ -1,13 +1,12 @@
 import { ethers } from 'ethers'
 import { Express } from 'express'
-import { DB } from 'anondb/node'
 import { Synchronizer } from '@unirep/core'
-import { EpochKeyProof } from '@unirep/circuits'
+import { EpochKeyProof, Prover } from '@unirep/circuits'
 import { APP_ADDRESS } from '../config'
 import TransactionManager from '../singletons/TransactionManager'
 import UNIREP_APP from '@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json'
 
-export default (app: Express, db: DB, synchronizer: Synchronizer) => {
+export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
     app.post('/api/request', async (req, res) => {
         try {
             const { reqData, publicSignals, proof } = req.body
@@ -15,7 +14,7 @@ export default (app: Express, db: DB, synchronizer: Synchronizer) => {
             const epochKeyProof = new EpochKeyProof(
                 publicSignals,
                 proof,
-                synchronizer.prover
+                prover
             )
             const valid = await epochKeyProof.verify()
             if (!valid) {

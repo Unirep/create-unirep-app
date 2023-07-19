@@ -1,9 +1,7 @@
 pragma circom 2.0.0;
 
-include "../../../node_modules/@unirep/circuits/circuits/proveReputation.circom";
-include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/poseidon.circom";
-include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/mux1.circom";
-include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/gates.circom";
+include "../../../node_modules/@unirep/circuits/circuits/hasher.circom";
+include "../../../node_modules/@unirep/circuits/circuits/incrementalMerkleTree.circom";
 include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/comparators.circom";
 
 

@@ -1,6 +1,6 @@
 {
     "name": "create-unirep-app",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "type": "module",
     "description": "A CLI for bootstrapping a UniRep attester",
     "keywords": [
