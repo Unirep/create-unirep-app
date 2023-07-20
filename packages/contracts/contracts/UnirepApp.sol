@@ -30,8 +30,8 @@ contract UnirepApp {
 
     // sign up users in this app
     function userSignUp(
-        uint256[] memory publicSignals,
-        uint256[8] memory proof
+        uint256[] calldata publicSignals,
+        uint256[8] calldata proof
     ) public {
         unirep.userSignUp(publicSignals, proof);
     }

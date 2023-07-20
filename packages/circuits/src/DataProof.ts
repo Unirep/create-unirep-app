@@ -19,7 +19,7 @@ export class DataProof extends BaseProof {
      * @param prover The prover that can verify the public signals and the proof
      */
     constructor(
-        _publicSignals: BigNumberish[],
+        _publicSignals: (string | bigint)[],
         _proof: SnarkProof,
         prover?: Prover
     ) {

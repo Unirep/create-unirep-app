@@ -107,7 +107,10 @@ export default observer(() => {
                                     <div>Data {i}</div>
                                     <div className="stat">
                                         {(
-                                            data % BigInt(2 ** 206) || 0
+                                            data >>
+                                                BigInt(
+                                                    userContext.replNonceBits
+                                                ) || 0
                                         ).toString()}
                                     </div>
                                 </div>
@@ -137,7 +140,10 @@ export default observer(() => {
                                     <div>Data {i}</div>
                                     <div className="stat">
                                         {(
-                                            data % BigInt(2 ** 206) || 0
+                                            data >>
+                                                BigInt(
+                                                    userContext.replNonceBits
+                                                ) || 0
                                         ).toString()}
                                     </div>
                                 </div>

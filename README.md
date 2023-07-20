@@ -49,3 +49,17 @@ yarn frontend start
 ```
 
 It will be running at: http://localhost:3000/
+
+## 3. Linter
+
+### 3.1 Format the code
+
+```shell
+yarn lint:fix
+```
+
+### 3.2 Check if the code is formatted
+
+```shell
+yarn lint:check
+```

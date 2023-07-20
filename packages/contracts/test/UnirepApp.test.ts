@@ -1,14 +1,15 @@
 //@ts-ignore
 import { ethers } from 'hardhat'
 import { expect } from 'chai'
-import { deployUnirep } from '@unirep/contracts/deploy'
+import { deployUnirep, deployVerifierHelper } from '@unirep/contracts/deploy'
 import { stringifyBigInts } from '@unirep/utils'
 import { schema, UserState } from '@unirep/core'
 import { SQLiteConnector } from 'anondb/node'
 import { DataProof } from '@unirep-app/circuits'
-import defaultConfig from '@unirep/circuits/config'
+import { Circuit } from '@unirep/circuits'
+import { CircuitConfig } from '@unirep/circuits'
 import { Identity } from '@semaphore-protocol/identity'
-const { SUM_FIELD_COUNT } = defaultConfig
+const { SUM_FIELD_COUNT } = CircuitConfig.default
 import { defaultProver as prover } from '@unirep-app/circuits/provers/defaultProver'
 
 async function genUserState(id, app) {
@@ -16,16 +17,14 @@ async function genUserState(id, app) {
     const db = await SQLiteConnector.create(schema, ':memory:')
     const unirepAddress = await app.unirep()
     const attesterId = BigInt(app.address)
-    const userState = new UserState(
-        {
-            db,
-            prover,
-            unirepAddress,
-            provider: ethers.provider,
-            attesterId,
-        },
-        id
-    )
+    const userState = new UserState({
+        db,
+        prover,
+        unirepAddress,
+        provider: ethers.provider,
+        attesterId,
+        id,
+    })
     await userState.sync.start()
     await userState.waitForSync()
     return userState
@@ -57,7 +56,7 @@ describe('Unirep App', function () {
         // generate
         const { publicSignals, proof } = await userState.genUserSignUpProof()
         await app.userSignUp(publicSignals, proof).then((t) => t.wait())
-        userState.sync.stop()
+        userState.stop()
     })
 
     it('submit attestations', async () => {
@@ -66,16 +65,19 @@ describe('Unirep App', function () {
         const nonce = 0
         const { publicSignals, proof, epochKey, epoch } =
             await userState.genEpochKeyProof({ nonce })
-        await unirep
-            .verifyEpochKeyProof(publicSignals, proof)
-            .then((t) => t.wait())
+        const [deployer] = await ethers.getSigners()
+        const epkVerifier = await deployVerifierHelper(
+            deployer,
+            Circuit.epochKey
+        )
+        await epkVerifier.verifyAndCheck(publicSignals, proof)
 
         const field = 0
         const val = 10
         await app
             .submitAttestation(epochKey, epoch, field, val)
             .then((t) => t.wait())
-        userState.sync.stop()
+        userState.stop()
     })
 
     it('user state transition', async () => {
@@ -91,7 +93,7 @@ describe('Unirep App', function () {
         await unirep
             .userStateTransition(publicSignals, proof)
             .then((t) => t.wait())
-        userState.sync.stop()
+        userState.stop()
     })
 
     it('data proof', async () => {
@@ -116,12 +118,13 @@ describe('Unirep App', function () {
             'dataProof',
             circuitInputs
         )
-        const dataProof = new DataProof(p.publicSignals, p.proof, prover)
-        const isValid = await app.verifyDataProof(
-            dataProof.publicSignals,
-            dataProof.proof
+        const { publicSignals, proof } = new DataProof(
+            p.publicSignals,
+            p.proof,
+            prover
         )
+        const isValid = await app.verifyDataProof(publicSignals, proof)
         expect(isValid).to.be.true
-        userState.sync.stop()
+        userState.stop()
     })
 })
