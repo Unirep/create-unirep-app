@@ -66,6 +66,10 @@ class User {
         return this.userState?.sync.settings.replNonceBits
     }
 
+    get numEpochKeyNoncePerEpoch() {
+        return this.userState?.sync.settings.numEpochKeyNoncePerEpoch
+    }
+
     epochKey(nonce: number) {
         if (!this.userState) return '0x'
         const epoch = this.userState.sync.calcCurrentEpoch()
