@@ -209,9 +209,11 @@ export default observer(() => {
                                 }))
                             }}
                         >
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            {/* TODO: <option value="2">2</option> */}
+                            {Array(userContext.numEpochKeyNoncePerEpoch)
+                                .fill(null)
+                                .map((_, i) => {
+                                    return <option value={i}>{i}</option>
+                                })}
                         </select>
                         <p style={{ fontSize: '12px' }}>
                             Requesting data with epoch key:
