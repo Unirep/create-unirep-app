@@ -49,9 +49,11 @@ class User {
         this.userState = userState
         await userState.waitForSync()
         this.hasSignedUp = await userState.hasSignedUp()
-        await this.loadData()
-        this.latestTransitionedEpoch =
-            await this.userState.latestTransitionedEpoch()
+        if (this.hasSignedUp) {
+            await this.loadData()
+            this.latestTransitionedEpoch =
+                await this.userState.latestTransitionedEpoch()
+        }
     }
 
     get fieldCount() {
