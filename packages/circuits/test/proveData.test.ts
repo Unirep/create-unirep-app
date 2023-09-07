@@ -19,9 +19,6 @@ const genCircuitInput = (config: {
     const { id, epoch, attesterId, sumField, replField, proveValues } =
         Object.assign(
             {
-                minRep: 0,
-                maxRep: 0,
-                graffitiPreImage: 0,
                 sumField: [],
                 replField: [],
                 proveValues: [],
