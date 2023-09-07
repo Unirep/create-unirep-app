@@ -1,4 +1,4 @@
-pragma circom 2.0.0;
+pragma circom 2.1.0;
 
 include "../../../node_modules/@unirep/circuits/circuits/hasher.circom";
 include "../../../node_modules/@unirep/circuits/circuits/incrementalMerkleTree.circom";
@@ -22,31 +22,18 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT) {
     /* 1. Check if user exists in the State Tree */
 
     // Compute state tree root
-    component leaf_hasher = StateTreeLeaf(FIELD_COUNT);
-    leaf_hasher.identity_secret <== identity_secret;
-    leaf_hasher.attester_id <== attester_id;
-    leaf_hasher.epoch <== epoch;
-    for (var x = 0; x < FIELD_COUNT; x++) {
-      leaf_hasher.data[x] <== data[x];
-    }
+    signal leaf;
+    (leaf, _, _) <== StateTreeLeaf(FIELD_COUNT)(data, identity_secret, attester_id, epoch);
 
-    component merkletree = MerkleTreeInclusionProof(STATE_TREE_DEPTH);
-    merkletree.leaf <== leaf_hasher.out;
-    for (var i = 0; i < STATE_TREE_DEPTH; i++) {
-        merkletree.path_index[i] <== state_tree_indexes[i];
-        merkletree.path_elements[i] <== state_tree_elements[i];
-    }
-    state_tree_root <== merkletree.root;
+    state_tree_root <== MerkleTreeInclusionProof(STATE_TREE_DEPTH)(leaf, state_tree_indexes, state_tree_elements);
 
     /* End of check 1 */
 
      /* 2. Check if user data more than given value */
-    component get[SUM_FIELD_COUNT];
+    signal get[SUM_FIELD_COUNT];
     for (var x = 0; x < SUM_FIELD_COUNT; x++) {
-        get[x] = GreaterEqThan(252);
-        get[x].in[0] <== data[x];
-        get[x].in[1] <== value[x]; 
-        get[x].out === 1;
+        get[x] <== GreaterEqThan(252)([data[x], value[x]]);
+        get[x] === 1;
     }
     /* End of check 2 */
 }
