@@ -4,7 +4,8 @@ import { Identity } from '@semaphore-protocol/identity'
 import { Circuit, CircuitConfig } from '@unirep/circuits'
 import { defaultProver } from '../provers/defaultProver'
 
-const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH, REPL_NONCE_BITS } = CircuitConfig.default
+const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH, REPL_NONCE_BITS } =
+    CircuitConfig.default
 
 const circuit = 'dataProof'
 
@@ -81,15 +82,13 @@ const genProofAndVerify = async (
     return { isValid, proof, publicSignals }
 }
 
-const genReplField = (
-    value: number | bigint,
-    length: number
-) => {
-    const replFields: (number | bigint)[] = [];
+const genReplField = (value: number | bigint, length: number) => {
+    const replFields: (number | bigint)[] = []
     for (let i = 0; i < length; i++) {
         let dataUpperBits = BigInt(value)
         let indexLowerBits = BigInt(i)
-        let replField = (dataUpperBits << BigInt(REPL_NONCE_BITS)) | indexLowerBits;
+        let replField =
+            (dataUpperBits << BigInt(REPL_NONCE_BITS)) | indexLowerBits
         replFields.push(replField)
     }
     return replFields
