@@ -112,7 +112,50 @@ describe('Prove data in Unirep App', function () {
         expect(isValid).to.be.true
     })
 
-    it('should generate a data proof with values', async () => {
+    it('should generate a data proof with values for Addition field', async () => {
+        const id = new Identity()
+        const epoch = 20
+        const attesterId = BigInt(219090124810)
+        const sumField = Array(SUM_FIELD_COUNT).fill(5)
+        const replData = Array(REPL_FIELD_COUNT).fill(4)
+        const replField = genReplField(replData)
+        const proveValues = Array(FIELD_COUNT).fill(4)
+        const circuitInputs = genCircuitInput({
+            id,
+            epoch,
+            attesterId,
+            sumField,
+            replField,
+            proveValues,
+        })
+        const { isValid } = await genProofAndVerify(circuit, circuitInputs)
+        expect(isValid).to.be.true
+    })
+
+    it('should not generate a data proof with invalid values for Addition field', async () => {
+        const id = new Identity()
+        const epoch = 20
+        const attesterId = BigInt(219090124810)
+        const sumField = Array(SUM_FIELD_COUNT).fill(4)
+        const replData = Array(REPL_FIELD_COUNT).fill(5)
+        const replField = genReplField(replData)
+        const proveValues = Array(FIELD_COUNT).fill(5)
+        const circuitInputs = genCircuitInput({
+            id,
+            epoch,
+            attesterId,
+            sumField,
+            replField,
+            proveValues,
+        })
+        await new Promise<void>((rs, rj) => {
+            genProofAndVerify(circuit, circuitInputs)
+                .then(() => rj())
+                .catch(() => rs())
+        })
+    })
+
+    it('should generate a data proof with values for Replacement field', async () => {
         const id = new Identity()
         const epoch = 20
         const attesterId = BigInt(219090124810)
@@ -132,12 +175,12 @@ describe('Prove data in Unirep App', function () {
         expect(isValid).to.be.true
     })
 
-    it('should not generate a data proof with invalid values', async () => {
+    it('should not generate a data proof with invalid values for Replacement field', async () => {
         const id = new Identity()
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
-        const replData = Array(REPL_FIELD_COUNT).fill(6)
+        const replData = Array(REPL_FIELD_COUNT).fill(4)
         const replField = genReplField(replData)
         const proveValues = Array(FIELD_COUNT).fill(5)
         const circuitInputs = genCircuitInput({
