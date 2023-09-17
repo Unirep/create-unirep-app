@@ -4,7 +4,7 @@ import { Identity } from '@semaphore-protocol/identity'
 import { Circuit, CircuitConfig } from '@unirep/circuits'
 import { defaultProver } from '../provers/defaultProver'
 
-const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH } = CircuitConfig.default
+const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH, REPL_NONCE_BITS } = CircuitConfig.default
 
 const circuit = 'dataProof'
 
@@ -45,7 +45,7 @@ const genCircuitInput = (config: {
 
     const value = [
         ...proveValues,
-        Array(SUM_FIELD_COUNT - proveValues.length).fill(0),
+        Array(FIELD_COUNT - proveValues.length).fill(0),
     ]
 
     const circuitInputs = {
@@ -81,6 +81,20 @@ const genProofAndVerify = async (
     return { isValid, proof, publicSignals }
 }
 
+const genReplField = (
+    value: number | bigint,
+    length: number
+) => {
+    const replFields: (number | bigint)[] = [];
+    for (let i = 0; i < length; i++) {
+        let dataUpperBits = BigInt(value)
+        let indexLowerBits = BigInt(i)
+        let replField = (dataUpperBits << BigInt(REPL_NONCE_BITS)) | indexLowerBits;
+        replFields.push(replField)
+    }
+    return replFields
+}
+
 describe('Prove data in Unirep App', function () {
     this.timeout(300000)
 
@@ -102,12 +116,14 @@ describe('Prove data in Unirep App', function () {
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
-        const proveValues = Array(SUM_FIELD_COUNT).fill(4)
+        const replField = genReplField(5, FIELD_COUNT - SUM_FIELD_COUNT)
+        const proveValues = Array(FIELD_COUNT).fill(5)
         const circuitInputs = genCircuitInput({
             id,
             epoch,
             attesterId,
             sumField,
+            replField,
             proveValues,
         })
         const { isValid } = await genProofAndVerify(circuit, circuitInputs)
@@ -119,12 +135,14 @@ describe('Prove data in Unirep App', function () {
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
-        const proveValues = Array(SUM_FIELD_COUNT).fill(6)
+        const replField = genReplField(6, FIELD_COUNT - SUM_FIELD_COUNT)
+        const proveValues = Array(FIELD_COUNT).fill(5)
         const circuitInputs = genCircuitInput({
             id,
             epoch,
             attesterId,
             sumField,
+            replField,
             proveValues,
         })
         await new Promise<void>((rs, rj) => {
