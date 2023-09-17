@@ -8,7 +8,7 @@ import { BaseProof, Prover } from '@unirep/circuits'
 export class DataProof extends BaseProof {
     readonly idx = {
         stateTreeRoot: 0,
-        value: [1, 5],
+        value: [1, 7],
     }
     public stateTreeRoot: BigNumberish
     public value: BigNumberish[]

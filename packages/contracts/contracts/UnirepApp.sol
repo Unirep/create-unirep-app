@@ -7,7 +7,7 @@ import { Unirep } from "@unirep/contracts/Unirep.sol";
 
 interface IVerifier {
     function verifyProof(
-        uint256[5] calldata publicSignals,
+        uint256[7] calldata publicSignals,
         uint256[8] calldata proof
     ) external view returns (bool);
 }
@@ -63,7 +63,7 @@ contract UnirepApp {
     }
 
     function verifyDataProof(
-        uint256[5] calldata publicSignals,
+        uint256[7] calldata publicSignals,
         uint256[8] calldata proof
     ) public view returns(bool) {
         return dataVerifier.verifyProof(
