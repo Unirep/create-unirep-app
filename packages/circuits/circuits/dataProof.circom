@@ -7,6 +7,9 @@ include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/comp
 
 
 template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, REPL_NONCE_BITS) {
+
+    assert(SUM_FIELD_COUNT < FIELD_COUNT);
+
     // State tree leaf: Identity & user state root
     signal input identity_secret;
     // State tree

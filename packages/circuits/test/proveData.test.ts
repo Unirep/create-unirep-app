@@ -7,6 +7,8 @@ import { defaultProver } from '../provers/defaultProver'
 const { FIELD_COUNT, SUM_FIELD_COUNT, STATE_TREE_DEPTH, REPL_NONCE_BITS } =
     CircuitConfig.default
 
+const REPL_FIELD_COUNT = FIELD_COUNT - SUM_FIELD_COUNT
+
 const circuit = 'dataProof'
 
 const genCircuitInput = (config: {
@@ -31,7 +33,7 @@ const genCircuitInput = (config: {
         ...sumField,
         ...Array(SUM_FIELD_COUNT - sumField.length).fill(0),
         ...replField,
-        ...Array(FIELD_COUNT - SUM_FIELD_COUNT - replField.length).fill(0),
+        ...Array(REPL_FIELD_COUNT - replField.length).fill(0),
     ]
     // Global state tree
     const stateTree = new utils.IncrementalMerkleTree(STATE_TREE_DEPTH)
@@ -82,10 +84,10 @@ const genProofAndVerify = async (
     return { isValid, proof, publicSignals }
 }
 
-const genReplField = (value: number | bigint, length: number) => {
+const genReplField = (values: (number | bigint)[]) => {
     const replFields: (number | bigint)[] = []
-    for (let i = 0; i < length; i++) {
-        let dataUpperBits = BigInt(value)
+    for (let i = 0; i < values.length; i++) {
+        let dataUpperBits = BigInt(values[i])
         let indexLowerBits = BigInt(i)
         let replField =
             (dataUpperBits << BigInt(REPL_NONCE_BITS)) | indexLowerBits
@@ -115,7 +117,8 @@ describe('Prove data in Unirep App', function () {
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
-        const replField = genReplField(5, FIELD_COUNT - SUM_FIELD_COUNT)
+        const replData = Array(REPL_FIELD_COUNT).fill(5)
+        const replField = genReplField(replData)
         const proveValues = Array(FIELD_COUNT).fill(5)
         const circuitInputs = genCircuitInput({
             id,
@@ -134,7 +137,8 @@ describe('Prove data in Unirep App', function () {
         const epoch = 20
         const attesterId = BigInt(219090124810)
         const sumField = Array(SUM_FIELD_COUNT).fill(5)
-        const replField = genReplField(6, FIELD_COUNT - SUM_FIELD_COUNT)
+        const replData = Array(REPL_FIELD_COUNT).fill(6)
+        const replField = genReplField(replData)
         const proveValues = Array(FIELD_COUNT).fill(5)
         const circuitInputs = genCircuitInput({
             id,
