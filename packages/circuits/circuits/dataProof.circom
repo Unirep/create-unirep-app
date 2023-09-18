@@ -2,10 +2,14 @@ pragma circom 2.1.0;
 
 include "../../../node_modules/@unirep/circuits/circuits/hasher.circom";
 include "../../../node_modules/@unirep/circuits/circuits/incrementalMerkleTree.circom";
+include "../../../node_modules/@unirep/circuits/circuits/bigComparators.circom";
 include "../../../node_modules/@unirep/circuits/circuits/circomlib/circuits/comparators.circom";
 
 
-template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT) {
+template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, REPL_NONCE_BITS) {
+
+    assert(SUM_FIELD_COUNT < FIELD_COUNT);
+
     // State tree leaf: Identity & user state root
     signal input identity_secret;
     // State tree
@@ -17,7 +21,7 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT) {
     signal input epoch;
 
     // Prove values
-    signal input value[SUM_FIELD_COUNT];
+    signal input value[FIELD_COUNT];
 
     /* 1. Check if user exists in the State Tree */
 
@@ -36,4 +40,14 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT) {
         get[x] === 1;
     }
     /* End of check 2 */
+
+    /* 3. Check if replacement data matches given value */
+    signal equal_check[FIELD_COUNT - SUM_FIELD_COUNT];
+    signal upper_bits[FIELD_COUNT - SUM_FIELD_COUNT];
+    for (var x = 0; x < (FIELD_COUNT - SUM_FIELD_COUNT); x++) {
+        (upper_bits[x], _) <== ExtractBits(REPL_NONCE_BITS, 253-REPL_NONCE_BITS)(data[SUM_FIELD_COUNT + x]);
+        equal_check[x] <== IsEqual()([upper_bits[x], value[SUM_FIELD_COUNT + x]]);
+        equal_check[x] === 1;
+    }
+    // /* End of check 3 */
 }

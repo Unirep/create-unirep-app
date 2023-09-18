@@ -266,9 +266,7 @@ export default observer(() => {
                             <h2>Prove Data</h2>
                             <Tooltip text="Users can prove they control some amount of data without revealing exactly how much they control." />
                         </div>
-                        {Array(
-                            userContext.userState.sync.settings.sumFieldCount
-                        )
+                        {Array(userContext.userState.sync.settings.fieldCount)
                             .fill(0)
                             .map((_, i) => {
                                 return (

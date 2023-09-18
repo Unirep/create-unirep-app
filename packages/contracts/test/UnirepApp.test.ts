@@ -9,7 +9,7 @@ import { DataProof } from '@unirep-app/circuits'
 import { Circuit } from '@unirep/circuits'
 import { CircuitConfig } from '@unirep/circuits'
 import { Identity } from '@semaphore-protocol/identity'
-const { SUM_FIELD_COUNT } = CircuitConfig.default
+const { FIELD_COUNT } = CircuitConfig.default
 import { defaultProver as prover } from '@unirep-app/circuits/provers/defaultProver'
 
 async function genUserState(id, app) {
@@ -104,7 +104,7 @@ describe('Unirep App', function () {
         const stateTreeProof = stateTree.createProof(index)
         const attesterId = app.address
         const data = await userState.getProvableData()
-        const value = Array(SUM_FIELD_COUNT).fill(0)
+        const value = Array(FIELD_COUNT).fill(0)
         const circuitInputs = stringifyBigInts({
             identity_secret: id.secret,
             state_tree_indexes: stateTreeProof.pathIndices,

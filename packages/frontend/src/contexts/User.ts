@@ -177,8 +177,8 @@ class User {
         const index = await this.userState.latestStateTreeLeafIndex(epoch)
         const stateTreeProof = stateTree.createProof(index)
         const provableData = await this.userState.getProvableData()
-        const sumFieldCount = this.userState.sync.settings.sumFieldCount
-        const values = Array(sumFieldCount).fill(0)
+        const fieldCount = this.userState.sync.settings.fieldCount
+        const values = Array(fieldCount).fill(0)
         for (let [key, value] of Object.entries(data)) {
             values[Number(key)] = value
         }
