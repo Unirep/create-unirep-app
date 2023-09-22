@@ -85,6 +85,7 @@ module.exports = (env) => ({
             template: 'public/index.html',
             filename: 'index.html',
             inlineSource: '.(js|css)',
+            favicon: 'public/favicon.ico',
         }),
         new MiniCssExtractPlugin(),
         // new HtmlWebpackInlineSourcePlugin(),
