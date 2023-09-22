@@ -106,6 +106,7 @@ class User {
         await this.userState.waitForSync()
         this.hasSignedUp = await this.userState.hasSignedUp()
         this.latestTransitionedEpoch = this.userState.sync.calcCurrentEpoch()
+        this.loadData()
     }
 
     async requestData(
