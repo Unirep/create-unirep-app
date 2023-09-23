@@ -4,7 +4,7 @@ import { Synchronizer } from '@unirep/core'
 import { EpochKeyProof, Prover } from '@unirep/circuits'
 import { APP_ADDRESS } from '../config'
 import TransactionManager from '../singletons/TransactionManager'
-import UNIREP_APP from '@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json'
+import ABI from '@unirep-app/contracts/abi/UnirepApp.json'
 
 export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
     app.post('/api/request', async (req, res) => {
@@ -22,7 +22,7 @@ export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
                 return
             }
             const epoch = await synchronizer.loadCurrentEpoch()
-            const appContract = new ethers.Contract(APP_ADDRESS, UNIREP_APP.abi)
+            const appContract = new ethers.Contract(APP_ADDRESS, ABI)
 
             const keys = Object.keys(reqData)
             let calldata: any
