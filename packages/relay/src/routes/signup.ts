@@ -4,7 +4,7 @@ import { Express } from 'express'
 import { Synchronizer } from '@unirep/core'
 import { APP_ADDRESS } from '../config'
 import TransactionManager from '../singletons/TransactionManager'
-import UNIREP_APP from '@unirep-app/contracts/artifacts/contracts/UnirepApp.sol/UnirepApp.json'
+import ABI from '@unirep-app/contracts/abi/UnirepApp.json'
 
 export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
     app.post('/api/signup', async (req, res) => {
@@ -23,7 +23,7 @@ export default (app: Express, prover: Prover, synchronizer: Synchronizer) => {
                 return
             }
             // make a transaction lil bish
-            const appContract = new ethers.Contract(APP_ADDRESS, UNIREP_APP.abi)
+            const appContract = new ethers.Contract(APP_ADDRESS, ABI)
             // const contract =
             const calldata = appContract.interface.encodeFunctionData(
                 'userSignUp',
