@@ -135,9 +135,7 @@ class User {
             body: JSON.stringify(
                 stringifyBigInts({
                     reqData,
-                    publicSignals: epochKeyProof.publicSignals.map((n) =>
-                        n.toString()
-                    ),
+                    publicSignals: epochKeyProof.publicSignals,
                     proof: epochKeyProof.proof,
                 })
             ),
@@ -186,10 +184,11 @@ class User {
         const attesterId = this.userState.sync.attesterId
         const circuitInputs = stringifyBigInts({
             identity_secret: this.userState.id.secret,
-            state_tree_indexes: stateTreeProof.pathIndices,
+            state_tree_indices: stateTreeProof.pathIndices,
             state_tree_elements: stateTreeProof.siblings,
             data: provableData,
             epoch: epoch,
+            chain_id: this.userState.chainId,
             attester_id: attesterId,
             value: values,
         })
