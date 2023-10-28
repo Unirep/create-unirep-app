@@ -13,12 +13,13 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, REPL_NONCE_BI
     // State tree leaf: Identity & user state root
     signal input identity_secret;
     // State tree
-    signal input state_tree_indexes[STATE_TREE_DEPTH];
+    signal input state_tree_indices[STATE_TREE_DEPTH];
     signal input state_tree_elements[STATE_TREE_DEPTH];
     signal input attester_id;
     signal input data[FIELD_COUNT];
     signal output state_tree_root;
     signal input epoch;
+    signal input chain_id;
 
     // Prove values
     signal input value[FIELD_COUNT];
@@ -27,9 +28,9 @@ template DataProof(STATE_TREE_DEPTH, FIELD_COUNT, SUM_FIELD_COUNT, REPL_NONCE_BI
 
     // Compute state tree root
     signal leaf;
-    (leaf, _, _) <== StateTreeLeaf(FIELD_COUNT)(data, identity_secret, attester_id, epoch);
+    (leaf, _, _) <== StateTreeLeaf(FIELD_COUNT)(data, identity_secret, attester_id, epoch, chain_id);
 
-    state_tree_root <== MerkleTreeInclusionProof(STATE_TREE_DEPTH)(leaf, state_tree_indexes, state_tree_elements);
+    state_tree_root <== MerkleTreeInclusionProof(STATE_TREE_DEPTH)(leaf, state_tree_indices, state_tree_elements);
 
     /* End of check 1 */
 

@@ -25,7 +25,7 @@ async function genUserState(id, app) {
         attesterId,
         id,
     })
-    await userState.sync.start()
+    await userState.start()
     await userState.waitForSync()
     return userState
 }
@@ -67,6 +67,7 @@ describe('Unirep App', function () {
             await userState.genEpochKeyProof({ nonce })
         const [deployer] = await ethers.getSigners()
         const epkVerifier = await deployVerifierHelper(
+            unirep.address,
             deployer,
             Circuit.epochKey
         )
@@ -105,12 +106,14 @@ describe('Unirep App', function () {
         const attesterId = app.address
         const data = await userState.getProvableData()
         const value = Array(FIELD_COUNT).fill(0)
+        const chainId = await unirep.chainid()
         const circuitInputs = stringifyBigInts({
             identity_secret: id.secret,
-            state_tree_indexes: stateTreeProof.pathIndices,
+            state_tree_indices: stateTreeProof.pathIndices,
             state_tree_elements: stateTreeProof.siblings,
             data: data,
             epoch: epoch,
+            chain_id: chainId,
             attester_id: attesterId,
             value: value,
         })

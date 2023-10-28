@@ -14,12 +14,13 @@ const circuit = 'dataProof'
 const genCircuitInput = (config: {
     id: Identity
     epoch: number
+    chainId: number
     attesterId: number | bigint
     sumField?: (bigint | number)[]
     replField?: (bigint | number)[]
     proveValues?: (bigint | number)[]
 }) => {
-    const { id, epoch, attesterId, sumField, replField, proveValues } =
+    const { id, epoch, attesterId, sumField, replField, proveValues, chainId } =
         Object.assign(
             {
                 sumField: [],
@@ -41,7 +42,8 @@ const genCircuitInput = (config: {
         id.secret,
         BigInt(attesterId),
         epoch,
-        startBalance as any
+        startBalance as any,
+        chainId
     )
     stateTree.insert(hashedLeaf)
     const stateTreeProof = stateTree.createProof(0) // if there is only one GST leaf, the index is 0
@@ -53,11 +55,12 @@ const genCircuitInput = (config: {
 
     const circuitInputs = {
         identity_secret: id.secret,
-        state_tree_indexes: stateTreeProof.pathIndices,
+        state_tree_indices: stateTreeProof.pathIndices,
         state_tree_elements: stateTreeProof.siblings,
         data: startBalance,
         epoch: epoch,
         attester_id: attesterId,
+        chain_id: chainId,
         value: value,
     }
     return utils.stringifyBigInts(circuitInputs)
@@ -99,6 +102,7 @@ const genReplField = (values: (number | bigint)[]) => {
 describe('Prove data in Unirep App', function () {
     this.timeout(300000)
 
+    const chainId = 31337
     it('should generate a data proof', async () => {
         const id = new Identity()
         const epoch = 20
@@ -107,6 +111,7 @@ describe('Prove data in Unirep App', function () {
             id,
             epoch,
             attesterId,
+            chainId,
         })
         const { isValid } = await genProofAndVerify(circuit, circuitInputs)
         expect(isValid).to.be.true
@@ -123,6 +128,7 @@ describe('Prove data in Unirep App', function () {
         const circuitInputs = genCircuitInput({
             id,
             epoch,
+            chainId,
             attesterId,
             sumField,
             replField,
@@ -143,6 +149,7 @@ describe('Prove data in Unirep App', function () {
         const circuitInputs = genCircuitInput({
             id,
             epoch,
+            chainId,
             attesterId,
             sumField,
             replField,
@@ -166,6 +173,7 @@ describe('Prove data in Unirep App', function () {
         const circuitInputs = genCircuitInput({
             id,
             epoch,
+            chainId,
             attesterId,
             sumField,
             replField,
@@ -186,6 +194,7 @@ describe('Prove data in Unirep App', function () {
         const circuitInputs = genCircuitInput({
             id,
             epoch,
+            chainId,
             attesterId,
             sumField,
             replField,
