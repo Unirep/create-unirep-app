@@ -45,7 +45,7 @@ class User {
             attesterId: BigInt(APP_ADDRESS),
             id: identity,
         })
-        await userState.sync.start()
+        await userState.start()
         this.userState = userState
         await userState.waitForSync()
         this.hasSignedUp = await userState.hasSignedUp()
