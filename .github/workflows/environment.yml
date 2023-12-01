@@ -16,6 +16,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
+            - run: npm install -g create-unirep-app
             - run: (echo -e "example"; sleep 1; echo -e '\n'; sleep 1; echo -e '\n')| npx create-unirep-app
             - run: cd example && yarn build
 
@@ -31,13 +32,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
-            - run: |
-                  $command = @"
-                  echo "example"
-                  Start-Sleep -Seconds 1
-                  echo ""
-                  Start-Sleep -Seconds 1
-                  echo ""
-                  "@
-                  Invoke-Expression -Command $command | npx create-unirep-app
+            - run: npm install -g create-unirep-app
+            - run: ./scripts/windows.ps1
             - run: cd example && yarn build
