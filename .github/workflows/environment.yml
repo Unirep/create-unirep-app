@@ -33,5 +33,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
             - run: npm install -g create-unirep-app
-            - run: ./scripts/windows.ps1
+            - run: |
+                  $command = '"example"; Start-Sleep -Seconds 3; "`r`n"; Start-Sleep -Seconds 3; "`r`n";'  
+                  Invoke-Expression -Command $command | npx create-unirep-app
             - run: cd example && yarn build
