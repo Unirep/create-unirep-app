@@ -1,0 +1,21 @@
+name: Environment Check CI
+
+on: [push, pull_request]
+
+jobs:
+    create-unirep-app:
+        strategy:
+            matrix:
+                node-version: [16.x, 18.x, 20.x]
+                os: [windows-latest, macos-latest, ubuntu-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - run: npm install -g create-unirep-app
+            - run: (echo -e "example"; sleep 1; echo -e '\n'; sleep 1; echo -e '\n')| npx create-unirep-app
+            - run: cd example && yarn build
