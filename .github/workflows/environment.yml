@@ -1,6 +1,9 @@
 name: Environment Check CI
 
-on: [push, pull_request]
+on:
+    push:
+        branches:
+            - main
 
 jobs:
     create-unirep-app:
