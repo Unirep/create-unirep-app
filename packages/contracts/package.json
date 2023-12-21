@@ -26,7 +26,7 @@
         "@typechain/hardhat": "^6.1.5",
         "@types/node": "^18.15.11",
         "@unirep-app/circuits": "1.0.0",
-        "@unirep/contracts": "2.0.0-beta-5",
+        "@unirep/contracts": "2.0.0",
         "hardhat": "^2.12.0",
         "ts-node": "^10.9.1",
         "typechain": "^8.1.1",

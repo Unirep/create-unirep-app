@@ -1,7 +1,6 @@
 import path from 'path'
 import { Circuit } from '@unirep/circuits'
 import * as snarkjs from 'snarkjs'
-import { SnarkProof, SnarkPublicSignals } from '@unirep/utils'
 
 const buildPath = '../zksnarkBuild'
 
@@ -43,8 +42,8 @@ export const defaultProver = {
      */
     verifyProof: async (
         circuitName: string | Circuit,
-        publicSignals: SnarkPublicSignals,
-        proof: SnarkProof
+        publicSignals: snarkjs.PublicSignals,
+        proof: snarkjs.Groth16Proof
     ): Promise<boolean> => {
         const vkey = require(path.join(buildPath, `${circuitName}.vkey.json`))
         return snarkjs.groth16.verify(vkey, publicSignals, proof)

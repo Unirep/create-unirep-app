@@ -28,6 +28,7 @@
         "typescript": "^4.8.2"
     },
     "dependencies": {
-        "@unirep/core": "2.0.0-beta-6"
+        "@unirep/core": "2.0.0",
+        "@types/snarkjs": "^0.7.7"
     }
 }
