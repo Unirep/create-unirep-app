@@ -9,7 +9,7 @@
     "scripts": {
         "build": "yarn keys",
         "start": "ts-node ./src/index.ts",
-        "keys": "sh scripts/loadKeys.sh"
+        "keys": "./scripts/loadKeys.sh"
     },
     "dependencies": {
         "@unirep-app/contracts": "1.0.0",
