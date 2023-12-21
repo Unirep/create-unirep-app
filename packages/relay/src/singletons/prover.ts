@@ -39,8 +39,8 @@ export default {
      */
     verifyProof: async (
         circuitName: string | Circuit,
-        publicSignals: string[],
-        proof: string[]
+        publicSignals: snarkjs.PublicSignals,
+        proof: snarkjs.Groth16Proof
     ) => {
         const vkeyData = await fs.readFile(
             path.join(buildPath, `${circuitName}.vkey.json`)

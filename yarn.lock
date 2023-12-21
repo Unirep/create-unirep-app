@@ -1495,15 +1495,15 @@
   dependencies:
     "@octokit/openapi-types" "^16.0.0"
 
+"@openzeppelin/contracts@4.9.3":
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.9.3.tgz#00d7a8cf35a475b160b3f0293a6403c511099364"
+  integrity sha512-He3LieZ1pP2TNt5JbkPA4PNT9WC3gOTOlDcFGJW4Le4QKqwmiNJCRt44APfxMxvq7OugU/cqYuPcSBzOw38DAg==
+
 "@openzeppelin/contracts@^4.7.3":
   version "4.8.2"
   resolved "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-4.8.2.tgz"
   integrity sha512-kEUOgPQszC0fSYWpbh2kT94ltOJwj1qfT2DWo+zVttmGmf97JZ99LspePNaeeaLhCImaHVeBbjaQFZQn7+Zc5g==
-
-"@openzeppelin/contracts@^4.9.3":
-  version "4.9.3"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.9.3.tgz#00d7a8cf35a475b160b3f0293a6403c511099364"
-  integrity sha512-He3LieZ1pP2TNt5JbkPA4PNT9WC3gOTOlDcFGJW4Le4QKqwmiNJCRt44APfxMxvq7OugU/cqYuPcSBzOw38DAg==
 
 "@parcel/watcher@2.0.4":
   version "2.0.4"
@@ -1540,10 +1540,10 @@
     "@noble/hashes" "~1.2.0"
     "@scure/base" "~1.1.0"
 
-"@semaphore-protocol/identity@^3.10.1":
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/@semaphore-protocol/identity/-/identity-3.15.0.tgz#cd930e71e3782d7f70c7e48b805eb0bc8171107c"
-  integrity sha512-X3EdkMZ/riGKAuapQaUvLeWKk5CYbvipriBXYOpnVcT6XbWMKMBPdFB5cRvW9cNyORl5nEQ6+43ejWYZYSZkYQ==
+"@semaphore-protocol/identity@3.10.1":
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/@semaphore-protocol/identity/-/identity-3.10.1.tgz#d3bd0245ffdfe9f70169309a8b1213cd69b3b3d8"
+  integrity sha512-H2GUHdox393YCcA4f389za2o5tnSIaGmtlPN8LCyI/UgCG/LJxQY5dLrSNM24j+kNRaq5LXaFzJIrM+zWvqBQQ==
   dependencies:
     "@ethersproject/bignumber" "^5.5.0"
     "@ethersproject/keccak256" "^5.7.0"
@@ -1929,6 +1929,11 @@
     "@types/mime" "*"
     "@types/node" "*"
 
+"@types/snarkjs@^0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@types/snarkjs/-/snarkjs-0.7.7.tgz#2613bd56466497d4e4df0000c59f06b8bc2cfcea"
+  integrity sha512-t/fYLdqUDM7W/XP+CKh4kvo9SS2ejtqHJz/2LQf/UsrrCsDYRjQ85DQFdvIJ6FvJjUvtEEPpTSCPk9gDDjcBWQ==
+
 "@types/sockjs@^0.3.33":
   version "0.3.33"
   resolved "https://registry.npmjs.org/@types/sockjs/-/sockjs-0.3.33.tgz"
@@ -1948,50 +1953,50 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@unirep/circuits@2.0.0-beta-5":
-  version "2.0.0-beta-5"
-  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0-beta-5.tgz#8266aa8bf17cb77cd7668dda27d2b2410093ec7b"
-  integrity sha512-NWevXjN8DuP/jeUZTDrrPxD8LLiXqJXyuzdh3MZJNAFXYft6awyovvO9UMkelJ27sovwrqRLUGlFHoCW3Pr9OQ==
+"@unirep/circuits@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@unirep/circuits/-/circuits-2.0.0.tgz#55be826482bf53d3d224bb98b934de2bf2f6fd51"
+  integrity sha512-j4XfP389hVSFv1fRgZEBCj0wG4xBodhkjcNT81uQG4+VWWRk9vmRhRcUQZl7JX6lvcvYo/irXOQ+4NeCwlv0zw==
   dependencies:
-    "@unirep/utils" "2.0.0-beta-5"
-    snarkjs "^0.7.0"
+    "@unirep/utils" "2.0.0"
+    snarkjs "0.7.2"
 
-"@unirep/contracts@2.0.0-beta-5":
-  version "2.0.0-beta-5"
-  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0-beta-5.tgz#f84aff6728a6a62ada3b502c6a0c8bed866642a1"
-  integrity sha512-ZUvy5irPjwudnLPBX5XrIweLe/cqvo0rTuTIDJ3qhLcfVk7HGm/rTnucPoSKwTS/mqx6+hAXRD7tq+KWrvqO+Q==
+"@unirep/contracts@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@unirep/contracts/-/contracts-2.0.0.tgz#558951a5479c0b40b0748376b6f780b21ebb7261"
+  integrity sha512-dtTHR8JO4QO7tfpFPAJs0yb5+JfHYC/I8qtsIOrFEgst4DlRi39eiIDL1wKOqE1YANj3wXogrplVu0GO2WnawQ==
   dependencies:
-    "@openzeppelin/contracts" "^4.9.3"
-    "@unirep/circuits" "2.0.0-beta-5"
-    "@unirep/utils" "2.0.0-beta-5"
-    "@zk-kit/incremental-merkle-tree.sol" "^1.7.0"
-    ethers "^5.7.2"
-    global-factory "^0.0.2"
-    poseidon-solidity "^0.0.5"
-    solc "^0.8.21"
+    "@openzeppelin/contracts" "4.9.3"
+    "@unirep/circuits" "2.0.0"
+    "@unirep/utils" "2.0.0"
+    "@zk-kit/incremental-merkle-tree.sol" "1.7.0"
+    ethers "5.7.2"
+    global-factory "0.0.2"
+    poseidon-solidity "0.0.5"
+    solc "0.8.21"
 
-"@unirep/core@2.0.0-beta-6":
-  version "2.0.0-beta-6"
-  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0-beta-6.tgz#0b54439990473827069aaf942c637dbaf1d2f958"
-  integrity sha512-WG7ZGLZm470QBLuXUQC54MC67LPP8pAE1xtQgSOmC7fuas+XPj0QJHiHfT7l3y55bvhGVF1ljrqfWu4qNnph9A==
+"@unirep/core@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@unirep/core/-/core-2.0.0.tgz#8f8cbcbbb80a94ceaea15666c323c2ac38a0c1f0"
+  integrity sha512-ChFUcKRNfM7xN05pLBrrvrIf0QxhWYuQxKSU879EWDkQkcGBs6K/dahnBHF13eUPQrjmW3oTTMr6RblNIJFb1A==
   dependencies:
-    "@semaphore-protocol/identity" "^3.10.1"
-    "@unirep/circuits" "2.0.0-beta-5"
-    "@unirep/contracts" "2.0.0-beta-5"
-    "@unirep/utils" "2.0.0-beta-5"
-    anondb "^0.0.21"
-    async-lock "^1.4.0"
-    ethers "^5.7.2"
-    nanoid "^3.3.6"
+    "@semaphore-protocol/identity" "3.10.1"
+    "@unirep/circuits" "2.0.0"
+    "@unirep/contracts" "2.0.0"
+    "@unirep/utils" "2.0.0"
+    anondb "0.0.21"
+    async-lock "1.4.0"
+    ethers "5.7.2"
+    nanoid "3.3.6"
 
-"@unirep/utils@2.0.0-beta-5":
-  version "2.0.0-beta-5"
-  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0-beta-5.tgz#0d3c6bfe432f0d3d9620422328612fd03118802e"
-  integrity sha512-Wt3cv/kJrdaT+N0RHqGRJRVU18xMxs+87hDsV2ubzKmwtziPc6HevSzsTaRUB8A0wPGAA/nT95iQZlNsGPGXxw==
+"@unirep/utils@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@unirep/utils/-/utils-2.0.0.tgz#2e123dce7883f93b79157da911f939f2b5f32f2c"
+  integrity sha512-uXOdYexec/1QVHs9IXXJAJihF81O36dfc5/UF4C8KdiWBQi88PMbamWFPGI0OdZkDnYPSlSrJqmiggSgjH0udw==
   dependencies:
-    "@zk-kit/incremental-merkle-tree" "^1.1.0"
-    poseidon-lite "^0.2.0"
-    randomf "^0.0.3"
+    "@zk-kit/incremental-merkle-tree" "1.1.0"
+    poseidon-lite "0.2.0"
+    randomf "0.0.3"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -2154,14 +2159,14 @@
     js-yaml "^3.10.0"
     tslib "^2.4.0"
 
-"@zk-kit/incremental-merkle-tree.sol@^1.7.0":
+"@zk-kit/incremental-merkle-tree.sol@1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@zk-kit/incremental-merkle-tree.sol/-/incremental-merkle-tree.sol-1.7.0.tgz#9d6166c2d84b8bb4fae709c7d729aae6c8c6474f"
   integrity sha512-1HF5HEQ2GVKYBAKeNlhiQ7Fb7g2x6iBQ/bBovxBQYx8xuJlD8jPJU/fn2foMVI42+BQtz2V/V4tVtn+0uNL1Rg==
   dependencies:
     poseidon-solidity "0.0.4"
 
-"@zk-kit/incremental-merkle-tree@^1.1.0":
+"@zk-kit/incremental-merkle-tree@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@zk-kit/incremental-merkle-tree/-/incremental-merkle-tree-1.1.0.tgz#6b0ccce56f9e05ccf73f7ea4fa746d5ef7d24b1d"
   integrity sha512-WnNR/GQse3lX8zOHMU8zwhgX8u3qPoul8w4GjJ0WDHq+VGJimo7EGheRZ/ILeBQabnlzAerdv3vBqYBehBeoKA==
@@ -2312,7 +2317,7 @@ ajv@^8.0.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-anondb@^0.0.21:
+anondb@0.0.21:
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/anondb/-/anondb-0.0.21.tgz#6885dd4e535102c2f537ca171038b3c5f1c5faa3"
   integrity sha512-0FR5NpjSI0E7R5r2Ok9O0xziUBbJanprTQzu2lM+szbUOckYDOQw42tWxvCfiamzhZDqcD7MHCLCs1tehf3P1Q==
@@ -2503,7 +2508,7 @@ async-eventemitter@^0.2.4:
   dependencies:
     async "^2.4.0"
 
-async-lock@^1.2.11, async-lock@^1.4.0:
+async-lock@1.4.0, async-lock@^1.2.11:
   version "1.4.0"
   resolved "https://registry.npmjs.org/async-lock/-/async-lock-1.4.0.tgz"
   integrity sha512-coglx5yIWuetakm3/1dsX9hxCNox22h7+V80RQOu2XUUMidtArxKoZoOtHUPuR84SycKTXzgGzAUR5hJxujyJQ==
@@ -4089,9 +4094,9 @@ ethereumjs-util@^6.0.0, ethereumjs-util@^6.2.1:
     ethjs-util "0.1.6"
     rlp "^2.2.3"
 
-ethers@^5.7.2:
+ethers@5.7.2:
   version "5.7.2"
-  resolved "https://registry.npmjs.org/ethers/-/ethers-5.7.2.tgz"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.7.2.tgz#3a7deeabbb8c030d4126b24f84e525466145872e"
   integrity sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg==
   dependencies:
     "@ethersproject/abi" "5.7.0"
@@ -4300,6 +4305,15 @@ ffjavascript@0.2.60:
   version "0.2.60"
   resolved "https://registry.yarnpkg.com/ffjavascript/-/ffjavascript-0.2.60.tgz#4d8ae613d6bf4e98b3cc29ba10c626f5853854cf"
   integrity sha512-T/9bnEL5xAZRDbQoEMf+pM9nrhK+C3JyZNmqiWub26EQorW7Jt+jR54gpqDhceA4Nj0YctPQwYnl8xa52/A26A==
+  dependencies:
+    wasmbuilder "0.0.16"
+    wasmcurves "0.2.2"
+    web-worker "^1.2.0"
+
+ffjavascript@0.2.62:
+  version "0.2.62"
+  resolved "https://registry.yarnpkg.com/ffjavascript/-/ffjavascript-0.2.62.tgz#f508dfe662a70181598ec5eb8ce5127eb342f624"
+  integrity sha512-uJ7MTrdzhX/3f+hxn0XhdXbJCqYZJSBB6y2/ui4t21vKYVjyTMlU80pPXu40ir6qpqbrdzUeKdlOdJ0aFG9UNA==
   dependencies:
     wasmbuilder "0.0.16"
     wasmcurves "0.2.2"
@@ -4758,7 +4772,7 @@ glob@^9.2.0, glob@^9.3.0, glob@^9.3.1:
     minipass "^4.2.4"
     path-scurry "^1.6.1"
 
-global-factory@^0.0.2:
+global-factory@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/global-factory/-/global-factory-0.0.2.tgz#64e16ceca0d2eda6833d48a5e1e66e3428a8277f"
   integrity sha512-UNV+/Eno0px6al688CCQmUUVjIITfgRy9u8bspmd3FBbRQ2tKedHn316Wcxp82v+jB60rnrKsVm3R304vaxPug==
@@ -6465,7 +6479,7 @@ nanoid@3.3.3:
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.3.tgz"
   integrity sha512-p1sjXuopFs0xg+fPASzQ28agW1oHD7xDsd9Xkf3T15H3c/cifrFHVwrh74PdoklAPi+i7MdRsE47vm2r6JoB+w==
 
-nanoid@^3.1.30, nanoid@^3.3.4, nanoid@^3.3.6:
+nanoid@3.3.6, nanoid@^3.1.30, nanoid@^3.3.4:
   version "3.3.6"
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.6.tgz"
   integrity sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==
@@ -7393,9 +7407,9 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-poseidon-lite@^0.2.0:
+poseidon-lite@0.2.0:
   version "0.2.0"
-  resolved "https://registry.npmjs.org/poseidon-lite/-/poseidon-lite-0.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/poseidon-lite/-/poseidon-lite-0.2.0.tgz#dbc242ebd9c10c32d507a533fa497231d168fd72"
   integrity sha512-vivDZnGmz8W4G/GzVA72PXkfYStjilu83rjjUfpL4PueKcC8nfX6hCPh2XhoC5FBgC6y0TA3YuUeUo5YCcNoig==
 
 poseidon-solidity@0.0.4:
@@ -7403,15 +7417,15 @@ poseidon-solidity@0.0.4:
   resolved "https://registry.yarnpkg.com/poseidon-solidity/-/poseidon-solidity-0.0.4.tgz#fb80181fb2b17756d98449d54e4cc2ecd8daa4d0"
   integrity sha512-+S6jlCXKARCFbw0MMOjfR8gcKUVeB8F3Vu5S+1zDvb8N8cVjiW6WsP9kPqNaZCxjRKakt6LKVRPdA39YbpWfdg==
 
+poseidon-solidity@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/poseidon-solidity/-/poseidon-solidity-0.0.5.tgz#3f93e01cfe25f6d2f2fac49734fbb00961b84655"
+  integrity sha512-NzrvSwHzvZgT4hvg2GyGqeR+UOU/eLSEt4wAoXEua+VaR7NTKKwx1X9bPlh1VMBEVEno+IWvkRBbidFGzTeAqQ==
+
 poseidon-solidity@^0.0.3:
   version "0.0.3"
   resolved "https://registry.npmjs.org/poseidon-solidity/-/poseidon-solidity-0.0.3.tgz"
   integrity sha512-8eCb5Wz/fhgRK1yC1KZBafZmZC3STvLe7DQMpL9471gKtcgkjsCLN7HoTjDPI9UKxsFzUmXZxaEOrWfvOxXP/w==
-
-poseidon-solidity@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmjs.org/poseidon-solidity/-/poseidon-solidity-0.0.5.tgz"
-  integrity sha512-NzrvSwHzvZgT4hvg2GyGqeR+UOU/eLSEt4wAoXEua+VaR7NTKKwx1X9bPlh1VMBEVEno+IWvkRBbidFGzTeAqQ==
 
 postcss-modules-extract-imports@^3.0.0:
   version "3.0.0"
@@ -7651,9 +7665,9 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
-randomf@^0.0.3:
+randomf@0.0.3:
   version "0.0.3"
-  resolved "https://registry.npmjs.org/randomf/-/randomf-0.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/randomf/-/randomf-0.0.3.tgz#c4db23042e8d4d9dd77b70e04ad3858e78026718"
   integrity sha512-hcZAFZNPZ3YeNpYLkC3MYjVedW4Hb4I0OhQdEHRd/UdDM8roGRH1vCtt8/UTaIHy4VKPLh6kfzS9ljzlMD2Y2Q==
 
 randomfill@^1.0.3:
@@ -8287,10 +8301,10 @@ smart-buffer@^4.2.0:
   resolved "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.2.0.tgz"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snarkjs@^0.7.0:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/snarkjs/-/snarkjs-0.7.1.tgz#c96ecaf4db8c2eb44d60b17ee02f37ed39c821bb"
-  integrity sha512-Qs1oxssa135WZkzfARgEp5SuKHKvKNtcspeJbE5je6MurUpBylD1rzcAzQSTGWA/EH/BV/TmUyTaTD64xScvbA==
+snarkjs@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/snarkjs/-/snarkjs-0.7.2.tgz#ab719b065fcd9867d9ea14bed92f3acdca3c766f"
+  integrity sha512-A8yPFm9pRnZ7XYXfPSjSFnugEV1rsHGjb8W7c0Qk7nzXl5h3WANTkpVC5FYxakmw/GKWekz7wjjHaOFtPp823Q==
   dependencies:
     "@iden3/binfileutils" "0.0.11"
     bfj "^7.0.2"
@@ -8298,7 +8312,7 @@ snarkjs@^0.7.0:
     circom_runtime "0.1.24"
     ejs "^3.1.6"
     fastfile "0.0.20"
-    ffjavascript "0.2.60"
+    ffjavascript "0.2.62"
     js-sha3 "^0.8.0"
     logplease "^1.2.15"
     r1csfile "0.0.47"
@@ -8353,10 +8367,10 @@ solc@0.7.3:
     semver "^5.5.0"
     tmp "0.0.33"
 
-solc@^0.8.21:
-  version "0.8.22"
-  resolved "https://registry.yarnpkg.com/solc/-/solc-0.8.22.tgz#6df0bb688b9a58bbf10932730301374a6ccfb862"
-  integrity sha512-bA2tMZXx93R8L5LUH7TlB/f+QhkVyxrrY6LmgJnFFZlRknrhYVlBK1e3uHIdKybwoFabOFSzeaZjPeL/GIpFGQ==
+solc@0.8.21:
+  version "0.8.21"
+  resolved "https://registry.yarnpkg.com/solc/-/solc-0.8.21.tgz#c3cd505c360ea2fa0eaa5ab574ef96bffb1a2766"
+  integrity sha512-N55ogy2dkTRwiONbj4e6wMZqUNaLZkiRcjGyeafjLYzo/tf/IvhHY5P5wpe+H3Fubh9idu071i8eOGO31s1ylg==
   dependencies:
     command-exists "^1.2.8"
     commander "^8.1.0"
