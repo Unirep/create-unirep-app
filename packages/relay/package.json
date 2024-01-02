@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@unirep-app/contracts": "1.0.0",
-        "@unirep/core": "2.0.0",
+        "@unirep/core": "2.0.1",
         "dotenv": "^16.0.3",
         "express": "^4.18.2"
     },

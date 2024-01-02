@@ -1,13 +1,12 @@
 import * as snarkjs from 'snarkjs'
-import { PublicSignals, Groth16Proof } from 'snarkjs'
 import { Circuit } from '@unirep/circuits'
 import { KEY_SERVER } from '../config'
 
 export default {
     verifyProof: async (
         circuitName: string | Circuit,
-        publicSignals: typeof PublicSignals,
-        proof: typeof Groth16Proof
+        publicSignals: snarkjs.PublicSignals,
+        proof: snarkjs.Groth16Proof
     ) => {
         const url = new URL(`/build/${circuitName}.vkey.json`, KEY_SERVER)
         const vkey = await fetch(url.toString()).then((r) => r.json())
