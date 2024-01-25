@@ -81,31 +81,41 @@ yarn lint:check
 
 Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service with Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Funirep%2Fcreate-unirep-app)
+> [!CAUTION]
+> It will be a serverless relay, learn more about [serverless functions](https://vercel.com/docs/functions/serverless-functions)
 
 -   **Deploy serverless relay:**
 
-    -   Click the `Deploy` button, and add the following settings:
-    -   Go to Settings > Environment Variables
-        set
-        ```env
-        PRIVATE_KEY=
-        ETH_PROVIDER_URL=
-        APP_ADDRESS=
-        UNIREP_ADDRESS=
-        ```
+    -   <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FUnirep%2Fcreate-unirep-app%2Ftree%2Feasy-deploy"><img src="https://vercel.com/button" alt="Deploy with Vercel"/></a><br/>
+        Click the `Deploy` button, and add the following settings
+    -   Go to **Settings > Environment Variables**<br/>
+        set<br/>
+        | key | value |
+        |--|--|
+        | `PRIVATE_KEY` | 0x... |
+        | `ETH_PROVIDER_URL` |https://... |
+        | `APP_ADDRESS` | 0x... |
+        | `UNIREP_ADDRESS` | 0x... |
+
         from `packages/relay/.env`
+
+    -   Go to **Deployments**, choose the deployment and click ...<br/>
+        Click **Redeploy**
     -   Redeploy the relay, you will get a `https://{RELAY_APP_NAME}.vercel.app` as the relay server.
 
 -   **Deploy frontend:**
-    -   Click the `Deploy` button and add the following settings:
-    -   **Framework Preset:** `Create React App`
-        **Build Command:** `yarn build`
-        **Output Directory:** `packages/frontend/build`
+
+    -   Go to vercel [dashboard](https://vercel.com/dashboard) and click **Add New... > Project**
+    -   Choose the same repo as you created before.
+    -   Set <br/>
+        **Framework Preset:** `Create React App`<br/>
+        **Build Command:** `yarn build`<br/>
+        **Output Directory:** `packages/frontend/build`<br/>
+        **Environment Variables:**
+        | key | value |
+        |--|--|
+        | `SERVER` |`https://{RELAY_APP_NAME}.vercel.app` |
+
         and remain other settings by default.
-    -   Go to Setting > Environment Variables
-        set
-        ```env
-        SERVER=https://{RELAY_APP_NAME}.vercel.app
-        ```
-        from the above deployment.
+
+    -   Deploy the frontend, you will get a `https://{FRONTEND_APP_NAME}.vercel.app` app!
