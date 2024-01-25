@@ -1,5 +1,7 @@
 import '@typechain/hardhat'
 import '@nomiclabs/hardhat-ethers'
+import { config } from 'dotenv'
+config()
 
 export default {
     defaultNetwork: 'local',
@@ -13,6 +15,10 @@ export default {
             accounts: [
                 '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
             ],
+        },
+        custom: {
+            url: process.env.ETH_PROVIDER_URL,
+            accounts: [process.env.PRIVATE_KEY],
         },
     },
     solidity: {

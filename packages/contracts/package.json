@@ -8,12 +8,13 @@
     "main": "build/src/index.js",
     "repository": "git+https://github.com/Unirep/create-unirep-app.git",
     "scripts": {
-        "build": "yarn buildVerifier && hardhat compile && yarn abi",
+        "build": "yarn env && yarn buildVerifier && hardhat compile && yarn abi",
         "buildVerifier": "ts-node ./scripts/genVerifier.ts ",
         "abi": "ts-node scripts/abi",
         "hardhat": "hardhat",
         "deploy": "hardhat run scripts/deploy.ts",
-        "test": "hardhat test --network hardhat"
+        "test": "hardhat test --network hardhat",
+        "env": "cp ./.env.example ./.env"
     },
     "bugs": {
         "url": "https://github.com/Unirep/create-unirep-app/issue"
@@ -27,6 +28,7 @@
         "@types/node": "^18.15.11",
         "@unirep-app/circuits": "1.0.0",
         "@unirep/contracts": "2.0.1",
+        "dotenv": "^16.4.0",
         "hardhat": "^2.12.0",
         "ts-node": "^10.9.1",
         "typechain": "^8.1.1",

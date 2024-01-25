@@ -8,23 +8,37 @@ export default {
         publicSignals: snarkjs.PublicSignals,
         proof: snarkjs.Groth16Proof
     ) => {
-        const url = new URL(`/build/${circuitName}.vkey.json`, KEY_SERVER)
-        const vkey = await fetch(url.toString()).then((r) => r.json())
+        const url = `${KEY_SERVER}/${circuitName}.vkey.json`
+        const r = await fetch(url.toString())
+        if (!r.ok) {
+            throw new Error(
+                `Error fetching vkey from ${url}: ${await r.json()}`
+            )
+        }
+        const vkey = await r.json()
         return snarkjs.groth16.verify(vkey, publicSignals, proof)
     },
     genProofAndPublicSignals: async (
         circuitName: string | Circuit,
         inputs: any
     ) => {
-        const wasmUrl = new URL(`${circuitName}.wasm`, KEY_SERVER)
+        const wasmUrl = `${KEY_SERVER}/${circuitName}.wasm`
 
-        const wasm = await fetch(wasmUrl.toString()).then((r) =>
-            r.arrayBuffer()
-        )
-        const zkeyUrl = new URL(`${circuitName}.zkey`, KEY_SERVER)
-        const zkey = await fetch(zkeyUrl.toString()).then((r) =>
-            r.arrayBuffer()
-        )
+        const wasmr = await fetch(wasmUrl.toString())
+        if (!wasmr.ok) {
+            throw new Error(
+                `Error fetching vkey from ${wasmUrl}: ${await wasmr.json()}`
+            )
+        }
+        const wasm = await wasmr.arrayBuffer()
+        const zkeyUrl = `${KEY_SERVER}/${circuitName}.zkey`
+        const zkeyr = await fetch(zkeyUrl.toString())
+        if (!zkeyr.ok) {
+            throw new Error(
+                `Error fetching vkey from ${zkeyUrl}: ${await zkeyr.json()}`
+            )
+        }
+        const zkey = await zkeyr.arrayBuffer()
         const { proof, publicSignals } = await snarkjs.groth16.fullProve(
             inputs,
             new Uint8Array(wasm),

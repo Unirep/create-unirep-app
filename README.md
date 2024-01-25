@@ -12,7 +12,7 @@ npx create-unirep-app
 
 Then `cd` into the directory that was created.
 
-## 2 Start with each daemon
+## 2 Develop locally
 
 ### 2.1 Build the files
 
@@ -63,3 +63,49 @@ yarn lint:fix
 ```shell
 yarn lint:check
 ```
+
+## 4. Deploy the app
+
+### 4.1 Deploy smart contract
+
+-   Edit the `packages/contracts/.env` after `yarn build`.
+-   Get your `ETH_PROVIDER_URL` from [infura](https://www.infura.io/), [alchemy](https://alchemy.com/), or other provider services.
+-   Get your `PRIVATE_KEY` and paste it in `.env` and start with `0x`.
+-   Run
+    ```sh
+    yarn contracts deploy --network custom
+    ```
+    from root directory
+
+### 4.2 Deploy to [Vercel](https://vercel.com/)
+
+Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service with Vercel.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Funirep%2Fcreate-unirep-app)
+
+-   **Deploy serverless relay:**
+
+    -   Click the `Deploy` button, and add the following settings:
+    -   Go to Settings > Environment Variables
+        set
+        ```env
+        PRIVATE_KEY=
+        ETH_PROVIDER_URL=
+        APP_ADDRESS=
+        UNIREP_ADDRESS=
+        ```
+        from `packages/relay/.env`
+    -   Redeploy the relay, you will get a `https://{RELAY_APP_NAME}.vercel.app` as the relay server.
+
+-   **Deploy frontend:**
+    -   Click the `Deploy` button and add the following settings:
+    -   **Framework Preset:** `Create React App`
+        **Build Command:** `yarn build`
+        **Output Directory:** `packages/frontend/build`
+        and remain other settings by default.
+    -   Go to Setting > Environment Variables
+        set
+        ```env
+        SERVER=https://{RELAY_APP_NAME}.vercel.app
+        ```
+        from the above deployment.
