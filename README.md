@@ -1,15 +1,35 @@
-# create-unirep-app
+<p align="center">
+    <h1 align="center">create-unirep-app</h1>
+</p>
+
+<p align="center">
+    <a href="https://github.com/unirep/unirep">
+        <img src="https://img.shields.io/badge/project-unirep-blue.svg?style=flat-square">
+    </a>
+    <a href="https://github.com/unirep/unirep/blob/master/LICENSE">
+        <img alt="Github license" src="https://img.shields.io/github/license/unirep/unirep.svg?style=flat-square">
+    </a>
+    <a href="https://eslint.org/">
+        <img alt="Linter eslint" src="https://img.shields.io/badge/linter-eslint-8080f2?style=flat-square&logo=eslint">
+    </a>
+    <a href="https://prettier.io/">
+        <img alt="Code style prettier" src="https://img.shields.io/badge/code%20style-prettier-f8bc45?style=flat-square&logo=prettier">
+    </a>
+    <a href="https://dl.circleci.com/status-badge/redirect/gh/Unirep/create-unirep-app/tree/main">
+        <img alt="Circle CI" src="https://img.shields.io/circleci/build/github/Unirep/create-unirep-app/main?style=flat-square">
+    </a>
+</p>
 
 This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example [attester](https://developer.unirep.io/docs/protocol/users-and-attesters). After transition, user can prove how much data he has.
 
 Learn more about [how to build with create-unirep-app](https://developer.unirep.io/docs/getting-started/create-unirep-app)!
 
-## Requirements
+## 🔋 Requirements
 
 -   Node.js >=18
 -   To write custom circuits: install [rust](https://www.rust-lang.org/tools/install) and [circom 2](https://docs.circom.io/getting-started/installation/)
 
-## 1. Installation
+## 🛠 1. Installation
 
 ```shell
 npx create-unirep-app
@@ -17,7 +37,7 @@ npx create-unirep-app
 
 Then `cd` into the directory that was created.
 
-## 2 Develop locally
+## 📦 2 Develop locally
 
 ### 2.1 Build the files
 
@@ -62,7 +82,7 @@ yarn frontend start
 
 It will be running at: http://localhost:3000/
 
-## 3. Linter
+## 🎁 3. Linter
 
 ### 3.1 Format the code
 
@@ -76,7 +96,7 @@ yarn lint:fix
 yarn lint:check
 ```
 
-## 4. Deploy the app
+## 🛜 4. Deploy the app
 
 ### 4.1 Deploy smart contract
 
@@ -114,6 +134,7 @@ Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service
     -   Go to **Deployments**, choose the deployment and click ...<br/>
         Click **Redeploy**
     -   Redeploy the relay, you will get a `https://{RELAY_APP_NAME}.vercel.app` as the relay server.
+    -   View demo: https://create-unirep-app-relay.vercel.app/
 
 -   **Deploy frontend:**
 
@@ -131,3 +152,15 @@ Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service
         and remain other settings by default.
 
     -   Deploy the frontend, you will get a `https://{FRONTEND_APP_NAME}.vercel.app` app!
+    -   View demo: https://create-unirep-app-frontend.vercel.app/
+
+## 🙌🏻 Join our community
+
+-   Discord server: <a href="https://discord.gg/VzMMDJmYc5"><img src="https://img.shields.io/discord/931582072152281188?label=Discord&style=flat-square&logo=discord"></a>
+-   Twitter account: <a href="https://twitter.com/UniRep_Protocol"><img src="https://img.shields.io/twitter/follow/UniRep_Protocol?style=flat-square&logo=twitter"></a>
+-   Telegram group: <a href="https://t.me/unirep"><img src="https://img.shields.io/badge/telegram-@unirep-blue.svg?style=flat-square&logo=telegram"></a>
+
+## <img height="24" src="https://pse.dev/_next/static/media/header-logo.16312102.svg"> Privacy & Scaling Explorations
+
+This project is supported by [Privacy & Scaling Explorations](https://pse.dev/) and the Ethereum Foundation.
+See more projects on: https://pse.dev/projects.
