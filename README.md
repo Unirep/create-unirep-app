@@ -1,8 +1,13 @@
 # create-unirep-app
 
-This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example attester. After transition, user can prove how much data he has.
+This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example [attester](https://developer.unirep.io/docs/protocol/users-and-attesters). After transition, user can prove how much data he has.
 
-> See: [Users and Attesters](https://developer.unirep.io/docs/protocol/users-and-attesters)
+Learn more about [how to build with create-unirep-app](https://developer.unirep.io/docs/getting-started/create-unirep-app)!
+
+## Requirements
+
+-   Node.js >=18
+-   To write custom circuits: install [rust](https://www.rust-lang.org/tools/install) and [circom 2](https://docs.circom.io/getting-started/installation/)
 
 ## 1. Installation
 
@@ -19,6 +24,13 @@ Then `cd` into the directory that was created.
 ```shell
 yarn build
 ```
+
+> [!TIP]
+> To overwrite circuit keys, delete `.wasm`, `.zkey` and `.vkey.json` objects in `packages/circuits/zksnarkBuild` and run:
+>
+> ```shell
+> yarn circuits buildsnark
+> ```
 
 ### 2.2 Start a node
 
@@ -82,7 +94,7 @@ yarn lint:check
 Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service with Vercel.
 
 > [!CAUTION]
-> It will be a serverless relay, learn more about [serverless functions](https://vercel.com/docs/functions/serverless-functions)
+> It will be a serverless relay, learn more about [serverless functions](https://vercel.com/docs/functions/serverless-functions).
 
 -   **Deploy serverless relay:**
 
