@@ -61,6 +61,7 @@ jobs:
                       - packages/contracts/cache
                       - packages/contracts/typechain-types
                       - packages/contracts/contracts
+                      - packages/contracts/.env
     lint:
         machine:
             image: ubuntu-2204:2022.04.1
