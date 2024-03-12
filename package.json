@@ -19,7 +19,8 @@
         "copyUnirep": "sh ./scripts/copyUnirep.sh",
         "lint": "prettier .",
         "lint:fix": "prettier . --write",
-        "lint:check": "prettier . --check"
+        "lint:check": "prettier . --check",
+        "vercel-build": "echo hello"
     },
     "devDependencies": {
         "lerna": "6.6.1",

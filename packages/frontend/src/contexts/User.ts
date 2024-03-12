@@ -5,7 +5,8 @@ import { Identity } from '@semaphore-protocol/identity'
 import { UserState } from '@unirep/core'
 import { DataProof } from '@unirep-app/circuits'
 import { SERVER } from '../config'
-import prover from './prover'
+import prover from '@unirep/circuits/provers/web'
+import customProver from './prover'
 import { ethers } from 'ethers'
 
 class User {
@@ -29,9 +30,12 @@ class User {
             localStorage.setItem('id', identity.toString())
         }
 
-        const { UNIREP_ADDRESS, APP_ADDRESS, ETH_PROVIDER_URL } = await fetch(
-            `${SERVER}/api/config`
-        ).then((r) => r.json())
+        const r = await fetch(`${SERVER}/api/config`)
+        const data = await r.json()
+        if (r.status !== 200) {
+            throw new Error(`Sign up error: ${data}`)
+        }
+        const { UNIREP_ADDRESS, APP_ADDRESS, ETH_PROVIDER_URL } = data
 
         const provider = ETH_PROVIDER_URL.startsWith('http')
             ? new ethers.providers.JsonRpcProvider(ETH_PROVIDER_URL)
@@ -90,7 +94,7 @@ class User {
         if (!this.userState) throw new Error('user state not initialized')
 
         const signupProof = await this.userState.genUserSignUpProof()
-        const data = await fetch(`${SERVER}/api/signup`, {
+        const r = await fetch(`${SERVER}/api/signup`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -101,7 +105,11 @@ class User {
                 ),
                 proof: signupProof.proof,
             }),
-        }).then((r) => r.json())
+        })
+        const data = await r.json()
+        if (r.status !== 200) {
+            throw new Error(`Sign up error: ${data}`)
+        }
         await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         this.hasSignedUp = await this.userState.hasSignedUp()
@@ -127,7 +135,7 @@ class User {
         const epochKeyProof = await this.userState.genEpochKeyProof({
             nonce: epkNonce,
         })
-        const data = await fetch(`${SERVER}/api/request`, {
+        const r = await fetch(`${SERVER}/api/request`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -139,7 +147,11 @@ class User {
                     proof: epochKeyProof.proof,
                 })
             ),
-        }).then((r) => r.json())
+        })
+        const data = await r.json()
+        if (r.status !== 200) {
+            throw new Error(`Sign up error: ${data}`)
+        }
         await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         await this.loadData()
@@ -150,7 +162,7 @@ class User {
 
         await this.userState.waitForSync()
         const signupProof = await this.userState.genUserStateTransitionProof()
-        const data = await fetch(`${SERVER}/api/transition`, {
+        const r = await fetch(`${SERVER}/api/transition`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -161,7 +173,11 @@ class User {
                 ),
                 proof: signupProof.proof,
             }),
-        }).then((r) => r.json())
+        })
+        const data = await r.json()
+        if (r.status !== 200) {
+            throw new Error(`Sign up error: ${data}`)
+        }
         await this.provider.waitForTransaction(data.hash)
         await this.userState.waitForSync()
         await this.loadData()
@@ -192,11 +208,12 @@ class User {
             attester_id: attesterId,
             value: values,
         })
-        const { publicSignals, proof } = await prover.genProofAndPublicSignals(
-            'dataProof',
-            circuitInputs
-        )
-        const dataProof = new DataProof(publicSignals, proof, prover)
+        const { publicSignals, proof } =
+            await customProver.genProofAndPublicSignals(
+                'dataProof',
+                circuitInputs
+            )
+        const dataProof = new DataProof(publicSignals, proof, customProver)
         const valid = await dataProof.verify()
         return stringifyBigInts({
             publicSignals: dataProof.publicSignals,
