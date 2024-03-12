@@ -20,7 +20,7 @@
     </a>
 </p>
 
-This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example [attester](https://developer.unirep.io/docs/protocol/users-and-attesters). After transition, user can prove how much data he has.
+This is a demo app of a [unirep](https://github.com/Unirep/Unirep) attester. In this demo app, users can request data from the example [attester](https://developer.unirep.io/docs/protocol/users-and-attesters). After transition, users can prove how much data they have.
 
 Learn more about [how to build with create-unirep-app](https://developer.unirep.io/docs/getting-started/create-unirep-app)!
 
@@ -37,7 +37,7 @@ npx create-unirep-app
 
 Then `cd` into the directory that was created.
 
-## 📦 2 Develop locally
+## 📦 2. Local Development
 
 ### 2.1 Build the files
 
@@ -82,7 +82,7 @@ yarn frontend start
 
 It will be running at: http://localhost:3000/
 
-## 🎁 3. Linter
+## 🎁 3. Linting
 
 ### 3.1 Format the code
 
@@ -96,25 +96,25 @@ yarn lint:fix
 yarn lint:check
 ```
 
-## 🛜 4. Deploy the app
+## 🛜 4. Deployment
 
 ### 4.1 Deploy smart contract
 
 -   Edit the `packages/contracts/.env` after `yarn build`.
 -   Get your `ETH_PROVIDER_URL` from [infura](https://www.infura.io/), [alchemy](https://alchemy.com/), or other provider services.
--   Get your `PRIVATE_KEY` and paste it in `.env` and start with `0x`.
+-   Get your `PRIVATE_KEY` and paste it in `.env` starting with `0x`.
 -   Run
     ```sh
     yarn contracts deploy --network custom
     ```
     from root directory
 
-### 4.2 Deploy to [Vercel](https://vercel.com/)
+### 4.2 Deploy the frontend
 
-Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service with Vercel.
+[Vercel](https://vercel.com/) is a Frontend Cloud. You can easily deploy the frontend and relay service with Vercel.
 
 > [!CAUTION]
-> It will be a serverless relay, learn more about [serverless functions](https://vercel.com/docs/functions/serverless-functions).
+> It will be a serverless relay. Learn more about [serverless functions](https://vercel.com/docs/functions/serverless-functions).
 
 -   **Deploy serverless relay:**
 
@@ -149,7 +149,7 @@ Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service
         |--|--|
         | `SERVER` |`https://{RELAY_APP_NAME}.vercel.app` |
 
-        and remain other settings by default.
+        and leave other settings as default.
 
     -   Deploy the frontend, you will get a `https://{FRONTEND_APP_NAME}.vercel.app` app!
     -   View demo: https://create-unirep-app-frontend.vercel.app/
@@ -160,7 +160,7 @@ Vercel is a Frontend Cloud. You can easily deploy the frontend and relay service
 -   Twitter account: <a href="https://twitter.com/UniRep_Protocol"><img src="https://img.shields.io/twitter/follow/UniRep_Protocol?style=flat-square&logo=twitter"></a>
 -   Telegram group: <a href="https://t.me/unirep"><img src="https://img.shields.io/badge/telegram-@unirep-blue.svg?style=flat-square&logo=telegram"></a>
 
-## <img height="24" src="https://pse.dev/_next/static/media/header-logo.16312102.svg"> Privacy & Scaling Explorations
+## <img height="24" src="https://pse.dev/_next/static/media/header-logo.bf6fc8c1.svg"> Privacy & Scaling Explorations
 
 This project is supported by [Privacy & Scaling Explorations](https://pse.dev/) and the Ethereum Foundation.
 See more projects on: https://pse.dev/projects.
